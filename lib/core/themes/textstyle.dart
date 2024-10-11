@@ -11,7 +11,7 @@ TextStyle txtHeading = GoogleFonts.poppins(
 TextStyle txtDescriptionBold = GoogleFonts.poppins(
     textStyle: TextStyle(
       color: Colors.grey,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w500,
       fontSize: 14,
     ));
 
@@ -23,11 +23,11 @@ TextStyle txtRegularBlack = GoogleFonts.poppins(
     ));
 
 
-TextStyle txtLightBlack = GoogleFonts.poppins(
+TextStyle txtLightGrey = GoogleFonts.poppins(
     textStyle: TextStyle(
       color: Colors.grey,
-      fontWeight: FontWeight.normal,
-      fontSize: 10,
+      fontWeight: FontWeight.w500,
+      fontSize: 12,
     ));
 
 TextStyle txtInputHint = GoogleFonts.poppins(
