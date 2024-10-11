@@ -6,10 +6,12 @@ import '../../../../core/themes/textstyle.dart';
 class VerificationCodeInput extends StatelessWidget {
   final TextEditingController controller;
   final int index;
+  final ValueChanged<String> onChanged;
 
-  const VerificationCodeInput({
+   VerificationCodeInput({
     required this.controller,
     required this.index,
+    required this.onChanged, // Accept the callback
     Key? key,
   }) : super(key: key);
 
@@ -18,7 +20,7 @@ class VerificationCodeInput extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return Expanded(
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10,vertical: 15),
+        padding: EdgeInsets.symmetric(horizontal: 5,vertical: 12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           border: Border.all(color: Colors.grey)
@@ -28,8 +30,8 @@ class VerificationCodeInput extends StatelessWidget {
           keyboardType: TextInputType.number,
           maxLength: 1,
           textAlign: TextAlign.center,
-
           onChanged: (String value) {
+            onChanged(value);
             if (value.length == 1) {
               if (index == 6) {
                 FocusScope.of(context).unfocus();

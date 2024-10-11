@@ -44,12 +44,6 @@ class _LoginPageViewState extends State<LoginPageView> {
     _passwordController.dispose();
   }
 
-  void togglePasswordVisibility() {
-    setState(() {
-      _obsecureText = !_obsecureText;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -72,7 +66,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                       children: [
                         CustomTextFormField(onChanged: (value) => checkRequirements(),type: TextInputType.emailAddress,title: 'Email' ,hint: 'Masukkan Email', obsecureText: false, controller: _emailController, validatorID: 1),
                         const SizedBox(height: 10,),
-                        CustomTextFormField(onChanged: (value) => checkRequirements(),type: TextInputType.text,title: 'Password' ,hint: 'Masukkan Password', obsecureText: true,toggleObscureText:  togglePasswordVisibility,controller: _passwordController, validatorID:0),
+                        CustomTextFormField(onChanged: (value) => checkRequirements(),type: TextInputType.text,title: 'Password' ,hint: 'Masukkan Password', obsecureText: _obsecureText,controller: _passwordController, validatorID:0),
                         SizedBox(width: double.infinity,child: InkWell(onTap: () {
                           context.pushNamed('forgot_page');
                         },

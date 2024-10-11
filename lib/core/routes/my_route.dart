@@ -1,10 +1,10 @@
 import 'package:go_router/go_router.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/forgotpassword/presentation/pages/forgot_password.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/forgotpassword/presentation/pages/forgot_password_second_page.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/forgotpassword/presentation/pages/forgot_password_third_page.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/home/presentation/page/home_page_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/page/login_page_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/splashscreen/splash_screen_view.dart';
-
-import '../../features/forgotpassword/presentation/pages/forgot_password.dart';
-import '../../features/forgotpassword/presentation/pages/forgot_password_second_page.dart';
 import '../../features/navbar/presentation/page/navbar_view.dart';
 
 class MyRouter {
@@ -47,6 +47,11 @@ class MyRouter {
             pageBuilder: (context, state) =>
                 const NoTransitionPage(child: ForgotPasswordSecondPage()),
           ),
+          GoRoute(
+          path: '/forgot_password_third_page',
+          name:'forgot_third_page',
+          pageBuilder: (context, state) => NoTransitionPage(child: ForgotPasswordThirdPage()),
+      ),
         ],
       );
 }
