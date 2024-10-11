@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/forgotpassword/presentation/forgot_password.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/home/presentation/page/home_page_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/page/login_page_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/navbar/presentation/page/navbar_view.dart';
@@ -12,7 +13,7 @@ class MyRouter {
           GoRoute(
             name: 'splash',
             path: '/splash',
-            builder: (context, state) => const SplashScreenView(),
+            builder: (context, state) => SplashScreenView(),
           ),
           GoRoute(
             name: 'navbar',
@@ -21,16 +22,22 @@ class MyRouter {
                 const NoTransitionPage(child: NavbarView()),
           ),
           GoRoute(
-            name: 'home_page',
             path: '/home_page',
+            name: 'home_page',
             pageBuilder: (context, state) =>
                 const NoTransitionPage(child: HomePageView()),
           ),
           GoRoute(
-            name: 'login_page',
             path: '/login-page',
+            name: 'login_page',
             pageBuilder: (context, state) =>
-                const NoTransitionPage(child: LoginPageView()),
+                NoTransitionPage(child: LoginPageView()),
+          ),
+          GoRoute(
+            path: '/forgot_password_page',
+            name: 'forgot_page',
+            pageBuilder: (context, state) =>
+                NoTransitionPage(child: ForgotPassword()),
           ),
         ],
       );
