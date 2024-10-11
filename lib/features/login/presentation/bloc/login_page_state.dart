@@ -29,3 +29,5 @@ LoginPageFailure(this.error);
 @override
 List<Object?> get props => [error];
 }
+
+class ForgotPasswordState extends LoginPageState {}

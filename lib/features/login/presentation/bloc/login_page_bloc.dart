@@ -9,6 +9,7 @@ part 'login_page_event.dart';
 part 'login_page_state.dart';
 
 class LoginPageBloc extends Bloc<LoginPageEvent, LoginPageState> {
+
   final Login;
   LoginPageBloc({required this.Login}) : super(LoginPageInitial())  {
     // LoginBloc({required this.authRepository}) : super(LoginInitial())  {
@@ -23,5 +24,8 @@ class LoginPageBloc extends Bloc<LoginPageEvent, LoginPageState> {
         emit(LoginPageSuccess(user)
         );});
     });
+    on<ForgotPasswordEvent>((event, emit) {
+      emit(ForgotPasswordState());
+    },);
   }
 }
