@@ -16,4 +16,3 @@ class LoginButtonPressed extends LoginPageEvent {
   List<Object?> get props => [email, password];
 }
 
-class ForgotPasswordEvent extends LoginPageEvent {}

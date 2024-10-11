@@ -24,8 +24,5 @@ class LoginPageBloc extends Bloc<LoginPageEvent, LoginPageState> {
         emit(LoginPageSuccess(user)
         );});
     });
-    on<ForgotPasswordEvent>((event, emit) {
-      emit(ForgotPasswordState());
-    },);
   }
 }

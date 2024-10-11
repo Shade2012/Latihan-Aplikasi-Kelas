@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/themes/images.dart';
+import '../../../../core/themes/textstyle.dart';
 class GoogleButton extends StatelessWidget {
   final VoidCallback OnPressed;
   const GoogleButton({Key? key, required this.OnPressed}) : super(key: key);
@@ -19,7 +20,7 @@ class GoogleButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(Images.logoGoogle),
-            Text('Login dengan Google')
+            Text('Login dengan Google',style: txtLightGrey,)
           ],
         ),),
     );
