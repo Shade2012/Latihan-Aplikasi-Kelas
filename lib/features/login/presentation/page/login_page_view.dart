@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/common/common_button.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/core/routes/my_route.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/core/themes/textstyle.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/bloc/login_page_bloc.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/widget/google_button.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/widget/textformfield_widget.dart';
+
+import '../../../../common/appbar_common.dart';
 class LoginPageView extends StatefulWidget {
 
   LoginPageView({Key? key}) : super(key: key);
@@ -70,16 +73,13 @@ class _LoginPageViewState extends State<LoginPageView> {
                         CustomTextFormField(onChanged: (value) => checkRequirements(),type: TextInputType.emailAddress,title: 'Email' ,hint: 'Masukkan Email', obsecureText: false, controller: _emailController, validatorID: 1),
                         const SizedBox(height: 10,),
                         CustomTextFormField(onChanged: (value) => checkRequirements(),type: TextInputType.text,title: 'Password' ,hint: 'Masukkan Password', obsecureText: true,toggleObscureText:  togglePasswordVisibility,controller: _passwordController, validatorID:0),
-                        SizedBox(width: double.infinity,child: BlocConsumer<LoginPageBloc,LoginPageState>(builder:(context, state) {
-                          return InkWell(onTap: () {
-                            context.read<LoginPageBloc>().add(ForgotPasswordEvent());
-                          },child: const Text('Lupa Password?',textAlign: TextAlign.end,));
-                        }, listener: (BuildContext context, LoginPageState state) {
-                          if(state is ForgotPasswordState){
-                            context.pushNamed('forgot_page');
-                          }
-                        },),),
-                        const SizedBox(height: 10,),
+                        SizedBox(width: double.infinity,child: InkWell(onTap: () {
+                          context.pushNamed('forgot_page');
+                        },
+
+                          child: Text('Lupa Password?',textAlign: TextAlign.end,)
+                        ),),
+                        const SizedBox(height: 20,),
                         CommonButton(text: 'Login',height: screenHeight * 0.06 ,onPressed: () {
                         }, haveRequirement: true,requirementComplete: (_emailController.text.isNotEmpty &&
                             _passwordController.text.isNotEmpty) &&
@@ -87,6 +87,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                         )
                       ],
                     )),
+                    const SizedBox(height: 10,),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Row(
@@ -97,6 +98,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                         ],
                       ),
                     ),
+                    const SizedBox(height: 10,),
                     GoogleButton(OnPressed: () {
 
                     },)
