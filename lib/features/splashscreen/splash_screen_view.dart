@@ -13,9 +13,9 @@ class SplashScreenView extends StatelessWidget {
       child: BlocListener<SplashScreenBloc, SplashScreenState>(
         listener: (context, state) {
           if (state is SplashNavigateToHome) {
-            context.pushNamed('home_page');
+            context.pushReplacementNamed('home_page');
           } else if (state is SplashNavigateToLogin) {
-            context.pushNamed('forgot_second_page');
+            context.pushReplacementNamed('forgot_third_page');
             // context.pushReplacementNamed('login_page');
           }
         },
