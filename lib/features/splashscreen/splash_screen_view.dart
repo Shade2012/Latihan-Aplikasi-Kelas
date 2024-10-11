@@ -16,7 +16,8 @@ class SplashScreenView extends StatelessWidget {
           if (state is SplashNavigateToHome) {
             context.pushReplacementNamed('navbar');
           } else if (state is SplashNavigateToLogin) {
-            context.pushReplacementNamed('login_page');
+            context.pushReplacementNamed('navbar');
+            // context.pushReplacementNamed('login_page');
           }
         },
         child: const Scaffold(

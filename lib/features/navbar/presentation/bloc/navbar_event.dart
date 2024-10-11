@@ -1,14 +1,21 @@
 part of 'navbar_bloc.dart';
 
-sealed class NavbarEvent extends Equatable {
-  const NavbarEvent(this.tabIndex);
-
-  final int tabIndex;
+abstract class NavbarEvent extends Equatable {
+  const NavbarEvent();
 
   @override
-  List<Object> get props => [tabIndex];
+  List<Object?> get props => [];
+}
+
+class CheckRoleEvent extends NavbarEvent {
+  const CheckRoleEvent();  // No tabIndex needed
 }
 
 final class ChangeTabEvent extends NavbarEvent {
-  const ChangeTabEvent(super.tabIndex);
+final int tabIndex;
+
+const ChangeTabEvent(this.tabIndex);
+
+@override
+List<Object> get props => [tabIndex];
 }
