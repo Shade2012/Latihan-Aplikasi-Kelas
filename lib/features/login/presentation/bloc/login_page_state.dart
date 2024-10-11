@@ -30,4 +30,3 @@ LoginPageFailure(this.error);
 List<Object?> get props => [error];
 }
 
-class ForgotPasswordState extends LoginPageState {}
