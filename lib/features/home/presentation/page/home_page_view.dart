@@ -1,22 +1,47 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/themes/textstyle.dart';
+
 class HomePageView extends StatelessWidget {
   const HomePageView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Homepage'),centerTitle: true,),
-      body: SizedBox(
-        height: 800,
-        child: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return ListTile(
-              onTap: (){},
-              title: Text('User ${index +1}'),
-            );
-          },
+      body: SafeArea(
+        child: Container(
+          margin: const EdgeInsets.all(15),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    height: 55,
+                    width: 55,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Good Morning 👋", style: txtInputHint),
+                        Text("Abid Fadullah Maajid", style: txtRegularBlack),
+                      ],
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.notifications),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20)
+            ],
+          ),
         ),
       ),
     );
