@@ -11,3 +11,11 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
     });
   }
 }
+
+class TabBloc extends Bloc<TabEvent, TabState> {
+  TabBloc() : super(const TabState(selectedIndex: 0)) {
+    on<TabChanged>((event, emit) {
+      emit(TabState(selectedIndex: event.index));
+    });
+  }
+}

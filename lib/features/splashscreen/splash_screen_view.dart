@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/core/themes/colors.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/splashscreen/bloc/splash_screen_bloc.dart';
+
 class SplashScreenView extends StatelessWidget {
   const SplashScreenView({Key? key}) : super(key: key);
 
@@ -13,20 +14,20 @@ class SplashScreenView extends StatelessWidget {
       child: BlocListener<SplashScreenBloc, SplashScreenState>(
         listener: (context, state) {
           if (state is SplashNavigateToHome) {
-            context.pushReplacementNamed('home_page');
+            context.pushReplacementNamed('navbar');
           } else if (state is SplashNavigateToLogin) {
-            context.pushReplacementNamed('forgot_third_page');
-            // context.pushReplacementNamed('login_page');
+            context.pushReplacementNamed('login_page');
           }
         },
-        child: Scaffold(
+        child: const Scaffold(
           backgroundColor: ColorsResources.primaryButton,
           body: Center(
-            child: CircularProgressIndicator(color: Colors.white,),
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
           ),
         ),
       ),
     );
   }
 }
-
