@@ -56,3 +56,10 @@ TextStyle txtInputHint = GoogleFonts.poppins(
       fontWeight: FontWeight.w500,
       fontSize: 12,
     ));
+
+TextStyle txtWhiteMedium = GoogleFonts.poppins(
+    textStyle: TextStyle(
+      color: Colors.white,
+      fontWeight: FontWeight.w500,
+      fontSize: 14,
+    ));
