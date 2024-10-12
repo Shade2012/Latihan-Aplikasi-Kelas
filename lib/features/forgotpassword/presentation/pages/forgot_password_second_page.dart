@@ -20,8 +20,18 @@ class _ForgotPasswordSecondPageState extends State<ForgotPasswordSecondPage> {
   final TextEditingController _verificationCode3 = TextEditingController();
   final TextEditingController _verificationCode4 = TextEditingController();
   final TextEditingController _verificationCode5 = TextEditingController();
+  final TextEditingController _verificationCode6 = TextEditingController();
   bool requirementComplete = false;
 
+  void checkRequirement (){
+    if(_verificationCode1.text.isNotEmpty && _verificationCode2.text.isNotEmpty && _verificationCode3.text.isNotEmpty && _verificationCode4.text.isNotEmpty && _verificationCode5.text.isNotEmpty  && _verificationCode6.text.isNotEmpty){
+      setState(() {
+        requirementComplete = true;
+      });
+      return;
+    }
+    requirementComplete = false;
+  }
 
   @override
   void dispose() {
@@ -54,40 +64,53 @@ class _ForgotPasswordSecondPageState extends State<ForgotPasswordSecondPage> {
                 Row(
                   children: [
                     VerificationCodeInput(
+                      onChanged: (value) => checkRequirement(),
                       key: const ValueKey("code1"),
                       controller: _verificationCode1,
                       index: 1,
                     ),
                     const SizedBox(width: 5,),
                     VerificationCodeInput(
+                      onChanged: (value) => checkRequirement(),
                       key: const ValueKey("code2"),
                       controller: _verificationCode2,
                       index: 2,
                     ),
                     const SizedBox(width: 5,),
                     VerificationCodeInput(
+                      onChanged: (value) => checkRequirement(),
                       key: const ValueKey("code3"),
                       controller: _verificationCode3,
                       index: 3,
                     ),
                     const SizedBox(width: 5,),
                     VerificationCodeInput(
+                      onChanged: (value) => checkRequirement(),
                       key: const ValueKey("code4"),
                       controller: _verificationCode4,
                       index: 4,
                     ),
                     const SizedBox(width: 5,),
                     VerificationCodeInput(
+                      onChanged: (value) => checkRequirement(),
                       key: const ValueKey("code5"),
                       controller: _verificationCode5,
                       index: 5,
                     ),
+                    const SizedBox(width: 5,),
+                    VerificationCodeInput(
+                      onChanged: (value) => checkRequirement(),
+                      key: const ValueKey("code6"),
+                      controller: _verificationCode6,
+                      index: 6,
+                    ),
                   ],
                 ),
-                // CommonButton(text: 'Lanjutkan',height: screenHeight * 0.06 ,onPressed: () {
-                //   context.pushNamed('forgot_second_page');
-                // }, haveRequirement: true,requirementComplete: _emailController.text.isNotEmpty && formkey.currentState!.validate(),
-                // ),
+                SizedBox(height: 20,),
+                CommonButton(text: 'Verifikasi',height: screenHeight * 0.06 ,onPressed: () {
+                  context.pushNamed('forgot_third_page');
+                }, haveRequirement: true,requirementComplete: requirementComplete,
+                ),
                 const SizedBox(height: 10,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
