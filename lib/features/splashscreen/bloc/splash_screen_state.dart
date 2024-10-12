@@ -10,3 +10,4 @@ final class SplashScreenInitial extends SplashScreenState {}
 class SplashNavigateToLogin extends SplashScreenState {}
 
 class SplashNavigateToHome extends SplashScreenState {}
+class SplashNavigateToHomeTeacher extends SplashScreenState {}

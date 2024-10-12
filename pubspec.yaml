@@ -43,6 +43,8 @@ dependencies:
   shared_preferences:
   go_router:
   google_fonts:
+  intl:
+  shimmer:
   connectivity_plus: ^3.0.3
 
 dev_dependencies:

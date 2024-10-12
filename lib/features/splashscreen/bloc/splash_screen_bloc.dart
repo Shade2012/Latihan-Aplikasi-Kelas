@@ -10,9 +10,16 @@ class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
     on<SplashScreenEvent>((event, emit) async {
       await Future.delayed(Duration(seconds: 2));
       final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('token');
+      // final token = prefs.getString('token');
+      // final role = prefs.getString('role');
+      String role = 'teacher';
+      String token = 'teacher';
       if(token != null){
-        emit(SplashNavigateToHome());
+        if(role == 'teacher'){
+          emit(SplashNavigateToHomeTeacher());
+        }else {
+          emit(SplashNavigateToHome());
+        }
       }else{
         emit(SplashNavigateToLogin());
       }
