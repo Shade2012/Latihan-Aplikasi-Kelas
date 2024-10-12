@@ -1,16 +1,17 @@
 part of 'home_page_bloc.dart';
 
-abstract class HomePageEvent extends Equatable {}
-
-abstract class TabEvent extends Equatable {
-  const TabEvent();
-}
-
-class TabChanged extends TabEvent {
-  final int index;
-
-  const TabChanged(this.index);
+abstract class HomePageEvent extends Equatable {
+  const HomePageEvent();
 
   @override
-  List<Object> get props => [index];
+  List<Object> get props => [];
+}
+
+class DaySelected extends HomePageEvent {
+  final int selectedIndex;
+
+  const DaySelected(this.selectedIndex);
+
+  @override
+  List<Object> get props => [selectedIndex];
 }

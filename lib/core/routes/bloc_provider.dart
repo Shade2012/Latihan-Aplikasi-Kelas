@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/home/presentation/bloc/home_page_bloc.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/data/datasources/login_remote_data_source.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/data/datasources/login_remote_data_source_impl.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/data/repositories/login_repository_impl.dart';
@@ -23,10 +24,12 @@ class AppProviders {
       create: (context) {
         // final authRepository = RepositoryProvider.of<AuthRepository>(context);
         final loginRepository = LoginRepositoryImpl(
-            loginRemoteDataSource: LoginRemoteDataSourceImpl()
-        );
+            loginRemoteDataSource: LoginRemoteDataSourceImpl());
         return LoginPageBloc(Login: loginRepository);
       },
+    ),
+    BlocProvider<HomePageBloc>(
+      create: (context) => HomePageBloc(),
     ),
   ];
 }

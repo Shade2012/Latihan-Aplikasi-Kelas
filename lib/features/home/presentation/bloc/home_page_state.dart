@@ -1,20 +1,20 @@
 part of 'home_page_bloc.dart';
 
 abstract class HomePageState extends Equatable {
+  const HomePageState();
+
   @override
   List<Object> get props => [];
 }
 
-final class HomePageInitial extends HomePageState {}
+class HomePageInitial extends HomePageState {}
 
-final class HomePageLoading extends HomePageState {}
+class HomePageLoading extends HomePageState {}
 
-final class HomePageLoaded extends HomePageState {}
-
-class TabState extends Equatable {
+class DaySelectedState extends HomePageState {
   final int selectedIndex;
 
-  const TabState({required this.selectedIndex});
+  const DaySelectedState(this.selectedIndex);
 
   @override
   List<Object> get props => [selectedIndex];

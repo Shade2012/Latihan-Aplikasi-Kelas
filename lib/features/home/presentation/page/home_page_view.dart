@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/home/presentation/widget/schedule_widget.dart';
 
-import '../../../../core/themes/textstyle.dart';
+import '../widget/categories_widget.dart';
 
 class HomePageView extends StatelessWidget {
-  const HomePageView({Key? key}) : super(key: key);
+  const HomePageView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.all(15),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(15),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
                   Container(
                     margin: const EdgeInsets.only(right: 10),
-                    height: 55,
-                    width: 55,
+                    height: 45,
+                    width: 45,
                     decoration: BoxDecoration(
                       color: Colors.red,
                       borderRadius: BorderRadius.circular(100),
@@ -28,18 +31,42 @@ class HomePageView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Good Morning 👋", style: txtInputHint),
-                        Text("Abid Fadullah Maajid", style: txtRegularBlack),
+                        Text(
+                          "Selamat Pagi 👋",
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          "Abid Fadullah Maajid",
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ],
                     ),
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: const Icon(Icons.notifications),
+                    icon: const Icon(
+                      Icons.notifications_none_outlined,
+                      size: 28,
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(height: 20)
+              const SizedBox(height: 20),
+              const ChooseDayWidget(),
+              const SizedBox(height: 15),
+              Text(
+                "Jadwal hari ini",
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 20),
+              const ScheduleWidget()
             ],
           ),
         ),

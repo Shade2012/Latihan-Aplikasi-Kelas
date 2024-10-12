@@ -9,13 +9,8 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
     on<HomePageEvent>((event, emit) {
       // TODO: implement event handler
     });
-  }
-}
-
-class TabBloc extends Bloc<TabEvent, TabState> {
-  TabBloc() : super(const TabState(selectedIndex: 0)) {
-    on<TabChanged>((event, emit) {
-      emit(TabState(selectedIndex: event.index));
+    on<DaySelected>((event, emit) {
+      emit(DaySelectedState(event.selectedIndex));
     });
   }
 }
