@@ -5,13 +5,14 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/forgotpassword/present
 import 'package:latihan_aplikasi_manajemen_kelas/features/home/presentation/page/home_page_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/page/login_page_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/navbar_teachers/presentation/page/navbar_view.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/page/profile_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/splashscreen/splash_screen_view.dart';
 import '../../features/navbar/presentation/page/navbar_view.dart';
 
 class MyRouter {
   get router => GoRouter(
         // initialLocation: '/alluser',
-        initialLocation: '/splash',
+        initialLocation: '/profile_user',
         routes: [
           GoRoute(
             name: 'splash',
@@ -58,6 +59,11 @@ class MyRouter {
           path: '/forgot_password_third_page',
           name:'forgot_third_page',
           pageBuilder: (context, state) => NoTransitionPage(child: ForgotPasswordThirdPage()),
+          ),
+          GoRoute(
+          path: '/profile_user',
+          name:'profile_user',
+          pageBuilder: (context, state) => NoTransitionPage(child: ProfilePage()),
       ),
         ],
       );
