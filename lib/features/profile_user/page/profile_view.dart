@@ -26,7 +26,6 @@ class ProfilePage extends StatelessWidget {
             if (state is ProfileLoading) {
               return Center(child: CircularProgressIndicator());
             } else if (state is ProfileLoaded) {
-              print(state.profile.role);
               return SingleChildScrollView(
                 child: Stack(
                   children: [

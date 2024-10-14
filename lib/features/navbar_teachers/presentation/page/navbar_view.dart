@@ -4,13 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/home/presentation/page/home_page_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/home_teachers/presentation/page/home_page_teacher_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/page/login_page_view.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/page/profile_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../bloc/navbar_bloc.dart';
 
 List<Widget> _bodyItems = [
   const HomePageTeacherView(),
-  LoginPageView(),
+  ProfilePage(),
 ];
 
 
