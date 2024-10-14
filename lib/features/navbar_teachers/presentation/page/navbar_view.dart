@@ -9,14 +9,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../bloc/navbar_bloc.dart';
 
 List<Widget> _bodyItems = [
-  const HomePageView(),
-  LoginPageView(),
-];
-
-List<Widget> _bodyItemsTeachers = [
   const HomePageTeacherView(),
   LoginPageView(),
 ];
+
 
 List<BottomNavigationBarItem> _navbarItems = [
   const BottomNavigationBarItem(
@@ -29,29 +25,19 @@ List<BottomNavigationBarItem> _navbarItems = [
   ),
 ];
 
-class NavbarView extends StatelessWidget {
-  Future<bool> getIsTeacher() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('role') == 'teacher';
-  }
-  const NavbarView({super.key});
+class NavbarTeacherView extends StatelessWidget {
+
+  const NavbarTeacherView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => NavbarBloc()..add(CheckRoleEvent()),
-      child: BlocBuilder<NavbarBloc, NavbarState>(
+      create: (context) => NavbarBlocTeacher(),
+      child: BlocBuilder<NavbarBlocTeacher, NavbarStateTeacher>(
         builder: (context, state) {
 
           return Scaffold(
-            body:
-            state is NavbarLoading
-                ? const Center(
-              child: CircularProgressIndicator(),
-            )
-                : (state is NavbarInitialTeacher)
-                ? _bodyItemsTeachers[state.tabIndex]
-                : _bodyItems[state.tabIndex],
+            body: _bodyItems[state.tabIndex],
             bottomNavigationBar: BottomNavigationBar(
               items: _navbarItems,
               currentIndex: state.tabIndex,
@@ -65,7 +51,7 @@ class NavbarView extends StatelessWidget {
               elevation: 0,
               iconSize: 26,
               onTap: (index) {
-                BlocProvider.of<NavbarBloc>(context).add(ChangeTabEvent(index));
+                BlocProvider.of<NavbarBlocTeacher>(context).add(ChangeTabEvent(index));
               },
             ),
           );
