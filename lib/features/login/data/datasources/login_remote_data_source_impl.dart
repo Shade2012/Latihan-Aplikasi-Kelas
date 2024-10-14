@@ -22,7 +22,10 @@ LoginRemoteDataSourceImpl();
     if(response.statusCode == 200){
       Map<String,dynamic> dataBody = response.data;
       final prefs = await SharedPreferences.getInstance();
-      prefs.setString('token', dataBody['token']);
+      prefs.setString('token', dataBody['access_token']);
+      prefs.setString('role', dataBody['user']['role']);
+      print(prefs.getString('role'));
+      print(prefs.getString('token'));
       return LoginModel.fromJson(dataBody);
       // return UserModel.fromJson(data);
     }if(response.statusCode == 404){

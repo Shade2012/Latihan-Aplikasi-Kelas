@@ -9,6 +9,7 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/wid
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/widget/textformfield_widget.dart';
 
 import '../../../../common/appbar_common.dart';
+import '../../../../core/error/snackbar_error.dart';
 class LoginPageView extends StatefulWidget {
 
   LoginPageView({Key? key}) : super(key: key);
@@ -48,57 +49,79 @@ class _LoginPageViewState extends State<LoginPageView> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+        elevation: 0,
+      ),
       body: SingleChildScrollView(
-          child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Login',style: txtHeading,),
-                    const SizedBox(height: 10,),
-                    Text('Masukkan Email dan Password',style: txtDescriptionBold,),
-                    const SizedBox(height: 30,),
-                    Form(
-                      key: formkey,
-                        child: Column(
+          child: BlocConsumer<LoginPageBloc,LoginPageState>(
+            listener: (context, state) {
+              if(state is LoginPageSuccess){
+                context.pushNamed('splash');
+              }else if (state is LoginPageFailure) {
+                SnackBarError.showError(context, state.error);
+              }
+            },
+            builder: (context, state) {
+              return SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CustomTextFormField(onChanged: (value) => checkRequirements(),type: TextInputType.emailAddress,title: 'Email' ,hint: 'Masukkan Email', obsecureText: false, controller: _emailController, validatorID: 1),
+                        Text('Login',style: txtHeading,),
                         const SizedBox(height: 10,),
-                        CustomTextFormField(onChanged: (value) => checkRequirements(),type: TextInputType.text,title: 'Password' ,hint: 'Masukkan Password', obsecureText: _obsecureText,controller: _passwordController, validatorID:0),
-                        SizedBox(width: double.infinity,child: InkWell(onTap: () {
-                          context.pushNamed('forgot_page');
-                        },
+                        Text('Masukkan Email dan Password',style: txtDescriptionBold,),
+                        const SizedBox(height: 30,),
+                        Form(
+                            key: formkey,
+                            child: Column(
+                              children: [
+                                CustomTextFormField(onChanged: (value) => checkRequirements(),type: TextInputType.emailAddress,title: 'Email' ,hint: 'Masukkan Email', obsecureText: false, controller: _emailController, validatorID: 1),
+                                const SizedBox(height: 10,),
+                                CustomTextFormField(onChanged: (value) => checkRequirements(),type: TextInputType.text,title: 'Password' ,hint: 'Masukkan Password', obsecureText: _obsecureText,controller: _passwordController, validatorID:0),
+                                SizedBox(width: double.infinity,child: InkWell(onTap: () {
+                                  context.pushNamed('forgot_page');
+                                },
+                                    child: Text('Lupa Password?',textAlign: TextAlign.end,)
+                                ),),
+                                const SizedBox(height: 20,),
+                                CommonButton(
+                                  isLoading: state is LoginPageLoading,
+                                  text: 'Login',height: screenHeight * 0.06 ,
+                                  onPressed: () {
+                                    context.read<LoginPageBloc>().add(
+                                        LoginButtonPressed(email: _emailController.text, password: _passwordController.text)
+                                    );
+                                  },
+                                  haveRequirement: true,
+                                  requirementComplete: (_emailController.text.isNotEmpty &&
+                                      _passwordController.text.isNotEmpty) &&
+                                      (formkey.currentState!.validate()),
+                                )
+                              ],
+                            )),
+                        const SizedBox(height: 10,),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Row(
+                            children: [
+                              const Expanded(child: Divider(color: Colors.grey,)),
+                              Padding(padding: const EdgeInsets.symmetric(horizontal: 5),child: Text('Atau',style: txtLightGrey,),),
+                              const Expanded(child: Divider(color: Colors.grey,))
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 10,),
+                        GoogleButton(OnPressed: () {
 
-                          child: Text('Lupa Password?',textAlign: TextAlign.end,)
-                        ),),
-                        const SizedBox(height: 20,),
-                        CommonButton(text: 'Login',height: screenHeight * 0.06 ,onPressed: () {
-                        }, haveRequirement: true,requirementComplete: (_emailController.text.isNotEmpty &&
-                            _passwordController.text.isNotEmpty) &&
-                            (formkey.currentState!.validate()),
-                        )
+                        },)
                       ],
-                    )),
-                    const SizedBox(height: 10,),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Row(
-                        children: [
-                          const Expanded(child: Divider(color: Colors.grey,)),
-                          Padding(padding: const EdgeInsets.symmetric(horizontal: 5),child: Text('Atau',style: txtLightGrey,),),
-                          const Expanded(child: Divider(color: Colors.grey,))
-                        ],
-                      ),
                     ),
-                    const SizedBox(height: 10,),
-                    GoogleButton(OnPressed: () {
-
-                    },)
-                  ],
-                ),
-              )
+                  )
+              );
+            },
           )
       ),
     );
