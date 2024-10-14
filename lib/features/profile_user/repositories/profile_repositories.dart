@@ -6,7 +6,7 @@ class ProfileRepository {
     await Future.delayed(Duration(seconds: 2)); // Simulasi delay network
     return Profile(
       name: "Abid Fadullah",
-      role: "Guru",
+      role: "Murid",
       email: "bblacks12@gmail.com",
       imageUrl: "https://via.placeholder.com/150",
     );
