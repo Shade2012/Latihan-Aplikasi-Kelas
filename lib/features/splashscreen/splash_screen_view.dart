@@ -10,13 +10,12 @@ class SplashScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SplashScreenBloc()..add(CheckTokenEvent()),
+      create: (context) => SplashScreenBloc()..add(SplashScreenStarted()),
       child: BlocListener<SplashScreenBloc, SplashScreenState>(
         listener: (context, state) {
           if (state is SplashNavigateToHome) {
             context.pushReplacementNamed('navbar');
           } else if (state is SplashNavigateToLogin) {
-            // context.pushReplacementNamed('navbar');
             context.pushReplacementNamed('login_page');
           }
           if(state is SplashNavigateToHomeTeacher){

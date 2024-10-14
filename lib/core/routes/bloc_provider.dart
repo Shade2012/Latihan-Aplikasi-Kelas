@@ -7,6 +7,7 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/home_teachers/presenta
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/data/datasources/login_remote_data_source.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/data/datasources/login_remote_data_source_impl.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/data/repositories/login_repository_impl.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/login/domain/usecases/login.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/bloc/login_page_bloc.dart';
 
 import '../../features/home_teachers/domain/usecases/get_weekly_schedule.dart';
@@ -35,7 +36,7 @@ class AppProviders {
         final loginRepository = LoginRepositoryImpl(
             loginRemoteDataSource: LoginRemoteDataSourceImpl()
         );
-        return LoginPageBloc(Login: loginRepository);
+        return LoginPageBloc(Login: Login(loginRepository));
       },
     ),
   ];
