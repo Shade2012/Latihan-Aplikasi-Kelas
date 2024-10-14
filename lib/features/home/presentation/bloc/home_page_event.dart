@@ -15,3 +15,5 @@ class DaySelected extends HomePageEvent {
   @override
   List<Object> get props => [selectedIndex];
 }
+
+class GetSchedule extends HomePageEvent {}

@@ -2,20 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/home/presentation/page/home_page_view.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/home_teachers/presentation/home_page_teacher_view.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/home_teachers/presentation/page/home_page_teacher_view.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/page/login_page_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../bloc/navbar_bloc.dart';
 
 List<Widget> _bodyItems = [
   const HomePageView(),
-  Container(),
+  Container()
 ];
 
-List<Widget> _bodyItemsTeachers = [
-  const HomePageTeacherView(),
-  Container(),
-];
 
 List<BottomNavigationBarItem> _navbarItems = [
   const BottomNavigationBarItem(
@@ -29,16 +26,12 @@ List<BottomNavigationBarItem> _navbarItems = [
 ];
 
 class NavbarView extends StatelessWidget {
-  Future<bool> getIsTeacher() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('role') == 'teacher';
-  }
   const NavbarView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => NavbarBloc()..add(CheckRoleEvent()),
+      create: (context) => NavbarBloc(),
       child: BlocBuilder<NavbarBloc, NavbarState>(
         builder: (context, state) {
 
@@ -47,10 +40,7 @@ class NavbarView extends StatelessWidget {
             state is NavbarLoading
                 ? const Center(
               child: CircularProgressIndicator(),
-            )
-                : (state is NavbarInitialTeacher)
-                ? _bodyItemsTeachers[state.tabIndex]
-                : _bodyItems[state.tabIndex],
+            ) : _bodyItems[state.tabIndex],
             bottomNavigationBar: BottomNavigationBar(
               items: _navbarItems,
               currentIndex: state.tabIndex,

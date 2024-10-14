@@ -4,4 +4,4 @@ abstract class SplashScreenEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
-class CheckTokenEvent extends SplashScreenEvent {}
+class SplashScreenStarted extends SplashScreenEvent {}

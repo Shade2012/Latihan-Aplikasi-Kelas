@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/home/data/models/schedule_model.dart';
+import 'package:intl/intl.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/home/presentation/bloc/home_page_bloc.dart';
 
 import '../../../../core/themes/colors.dart';
 
@@ -99,17 +101,46 @@ class ScheduleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ListView.builder(
-          itemCount: scheduleData.length,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) => _buildItem(
-            time: scheduleData[index].time,
-            subject: scheduleData[index].subject,
-            teacher: scheduleData[index].teacher,
-            room: scheduleData[index].room,
-            day: scheduleData[index].day,
-          ),
+        BlocConsumer<HomePageBloc, HomePageState>(
+          bloc: context.read<HomePageBloc>()
+            ..add(
+              GetSchedule(),
+            ),
+          listener: (context, state) {},
+          builder: (context, state) {
+            if (state is HomePageInitial) {
+              return const Center(child: Text('No data yet'));
+            } else if (state is HomePageLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is HomePageFailure) {
+              return Center(child: Text(state.failure.message));
+            } else if (state is HomePageLoaded) {
+              return ListView.builder(
+                itemCount: state.schedules.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final schedule = state.schedules[index];
+                  DateTime jamMulaiDateTime =
+                      DateFormat('HH:mm:ss').parse(schedule.jamMulai);
+                  String formattedTime =
+                      DateFormat('HH:mm').format(jamMulaiDateTime);
+
+                  return _buildItem(
+                    time: formattedTime,
+                    subject: schedule.pelajaranList.namaPelajaran,
+                    teacher: "Budi",
+                    room: schedule.ruangList.namaRuang,
+                    day: schedule.hari,
+                  );
+                },
+              );
+            } else if (state is DaySelectedState) {
+              return const Center(child: Text('Day Selected'));
+            } else {
+              return const Center(child: Text('Other State'));
+            }
+          },
         ),
       ],
     );

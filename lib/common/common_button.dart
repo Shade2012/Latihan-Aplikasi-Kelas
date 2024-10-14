@@ -3,6 +3,7 @@ import 'package:latihan_aplikasi_manajemen_kelas/core/themes/colors.dart';
 
 class CommonButton extends StatelessWidget {
   CommonButton({
+    this.isLoading = false,
     super.key,
     required this.text,
     required this.onPressed,
@@ -37,6 +38,7 @@ class CommonButton extends StatelessWidget {
   final Color? borderColor;
   final double? borderWidth;
   final Widget? widget;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,16 @@ class CommonButton extends StatelessWidget {
         ),
       ),
       child: Center(
-        child: widget ??
+        child: isLoading
+            ? SizedBox(
+          width: 20, // Adjust the width to your preference
+          height: 20, // Adjust the height to your preference
+          child: CircularProgressIndicator(
+            color: Colors.white,
+            strokeWidth: 3, // Adjust the stroke width if needed
+          ),
+        )
+            :widget ??
             Text(
               text,
               style: style ??

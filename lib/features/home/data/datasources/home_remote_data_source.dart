@@ -1,5 +1,5 @@
-import 'package:latihan_aplikasi_manajemen_kelas/features/home/data/models/home_model.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/home/data/models/schedule_model.dart';
 
 abstract class HomeRemoteDataSource {
-  Future<List<UserModel>> getAllUser();
+  Future<List<ScheduleModel>> fetchSchedule();
 }
