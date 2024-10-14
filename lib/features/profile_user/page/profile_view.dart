@@ -8,6 +8,7 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/repositor
 class ProfilePage extends StatelessWidget {
   final double profilePictureHeight;
 
+
   ProfilePage({this.profilePictureHeight = 88.0});
 
   @override
@@ -25,6 +26,7 @@ class ProfilePage extends StatelessWidget {
             if (state is ProfileLoading) {
               return Center(child: CircularProgressIndicator());
             } else if (state is ProfileLoaded) {
+              print(state.profile.role);
               return SingleChildScrollView(
                 child: Stack(
                   children: [
@@ -132,7 +134,7 @@ class ProfilePage extends StatelessWidget {
                           _buildProfileRow(
                             context,
                             Icons.description_rounded,
-                            'Detail Profile',
+                            'Detail Profil',
                           ),
                           SizedBox(height: screenHeight * 0.01),
                           Divider(
@@ -144,7 +146,7 @@ class ProfilePage extends StatelessWidget {
                           _buildProfileRow(
                             context,
                             Icons.settings,
-                            'Setting',
+                            'Pengaturan',
                           ),
                           SizedBox(height: screenHeight * 0.01),
                           Divider(
@@ -155,8 +157,8 @@ class ProfilePage extends StatelessWidget {
                           // About Row
                           _buildProfileRow(
                             context,
-                            Icons.description_rounded,
-                            'About',
+                            Icons.info_rounded,
+                            'Tentang',
                           ),
                           SizedBox(height: screenHeight * 0.01),
                           Divider(
@@ -168,7 +170,7 @@ class ProfilePage extends StatelessWidget {
                           _buildProfileRow(
                             context,
                             Icons.privacy_tip_sharp,
-                            'Privacy Policy',
+                            'Kebijakan Privasi',
                           ),
                           SizedBox(height: screenHeight * 0.01),
                           Divider(
