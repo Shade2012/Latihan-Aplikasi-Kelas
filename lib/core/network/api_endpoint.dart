@@ -7,4 +7,7 @@ class ApiEndPoint {
   static String baseUrlRegister = '$baseUrl/users/register';
   static String baseUrlLogin = '$baseUrl/api/login';
   static String baseUrlLoginGoogle = '$baseUrl/api/login/google';
+  static String baseUrlForgotSendOtp = '$baseUrl/api/send-otp';
+  static String baseUrlForgotVerifiedOtp = '$baseUrl/api/verify-otp';
+  static String baseUrlForgotPasswordConfirm = '$baseUrl/api/reset-password';
 }

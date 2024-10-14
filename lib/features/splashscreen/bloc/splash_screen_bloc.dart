@@ -15,15 +15,15 @@ class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
       print(prefs.getString('role'));
       print(prefs.getString('token'));
       final role = prefs.getString('role');
-      // String role = 'teacher';
-      // String token = '';
-      if(token != null){
+      if(token != ''){
         if(role == 'guru'){
           emit(SplashNavigateToHomeTeacher());
           return ;
-        }else {
+        }else if (role == 'siswa'){
           emit(SplashNavigateToHome());
           return;
+        } else{
+          emit(SplashNavigateToLogin());
         }
       }else{
         emit(SplashNavigateToLogin());

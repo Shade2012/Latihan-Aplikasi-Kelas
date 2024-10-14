@@ -15,7 +15,7 @@ class GoogleLogin{
     try {
       return await loginRepository.googleLogin();
     } catch (e) {
-      return Left(Failure(message: 'Failed to login')); // Return Failure on any exception
+      return Left(Failure(message: 'Login Gagal Akun Tidak Terdaftar')); // Return Failure on any exception
     }
   }
 }
