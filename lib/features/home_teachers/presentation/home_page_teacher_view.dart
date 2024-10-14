@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/core/themes/colors.dart';
 
 import '../../../core/themes/images.dart';
@@ -57,7 +58,12 @@ class HomePageTeacherView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Icon(Icons.notifications_outlined)
+                    IconButton(
+                      onPressed: () {
+                        context.pushNamed('notification_admin');
+                      },
+                      icon: const Icon(Icons.notifications),
+                    ),
                   ],
                 ),
                 Row(
