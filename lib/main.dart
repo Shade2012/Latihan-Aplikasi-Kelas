@@ -24,11 +24,11 @@ class MyApp extends StatelessWidget {
         providers: AppProviders().providers,
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
-
           theme: ThemeData(
             scaffoldBackgroundColor: Colors.white,
           ),
           routerConfig: MyRouter().router,
-        ));
+        )
+    );
   }
 }

@@ -110,8 +110,6 @@ class DioInstance {
           return handler.next(error);
         },
         onRequest: (request, handler) {
-          print("Requesting: ${request.method} ${request.path}");
-          print("Request data: ${request.data ?? 'No data'}");
           return handler.next(request);
         },
         onResponse: (response, handler) {
