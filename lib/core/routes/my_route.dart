@@ -4,7 +4,9 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/forgotpassword/present
 import 'package:latihan_aplikasi_manajemen_kelas/features/forgotpassword/presentation/pages/forgot_password_third_page.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/home/presentation/page/home_page_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/page/login_page_view.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/notification_admin/pages/notification_admin_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/navbar_teachers/presentation/page/navbar_view.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/pages/notification_user_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/page/profile_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/splashscreen/splash_screen_view.dart';
 import '../../features/navbar/presentation/page/navbar_view.dart';
@@ -65,6 +67,16 @@ class MyRouter {
           name:'profile_user',
           pageBuilder: (context, state) => NoTransitionPage(child: ProfilePage()),
       ),
+          GoRoute(
+            path: '/notification_user',
+            name: 'notification_user',
+            pageBuilder: (context, state) => NoTransitionPage(child: NotificationUserPage()),
+          ),
+          GoRoute(
+            path: '/notification_admin',
+            name: 'notification_admin',
+            pageBuilder: (context, state) => NoTransitionPage(child: NotificationAdminPage()),
+          ),
         ],
       );
 }

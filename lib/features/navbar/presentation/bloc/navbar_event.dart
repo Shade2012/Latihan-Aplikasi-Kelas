@@ -7,10 +7,6 @@ abstract class NavbarEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class CheckRoleEvent extends NavbarEvent {
-  const CheckRoleEvent();  // No tabIndex needed
-}
-
 final class ChangeTabEvent extends NavbarEvent {
 final int tabIndex;
 

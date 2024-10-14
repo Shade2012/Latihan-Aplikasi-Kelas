@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/themes/textstyle.dart';
 
@@ -34,7 +35,9 @@ class HomePageView extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.pushNamed('notification_user');
+                    },
                     icon: const Icon(Icons.notifications),
                   ),
                 ],

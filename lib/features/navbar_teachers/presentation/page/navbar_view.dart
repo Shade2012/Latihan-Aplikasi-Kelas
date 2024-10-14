@@ -8,7 +8,7 @@ import '../bloc/navbar_bloc.dart';
 
 List<Widget> _bodyItems = [
   const HomePageTeacherView(),
-  ProfileTeachersPage(),
+  ProfileTeachersPage()
 ];
 
 
