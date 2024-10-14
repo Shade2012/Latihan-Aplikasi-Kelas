@@ -6,4 +6,5 @@ class ApiEndPoint {
   static String baseUrlAllUser = '$baseUrl/users/all-users';
   static String baseUrlRegister = '$baseUrl/users/register';
   static String baseUrlLogin = '$baseUrl/api/login';
+  static String baseUrlLoginGoogle = '$baseUrl/api/login/google';
 }

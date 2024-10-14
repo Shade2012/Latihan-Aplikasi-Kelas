@@ -7,8 +7,10 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/home_teachers/presenta
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/data/datasources/login_remote_data_source.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/data/datasources/login_remote_data_source_impl.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/data/repositories/login_repository_impl.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/login/domain/usecases/google_login.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/domain/usecases/login.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/bloc/login_page_bloc.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/widget/google_button/bloc/google_button_bloc.dart';
 
 import '../../features/home_teachers/domain/usecases/get_weekly_schedule.dart';
 import '../../features/splashscreen/bloc/splash_screen_bloc.dart';
@@ -37,6 +39,15 @@ class AppProviders {
             loginRemoteDataSource: LoginRemoteDataSourceImpl()
         );
         return LoginPageBloc(Login: Login(loginRepository));
+      },
+    ),
+    BlocProvider<GoogleButtonBloc>(
+      create: (context) {
+        // final authRepository = RepositoryProvider.of<AuthRepository>(context);
+        final loginRepository = LoginRepositoryImpl(
+            loginRemoteDataSource: LoginRemoteDataSourceImpl()
+        );
+        return GoogleButtonBloc(GoogleLogin: GoogleLogin(loginRepository));
       },
     ),
   ];
