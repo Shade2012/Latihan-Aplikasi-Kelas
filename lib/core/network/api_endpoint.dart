@@ -1,5 +1,5 @@
 class ApiEndPoint {
-  static String baseUrl = 'https://3346-36-72-216-90.ngrok-free.app';
+  static String baseUrl = 'https://0569-36-72-212-187.ngrok-free.app';
 
   //Auth
   static String baseUrlDetailUser = '$baseUrl/users/details';
@@ -10,4 +10,5 @@ class ApiEndPoint {
   static String baseUrlForgotSendOtp = '$baseUrl/api/send-otp';
   static String baseUrlForgotVerifiedOtp = '$baseUrl/api/verify-otp';
   static String baseUrlForgotPasswordConfirm = '$baseUrl/api/reset-password';
+  static String baseUrlUserSchedule = '$baseUrl/api/jadwal/siswa';
 }
