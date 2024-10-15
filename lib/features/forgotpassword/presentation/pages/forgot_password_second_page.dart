@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/core/success/snackbar_success.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/forgotpassword/presentation/bloc/forgot_password_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/appbar_common.dart';
 import '../../../../common/common_button.dart';
+import '../../../../core/error/snackbar_error.dart';
 import '../../../../core/themes/textstyle.dart';
 import '../../../login/presentation/widget/textformfield_widget.dart';
 import '../widget/otp_textfield.dart';
@@ -52,75 +57,98 @@ class _ForgotPasswordSecondPageState extends State<ForgotPasswordSecondPage> {
           preferredSize: Size.fromHeight(screenHeight * 0.08),
           child: AppbarCommon()),
       body: SingleChildScrollView(child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Verifikasi Email',style: txtHeading,),
-                const SizedBox(height: 10,),
-                Text('Kami telah mengirimkan kode verifikasi ke alamat email Anda',style: txtDescriptionBold,),
-                const SizedBox(height: 30,),
-                Row(
+          child: BlocConsumer<ForgotPasswordBloc,ForgotPasswordState>(
+            builder: (context, state) {
+              return Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    VerificationCodeInput(
-                      onChanged: (value) => checkRequirement(),
-                      key: const ValueKey("code1"),
-                      controller: _verificationCode1,
-                      index: 1,
+                    Text('Verifikasi Email',style: txtHeading,),
+                    const SizedBox(height: 10,),
+                    Text('Kami telah mengirimkan kode verifikasi ke alamat email Anda',style: txtDescriptionBold,),
+                    const SizedBox(height: 30,),
+                    Row(
+                      children: [
+                        VerificationCodeInput(
+                          onChanged: (value) => checkRequirement(),
+                          key: const ValueKey("code1"),
+                          controller: _verificationCode1,
+                          index: 1,
+                        ),
+                        const SizedBox(width: 5,),
+                        VerificationCodeInput(
+                          onChanged: (value) => checkRequirement(),
+                          key: const ValueKey("code2"),
+                          controller: _verificationCode2,
+                          index: 2,
+                        ),
+                        const SizedBox(width: 5,),
+                        VerificationCodeInput(
+                          onChanged: (value) => checkRequirement(),
+                          key: const ValueKey("code3"),
+                          controller: _verificationCode3,
+                          index: 3,
+                        ),
+                        const SizedBox(width: 5,),
+                        VerificationCodeInput(
+                          onChanged: (value) => checkRequirement(),
+                          key: const ValueKey("code4"),
+                          controller: _verificationCode4,
+                          index: 4,
+                        ),
+                        const SizedBox(width: 5,),
+                        VerificationCodeInput(
+                          onChanged: (value) => checkRequirement(),
+                          key: const ValueKey("code5"),
+                          controller: _verificationCode5,
+                          index: 5,
+                        ),
+                        const SizedBox(width: 5,),
+                        VerificationCodeInput(
+                          onChanged: (value) => checkRequirement(),
+                          key: const ValueKey("code6"),
+                          controller: _verificationCode6,
+                          index: 6,
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 5,),
-                    VerificationCodeInput(
-                      onChanged: (value) => checkRequirement(),
-                      key: const ValueKey("code2"),
-                      controller: _verificationCode2,
-                      index: 2,
+                    SizedBox(height: 20,),
+                    CommonButton(text: 'Verifikasi',height: screenHeight * 0.06 ,
+                      isLoading: state is ForgotPasswordLoading,
+                      onPressed: () {
+                      context.read<ForgotPasswordBloc>().add(ForgotPasswordVerifyOtpEvent(otp: '${_verificationCode1.text}${_verificationCode2.text}${_verificationCode3.text}${_verificationCode4.text}${_verificationCode5.text}${_verificationCode6.text}'));
+                    }, haveRequirement: true,requirementComplete: requirementComplete,
                     ),
-                    const SizedBox(width: 5,),
-                    VerificationCodeInput(
-                      onChanged: (value) => checkRequirement(),
-                      key: const ValueKey("code3"),
-                      controller: _verificationCode3,
-                      index: 3,
-                    ),
-                    const SizedBox(width: 5,),
-                    VerificationCodeInput(
-                      onChanged: (value) => checkRequirement(),
-                      key: const ValueKey("code4"),
-                      controller: _verificationCode4,
-                      index: 4,
-                    ),
-                    const SizedBox(width: 5,),
-                    VerificationCodeInput(
-                      onChanged: (value) => checkRequirement(),
-                      key: const ValueKey("code5"),
-                      controller: _verificationCode5,
-                      index: 5,
-                    ),
-                    const SizedBox(width: 5,),
-                    VerificationCodeInput(
-                      onChanged: (value) => checkRequirement(),
-                      key: const ValueKey("code6"),
-                      controller: _verificationCode6,
-                      index: 6,
-                    ),
+                    const SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Belum Mendapatkan kode email ? ',style:txtNormalGrey ,),
+                        InkWell(onTap: () async {
+                          final prefs = await SharedPreferences.getInstance();
+                          String? email = prefs.getString('email');
+                          context.read<ForgotPasswordBloc>().add(ForgotPasswordResendOtpEmail(email: email ?? ''));
+                        },child: Text('Kirim Ulang',style: txtLink,)),
+                      ],
+                    )
                   ],
                 ),
-                SizedBox(height: 20,),
-                CommonButton(text: 'Verifikasi',height: screenHeight * 0.06 ,onPressed: () {
-                  context.pushNamed('forgot_third_page');
-                }, haveRequirement: true,requirementComplete: requirementComplete,
-                ),
-                const SizedBox(height: 10,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Belum Mendapatkan kode email ? ',style:txtNormalGrey ,),
-                    Text('Kirim Ulang',style: txtLink,),
-                  ],
-                )
-              ],
-            ),
+              );
+            },
+            listener: (context, state) {
+              if(state is ForgotPasswordSuccessSendOtp){
+                SnackbarSuccess.showSuccess(context, 'Otp Berhasil Dikirim');
+                return;
+              }
+              if(state is ForgotPasswordSuccess){
+    context.pushNamed('forgot_third_page');
+    return;
+    }if(state is ForgotPasswordFailure){
+    SnackBarError.showError(context,state.error);
+
+              }
+            },
           )
       )
       ),

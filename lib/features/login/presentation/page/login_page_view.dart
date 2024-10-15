@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/common/common_button.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/core/routes/my_route.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/core/themes/textstyle.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/bloc/login_page_bloc.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/widget/google_button.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/widget/google_button/google_button.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/widget/textformfield_widget.dart';
 
 import '../../../../common/appbar_common.dart';
@@ -114,9 +115,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                           ),
                         ),
                         const SizedBox(height: 10,),
-                        GoogleButton(OnPressed: () {
-
-                        },)
+                        GoogleButton()
                       ],
                     ),
                   )
@@ -127,3 +126,56 @@ class _LoginPageViewState extends State<LoginPageView> {
     );
   }
 }
+// void signIn(BuildContext context) async {
+//
+//   try {
+//     //sementara ada signout disini dulu
+//     await GoogleSignIn().signOut();
+//     final user = await GoogleSignIn().signIn();
+//
+//     final response = await http.post(
+//       Uri.parse(GlobalVariables.googleSignin),
+//       headers: {'Content-Type': 'application/json'},
+//       body: jsonEncode({
+//         'name': user?.displayName,
+//         'email': user?.email,
+//         'google_id': user?.id,
+//         'profile_picture': user?.photoUrl,
+//         'notification_token': notificationToken
+//       }),
+//     );
+//     if(response.statusCode == 200){
+//       final responseData = jsonDecode(response.body);
+//       prefs.setString('isLoginGoogle','true');
+//       prefs.setString('user_id','${responseData['user']['id']}');
+//       prefs.setString('token','${responseData['token']}');
+//       Get.offAllNamed(Routes.BOTTOM_NAVBAR);
+//     }
+//     if (user == null) {
+//       if(Get.isSnackbarOpen != true) {
+//         Get.snackbar('Error', 'Sign In Failed');
+//       }
+//     } else {
+//       if(Get.isSnackbarOpen != true) {
+//         Get.snackbar('Pesan', 'Success');
+//       }
+//
+//     }
+//   } on PlatformException catch (e) {
+//     if(Get.isSnackbarOpen != true) {
+//       Get.snackbar('Error', 'Sign In Failed - $e');
+//     }
+//   } catch (e) {
+//     if(Get.isSnackbarOpen != true) {
+//       Get.snackbar(
+//         'Error',
+//         '$e',
+//         snackPosition: SnackPosition.BOTTOM,
+//         backgroundColor: Colors.red,
+//         colorText: Colors.white,
+//       );
+//     }
+//   }finally{
+//     loginController.isLoading.value = false;
+//   }
+// }
