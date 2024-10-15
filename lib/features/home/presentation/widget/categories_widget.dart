@@ -12,7 +12,7 @@ class ChooseDayWidget extends StatelessWidget {
     return Expanded(
       child: GestureDetector(
         onTap: () {
-          context.read<HomePageBloc>().add(DaySelected(index));
+          context.read<HomePageBloc>().add(DaySelectEvent(index));
         },
         child: Container(
           margin: const EdgeInsets.all(2),
@@ -50,8 +50,9 @@ class ChooseDayWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomePageBloc, HomePageState>(
       builder: (context, state) {
-        final selectedIndex =
-            state is DaySelectedState ? state.selectedIndex : 0;
+        final selectedIndex = state is DaySelectedState
+            ? state.selectedIndex
+            : DateTime.now().weekday;
 
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

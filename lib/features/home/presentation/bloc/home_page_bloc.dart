@@ -10,25 +10,30 @@ part 'home_page_event.dart';
 part 'home_page_state.dart';
 
 class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
-  final GetScheduleUseCase getScheduleUseCase;
-
-  HomePageBloc({required this.getScheduleUseCase}) : super(HomePageInitial()) {
+  HomePageBloc({required GetScheduleUseCase getScheduleUseCase})
+      : _getScheduleUseCase = getScheduleUseCase,
+        super(HomePageInitial()) {
     on<HomePageEvent>((event, emit) {
       // TODO: implement event handler
     });
-    on<DaySelected>((event, emit) {
+    on<DaySelectEvent>((event, emit) {
       emit(DaySelectedState(event.selectedIndex));
     });
-    on<GetSchedule>((event, emit) async {
-      emit(HomePageLoading());
-      Either<Failure, List<ScheduleEntity>> result =
-          (await getScheduleUseCase.execute());
-      result.fold(
-        (failure) => emit(HomePageFailure(failure: failure)),
-        (schedules) => emit(HomePageLoaded(
-          schedules: schedules,
-        )),
-      );
-    });
+    on<GetScheduleEvent>(_getScheduleData);
+  }
+
+  final GetScheduleUseCase _getScheduleUseCase;
+
+  Future _getScheduleData(
+    GetScheduleEvent event,
+    Emitter<HomePageState> emit,
+  ) async {
+    emit(HomePageLoading());
+    Either<Failure, List<ScheduleEntity>> result =
+        (await _getScheduleUseCase.execute());
+    result.fold(
+      (failure) => emit(HomePageFailure(failure: failure)),
+      (schedules) => emit(HomePageLoaded(schedules: schedules)),
+    );
   }
 }

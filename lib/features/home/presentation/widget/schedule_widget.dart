@@ -104,7 +104,7 @@ class ScheduleWidget extends StatelessWidget {
         BlocConsumer<HomePageBloc, HomePageState>(
           bloc: context.read<HomePageBloc>()
             ..add(
-              GetSchedule(),
+              GetScheduleEvent(),
             ),
           listener: (context, state) {},
           builder: (context, state) {
@@ -136,7 +136,20 @@ class ScheduleWidget extends StatelessWidget {
                 },
               );
             } else if (state is DaySelectedState) {
-              return const Center(child: Text('Day Selected'));
+              return ListView.builder(
+                itemCount: 5,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return _buildItem(
+                    time: "07:00",
+                    subject: "Matematika",
+                    teacher: "Budi",
+                    room: "Ruang 1",
+                    day: "Senin",
+                  );
+                },
+              );
             } else {
               return const Center(child: Text('Other State'));
             }
