@@ -1,115 +1,90 @@
+import 'package:equatable/equatable.dart';
+
 import '../../data/models/schedule_model.dart';
 
-class ScheduleEntity {
+class ScheduleEntity extends Equatable {
   final int id;
-  final int kelasId;
+
+  final String kelas;
   final String hari;
   final String jamMulai;
   final String jamSelesai;
-  final int pelajaranId;
-  final int guruId;
-  final int ruangId;
-  KelasEntity kelasList;
-  PelajaranEntity pelajaranList;
-  GuruEntity guruList;
-  RuangEntity ruangList;
+  final String pelajaran;
+  final String guru;
+  final String ruang;
+  final String createdAt;
+  final String updatedAt;
 
-  ScheduleEntity({
-    required this.id,
-    required this.kelasId,
-    required this.hari,
-    required this.jamMulai,
-    required this.jamSelesai,
-    required this.pelajaranId,
-    required this.guruId,
-    required this.ruangId,
-    required this.kelasList,
-    required this.pelajaranList,
-    required this.guruList,
-    required this.ruangList,
-  });
+  const ScheduleEntity(
+      {required this.id,
+      required this.kelas,
+      required this.hari,
+      required this.jamMulai,
+      required this.jamSelesai,
+      required this.pelajaran,
+      required this.guru,
+      required this.ruang,
+      required this.createdAt,
+      required this.updatedAt});
 
-  // Factory constructor for converting ScheduleModel to ScheduleEntity
-  factory ScheduleEntity.fromModel(ScheduleModel model) {
+  // Convert ScheduleEntity to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'kelas': kelas,
+      'hari': hari,
+      'jam_mulai': jamMulai,
+      'jam_selesai': jamSelesai,
+      'pelajaran': pelajaran,
+      'guru': guru,
+      'ruang': ruang,
+      'created_at': createdAt,
+      'updated_at': updatedAt,
+    };
+  }
+
+  // Convert JSON to ScheduleEntity
+  factory ScheduleEntity.fromJson(Map<String, dynamic> json) {
     return ScheduleEntity(
-      id: model.id ?? 0,
-      kelasId: model.kelasId ?? 0,
-      hari: model.hari ?? '',
-      jamMulai: model.jamMulai ?? '',
-      jamSelesai: model.jamSelesai ?? '',
-      pelajaranId: model.pelajaranId ?? 0,
-      guruId: model.guruId ?? 0,
-      ruangId: model.ruangId ?? 0,
-      kelasList: model.kelas != null
-          ? KelasEntity(
-              id: model.kelas!.id ?? 0,
-              namaKelas: model.kelas!.namaKelas ?? '',
-              waliKelasId: model.kelas!.waliKelasId ?? 0,
-            )
-          : KelasEntity(id: 0, namaKelas: '', waliKelasId: 0),
-      pelajaranList: model.pelajaran != null
-          ? PelajaranEntity(
-              id: model.pelajaran!.id ?? 0,
-              namaPelajaran: model.pelajaran!.namaPelajaran ?? '',
-            )
-          : PelajaranEntity(id: 0, namaPelajaran: ''),
-      guruList: model.guru != null
-          ? GuruEntity(
-              id: model.guru!.id ?? 0,
-              userId: model.guru!.userId ?? 0,
-              pelajaranId: model.guru!.pelajaranId ?? 0,
-            )
-          : GuruEntity(id: 0, userId: 0, pelajaranId: 0),
-      ruangList: model.ruang != null
-          ? RuangEntity(
-              id: model.ruang!.id ?? 0,
-              namaRuang: model.ruang!.namaRuang ?? '',
-            )
-          : RuangEntity(id: 0, namaRuang: ''),
+      id: json['id'],
+      kelas: json['kelas'],
+      hari: json['hari'],
+      jamMulai: json['jam_mulai'],
+      jamSelesai: json['jam_selesai'],
+      pelajaran: json['pelajaran'],
+      guru: json['guru'],
+      ruang: json['ruang'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
     );
   }
-}
 
-class KelasEntity {
-  final int id;
-  final String namaKelas;
-  final int waliKelasId;
+  factory ScheduleEntity.fromModel(ScheduleModel model) {
+    return ScheduleEntity(
+      id: model.id,
+      kelas: model.kelas,
+      hari: model.hari,
+      jamMulai: model.jamMulai,
+      jamSelesai: model.jamSelesai,
+      pelajaran: model.pelajaran,
+      guru: model.guru,
+      ruang: model.ruang,
+      createdAt: model.createdAt,
+      updatedAt: model.updatedAt,
+    );
+  }
 
-  KelasEntity({
-    required this.id,
-    required this.namaKelas,
-    required this.waliKelasId,
-  });
-}
-
-class PelajaranEntity {
-  final int id;
-  final String namaPelajaran;
-
-  PelajaranEntity({
-    required this.id,
-    required this.namaPelajaran,
-  });
-}
-
-class GuruEntity {
-  final int id;
-  final int userId;
-  final int pelajaranId;
-
-  GuruEntity({
-    required this.id,
-    required this.userId,
-    required this.pelajaranId,
-  });
-}
-
-class RuangEntity {
-  final int id;
-  final String namaRuang;
-
-  RuangEntity({
-    required this.id,
-    required this.namaRuang,
-  });
+  @override
+  List<Object?> get props => [
+        id,
+        kelas,
+        hari,
+        jamMulai,
+        jamSelesai,
+        pelajaran,
+        guru,
+        ruang,
+        createdAt,
+        updatedAt,
+      ];
 }

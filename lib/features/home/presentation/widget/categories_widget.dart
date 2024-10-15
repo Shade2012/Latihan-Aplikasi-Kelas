@@ -4,16 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/core/themes/colors.dart';
 import '../bloc/home_page_bloc.dart';
 
-class ChooseDayWidget extends StatelessWidget {
-  const ChooseDayWidget({super.key});
+class CategoriesWidget extends StatelessWidget {
+  const CategoriesWidget({super.key});
 
   Widget _buildItem(
       BuildContext context, String name, int index, int selectedIndex) {
     return Expanded(
       child: GestureDetector(
-        onTap: () {
-          context.read<HomePageBloc>().add(DaySelectEvent(index));
-        },
+        onTap: () => context.read<HomePageBloc>().add(GetScheduleEvent(index)),
         child: Container(
           margin: const EdgeInsets.all(2),
           decoration: BoxDecoration(
@@ -50,9 +48,8 @@ class ChooseDayWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomePageBloc, HomePageState>(
       builder: (context, state) {
-        final selectedIndex = state is DaySelectedState
-            ? state.selectedIndex
-            : DateTime.now().weekday;
+        final selectedIndex =
+            state is HomePageLoaded ? state.selectedIndex : -1;
 
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

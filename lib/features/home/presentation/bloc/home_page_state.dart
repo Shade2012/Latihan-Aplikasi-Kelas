@@ -12,9 +12,13 @@ class HomePageInitial extends HomePageState {}
 class HomePageLoading extends HomePageState {}
 
 class HomePageLoaded extends HomePageState {
+  final int selectedIndex;
   final List<ScheduleEntity> schedules;
 
-  const HomePageLoaded({required this.schedules});
+  const HomePageLoaded(this.selectedIndex, {required this.schedules});
+
+  @override
+  List<Object> get props => [selectedIndex, schedules];
 }
 
 class HomePageEmpty extends HomePageState {}
@@ -25,13 +29,4 @@ class HomePageFailure extends HomePageState {
 
   @override
   List<Object> get props => [failure];
-}
-
-class DaySelectedState extends HomePageState {
-  final int selectedIndex;
-
-  const DaySelectedState(this.selectedIndex);
-
-  @override
-  List<Object> get props => [selectedIndex];
 }

@@ -3,20 +3,106 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/home/presentation/bloc/home_page_bloc.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/home/presentation/widget/schedule_bottom_sheets.dart';
 
 import '../../../../core/themes/colors.dart';
 
 class ScheduleWidget extends StatelessWidget {
   const ScheduleWidget({super.key});
 
-  Widget _buildItem({
-    String? time,
-    String? subject,
-    String? teacher,
-    String? room,
-    String? day,
-  }) {
-    return Row(
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        BlocConsumer<HomePageBloc, HomePageState>(
+          bloc: context.read<HomePageBloc>()
+            ..add(
+              GetScheduleEvent(
+                DateTime.now().weekday - 1,
+              ),
+            ),
+          listener: (context, state) {},
+          builder: (context, state) {
+            if (state is HomePageInitial) {
+              return const Center(child: Text('No data yet'));
+            } else if (state is HomePageLoading) {
+              return const Center(
+                child: SizedBox(
+                  width: 15,
+                  height: 15,
+                  child: CircularProgressIndicator(
+                    color: ColorsResources.primaryButton,
+                    strokeWidth: 2.5,
+                  ),
+                ),
+              );
+            } else if (state is HomePageFailure) {
+              return Center(child: Text(state.failure.message));
+            } else if (state is HomePageLoaded) {
+              return ListView.builder(
+                itemCount: state.schedules.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final schedule = state.schedules[index];
+                  DateTime jamMulaiDateTime =
+                      DateFormat('HH:mm:ss').parse(schedule.jamMulai);
+                  String formattedTime =
+                      DateFormat('HH:mm').format(jamMulaiDateTime);
+
+                  return _buildItem(
+                    onTap: () => scheduleBottomSheets(context, schedule),
+                    time: formattedTime,
+                    subject: schedule.pelajaran,
+                    teacher: schedule.guru,
+                    room: schedule.ruang,
+                    day: schedule.hari,
+                  );
+                },
+              );
+            } else if (state is HomePageLoaded) {
+              return ListView.builder(
+                itemCount: state.schedules.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final schedule = state.schedules[index];
+                  DateTime jamMulaiDateTime =
+                      DateFormat('HH:mm:ss').parse(schedule.jamMulai);
+                  String formattedTime =
+                      DateFormat('HH:mm').format(jamMulaiDateTime);
+
+                  return _buildItem(
+                    onTap: () => scheduleBottomSheets(context, schedule),
+                    time: formattedTime,
+                    subject: schedule.pelajaran,
+                    teacher: schedule.guru,
+                    room: schedule.ruang,
+                    day: schedule.hari,
+                  );
+                },
+              );
+            } else {
+              return const Center(child: Text('Other State'));
+            }
+          },
+        ),
+      ],
+    );
+  }
+}
+
+Widget _buildItem({
+  String? time,
+  String? subject,
+  String? teacher,
+  String? room,
+  String? day,
+  void Function()? onTap,
+}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
@@ -32,11 +118,11 @@ class ScheduleWidget extends StatelessWidget {
         ),
         Expanded(
           child: Container(
-            padding: const EdgeInsets.only(top: 5, left: 4, bottom: 5),
+            padding: const EdgeInsets.only(top: 3, left: 3, bottom: 5),
             decoration: BoxDecoration(
               border: Border(
-                left: BorderSide(color: Colors.grey[300]!, width: 1),
-                top: BorderSide(color: Colors.grey[300]!, width: 1),
+                left: BorderSide(color: Colors.grey[500]!, width: 1),
+                top: BorderSide(color: Colors.grey[500]!, width: 1),
               ),
             ),
             child: Container(
@@ -94,68 +180,6 @@ class ScheduleWidget extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        BlocConsumer<HomePageBloc, HomePageState>(
-          bloc: context.read<HomePageBloc>()
-            ..add(
-              GetScheduleEvent(),
-            ),
-          listener: (context, state) {},
-          builder: (context, state) {
-            if (state is HomePageInitial) {
-              return const Center(child: Text('No data yet'));
-            } else if (state is HomePageLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is HomePageFailure) {
-              return Center(child: Text(state.failure.message));
-            } else if (state is HomePageLoaded) {
-              return ListView.builder(
-                itemCount: state.schedules.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  final schedule = state.schedules[index];
-                  DateTime jamMulaiDateTime =
-                      DateFormat('HH:mm:ss').parse(schedule.jamMulai);
-                  String formattedTime =
-                      DateFormat('HH:mm').format(jamMulaiDateTime);
-
-                  return _buildItem(
-                    time: formattedTime,
-                    subject: schedule.pelajaranList.namaPelajaran,
-                    teacher: "Budi",
-                    room: schedule.ruangList.namaRuang,
-                    day: schedule.hari,
-                  );
-                },
-              );
-            } else if (state is DaySelectedState) {
-              return ListView.builder(
-                itemCount: 5,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return _buildItem(
-                    time: "07:00",
-                    subject: "Matematika",
-                    teacher: "Budi",
-                    room: "Ruang 1",
-                    day: "Senin",
-                  );
-                },
-              );
-            } else {
-              return const Center(child: Text('Other State'));
-            }
-          },
-        ),
-      ],
-    );
-  }
+    ),
+  );
 }

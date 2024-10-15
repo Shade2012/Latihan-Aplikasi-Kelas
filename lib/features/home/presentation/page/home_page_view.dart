@@ -11,8 +11,8 @@ class HomePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(15),
+        child: Container(
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -27,25 +27,24 @@ class HomePageView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(100),
                     ),
                   ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Selamat Pagi 👋",
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500,
-                          ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Selamat Pagi 👋",
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w500,
                         ),
-                        Text(
-                          "Abid Fadullah Maajid",
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500,
-                          ),
+                      ),
+                      Text(
+                        "Abid Fadullah Maajid",
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w500,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
+                  const Spacer(),
                   IconButton(
                     onPressed: () {},
                     icon: const Icon(
@@ -56,7 +55,7 @@ class HomePageView extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 20),
-              const ChooseDayWidget(),
+              const CategoriesWidget(),
               const SizedBox(height: 15),
               Text(
                 "Jadwal hari ini",

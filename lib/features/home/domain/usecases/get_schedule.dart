@@ -6,10 +6,10 @@ import '../../../../core/error/failure.dart';
 
 class GetScheduleUseCase {
   final HomeRepository homeRepository;
+
   GetScheduleUseCase(this.homeRepository);
 
-  //dijalankan
-  Future<Either<Failure, List<ScheduleEntity>>> execute() async {
-    return await homeRepository.getSchedule();
+  Future<Either<Failure, List<ScheduleEntity>>> execute(String day) async {
+    return await homeRepository.getSchedule(day);
   }
 }

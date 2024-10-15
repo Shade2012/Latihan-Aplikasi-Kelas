@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/core/network/api_endpoint.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/core/network/dio_instance.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/home/data/datasources/home_remote_data_source.dart';
@@ -11,10 +10,9 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
 // HomeRemoteDataSourceImpl();
 
   @override
-  Future<List<ScheduleModel>> fetchSchedule() async {
-    String today = DateFormat('EEEE', 'id_ID').format(DateTime.now());
+  Future<List<ScheduleModel>> fetchSchedule(String day) async {
     final response = await dioInstance.getRequest(
-      endpoint: "${ApiEndPoint.baseUrlUserSchedule}?hari=kamis",
+      endpoint: "${ApiEndPoint.baseUrlUserSchedule}?hari=$day",
       isAuthorize: true,
     );
     Map<String, dynamic> body = response.data;
@@ -24,8 +22,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
     }
     if (response.statusCode == 404 &&
         body['message'] == 'Jadwal kelas hari ini tidak ada.') {
-      // List<dynamic> data = body['jadwal'];
-      // return ScheduleModel.fromJsonList(data);
+      throw const EmptyException(message: 'No Schedule Available');
     }
     if (response.statusCode == 404) {
       throw const EmptyException(message: 'Data not found Error 404');
