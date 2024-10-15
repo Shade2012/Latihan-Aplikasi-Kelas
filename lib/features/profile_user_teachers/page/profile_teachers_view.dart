@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user_teachers/bloc/profile_teachers_bloc.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user_teachers/bloc/profile_teachers_event.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user_teachers/bloc/profile_teachers_state.dart';
@@ -134,6 +135,7 @@ class ProfileTeachersPage extends StatelessWidget {
                             context,
                             Icons.description_rounded,
                             'Detail Profil',
+                            '/detail_profile_teachers_page/:userId'
                           ),
                           SizedBox(height: screenHeight * 0.01),
                           Divider(
@@ -145,7 +147,8 @@ class ProfileTeachersPage extends StatelessWidget {
                           _buildProfileTeachersRow(
                             context,
                             Icons.settings,
-                            'Pengaturan',
+                            'Ganti Password',
+                            ''
                           ),
                           SizedBox(height: screenHeight * 0.01),
                           Divider(
@@ -157,7 +160,8 @@ class ProfileTeachersPage extends StatelessWidget {
                           _buildProfileTeachersRow(
                             context,
                             Icons.info_rounded,
-                            'Tentang',
+                            'About',
+                            ''
                           ),
                           SizedBox(height: screenHeight * 0.01),
                           Divider(
@@ -170,6 +174,7 @@ class ProfileTeachersPage extends StatelessWidget {
                             context,
                             Icons.privacy_tip_sharp,
                             'Kebijakan Privasi',
+                            ''
                           ),
                           SizedBox(height: screenHeight * 0.01),
                           Divider(
@@ -194,39 +199,45 @@ class ProfileTeachersPage extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileTeachersRow(BuildContext context, IconData icon, String title) {
+  Widget _buildProfileTeachersRow(BuildContext context, IconData icon, String title, String route) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Row(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: screenWidth * 0.04),
-          child: Icon(
-            icon,
-            size: screenHeight * 0.031,
-            color: Colors.black87,
+    return GestureDetector(
+      onTap: () {
+        GoRouter.of(context).go(route);  // Use the provided route
+      },
+      child: Row(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: screenWidth * 0.04),
+            child: Icon(
+              icon,
+              size: screenHeight * 0.031,
+              color: Colors.black87,
+            ),
           ),
-        ),
-        SizedBox(width: screenWidth * 0.06),
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: screenHeight * 0.025,
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w400,
+          SizedBox(width: screenWidth * 0.06),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: screenHeight * 0.025,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w400,
+            ),
           ),
-        ),
-        Spacer(),
-        Padding(
-          padding: EdgeInsets.only(right: screenWidth * 0.04), // Add right padding
-          child: Icon(
-            Icons.arrow_forward_ios_sharp,
-            size: screenHeight * 0.025,
-            color: Colors.black54,
+          Spacer(),
+          Padding(
+            padding: EdgeInsets.only(right: screenWidth * 0.04),
+            child: Icon(
+              Icons.arrow_forward_ios_sharp,
+              size: screenHeight * 0.025,
+              color: Colors.black54,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
+
 }

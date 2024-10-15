@@ -9,12 +9,12 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/navbar_teachers/presen
 import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/pages/notification_user_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/page/profile_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/splashscreen/splash_screen_view.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/profile_detail_teachers/page/profile_detail_teachers_view.dart';
 import '../../features/navbar/presentation/page/navbar_view.dart';
 
 class MyRouter {
   get router => GoRouter(
-        // initialLocation: '/alluser',
-        initialLocation: '/splash',
+        initialLocation: '/navbar_teacher',
         routes: [
           GoRoute(
             name: 'splash',
@@ -66,7 +66,17 @@ class MyRouter {
           path: '/profile_user',
           name:'profile_user',
           pageBuilder: (context, state) => NoTransitionPage(child: ProfilePage()),
-      ),
+          ),
+          GoRoute(
+            path: '/detail_profile_teachers_page/:userId',  // Use a dynamic parameter
+            name: 'detail_profile_teachers',
+            pageBuilder: (context, state) {
+              final userId = state.pathParameters['userId']!;  // Get the userId from the route
+              return NoTransitionPage(
+                child: DetailProfileTeachersView(userId: userId),
+              );
+            },
+          ),
           GoRoute(
             path: '/notification_user',
             name: 'notification_user',
