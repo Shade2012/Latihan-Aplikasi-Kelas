@@ -28,7 +28,6 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: Colors.white,
           ),
           routerConfig: MyRouter().router,
-        )
-    );
+        ));
   }
 }
