@@ -51,7 +51,9 @@ class AppProviders {
             homeTeachersRemoteDataSourceImpl:
                 HomeTeachersRemoteDataSourceImpl());
         final getScheduleWeekly = GetScheduleWeekly(homepageTeacherRepository);
-        return HomePageTeacherBloc(getScheduleWeekly: getScheduleWeekly);
+        final getKelas = GetKelas(homepageTeacherRepository);
+        final getPelajaran = GetPelajaran(homepageTeacherRepository);
+        return HomePageTeacherBloc(getScheduleWeekly: getScheduleWeekly, getPelajaran: getPelajaran, getKelas: getKelas);
       },
     ),
     BlocProvider<LoginPageBloc>(

@@ -151,16 +151,15 @@ class HomePageTeacherView extends StatelessWidget {
                                   : state is HomePageTeacherLoad
                                       ? ListView.separated(
                                           itemBuilder: (context, index) {
-                                            final lecture = state
-                                                .daySchedules[index].lectures;
-                                            return Text(lecture[0].name);
+                                            final lecture = state.daySchedules.lectures[index];
+                                            return Text(lecture.namaPelajaran);
                                           },
                                           separatorBuilder: (context, index) {
                                             return SizedBox(
                                               height: 20,
                                             );
                                           },
-                                          itemCount: state.daySchedules.length)
+                                          itemCount: state.daySchedules.lectures.length)
                                       : const Center(
                                           child: Text('No data available')),
                         )
