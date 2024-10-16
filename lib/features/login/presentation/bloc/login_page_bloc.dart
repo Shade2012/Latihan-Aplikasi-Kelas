@@ -16,7 +16,7 @@ class LoginPageBloc extends Bloc<LoginPageEvent, LoginPageState> {
       emit(LoginPageLoading());
       Either<Failure,LoginEntities> result = await Login.execute(event.email,event.password);
       result.fold((failure) {
-        emit(LoginPageFailure('Failed to login'));
+        emit(LoginPageFailure(failure.message));
       }, (user){
         print("Login succeeded: ${user.success}");
         emit(LoginPageSuccess(user)

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/common/shimmer_common.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/home_teachers/presentation/shimmer/dropdown_shimmer.dart';
 class HomePageTeacherShimmer extends StatelessWidget {
   const HomePageTeacherShimmer({Key? key}) : super(key: key);
 
@@ -11,29 +12,9 @@ class HomePageTeacherShimmer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ShimmerCommon(height: 60,radius: 100,width: 60,),
-                  SizedBox(width: 10,),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ShimmerCommon(width: 120,radius: 5,),
-                      SizedBox(height: 10,),
-                      ShimmerCommon(width: 120,radius: 5,)
-                    ],
-                  ),
-                ],
-              ),
-              Icon(Icons.notifications_outlined)
-            ],
-          ),
+
+          SizedBox(height: 10,),
+          DropdownShimmer(),
           SizedBox(height: 10,),
           SizedBox(
             width: screenWidth,

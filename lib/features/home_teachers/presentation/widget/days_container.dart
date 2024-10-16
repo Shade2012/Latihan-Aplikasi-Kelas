@@ -12,19 +12,22 @@ class DayContainerTeachers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isActive = value == groupValue;
-    return Material(
-      elevation: 2,
-      color: isActive ? ColorsResources.primaryColor : Colors.white,
-      borderRadius: BorderRadius.circular(80),
-      child: InkWell(
+    return Container(
+      margin: EdgeInsets.all(2),
+      child: Material(
+        elevation: 2,
+        color: isActive ? ColorsResources.primaryColor : Colors.white,
         borderRadius: BorderRadius.circular(80),
-        onTap: () {
-          groupValue = value;
-          onChanged!(value);
-        },
-        child: SizedBox(
-          width: 60,
-          child: Center(child: Text(day.substring(0,3),style: isActive ? txtWhiteMedium : txtRegularBlack,overflow: TextOverflow.visible,),),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(80),
+          onTap: () {
+            groupValue = value;
+            onChanged!(value);
+          },
+          child: SizedBox(
+            width: 60,
+            child: Center(child: Text(day.substring(0,3),style: isActive ? txtWhiteMedium : txtRegularBlack,overflow: TextOverflow.visible,),),
+          ),
         ),
       ),
     );
