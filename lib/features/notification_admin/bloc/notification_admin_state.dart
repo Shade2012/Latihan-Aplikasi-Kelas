@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/notification_admin/models/notification_admin_models.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/notification_admin/domain/entities/notification_admin_entities.dart'; // Import NotificationEntity
 
 abstract class NotificationAdminState extends Equatable {
   @override
@@ -11,7 +11,7 @@ class NotificationInitial extends NotificationAdminState {}
 class NotificationLoading extends NotificationAdminState {}
 
 class NotificationLoaded extends NotificationAdminState {
-  final List<NotificationAdminModel> notifications;
+  final List<NotificationEntity> notifications; // Change to NotificationEntity
 
   NotificationLoaded({required this.notifications});
 

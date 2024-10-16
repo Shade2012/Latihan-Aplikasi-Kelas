@@ -15,7 +15,7 @@ import '../../features/navbar/presentation/page/navbar_view.dart';
 class MyRouter {
   get router => GoRouter(
         // initialLocation: '/alluser',
-        initialLocation: '/splash',
+        initialLocation: '/notification_user',
         routes: [
           GoRoute(
             name: 'splash',
