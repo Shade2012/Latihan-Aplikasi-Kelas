@@ -7,6 +7,7 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/pag
 import 'package:latihan_aplikasi_manajemen_kelas/features/notification_admin/pages/notification_admin_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/navbar_teachers/presentation/page/navbar_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/pages/notification_user_view.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/privacypolicyteacher/page/privacy_policy_teacher_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/page/profile_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/splashscreen/splash_screen_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_detail_teachers/page/profile_detail_teachers_view.dart';
@@ -31,7 +32,7 @@ class MyRouter {
             name: 'navbar_teacher',
             path: '/navbar_teacher',
             pageBuilder: (context, state) =>
-            const NoTransitionPage(child: NavbarTeacherView()),
+                const NoTransitionPage(child: NavbarTeacherView()),
           ),
           GoRoute(
             path: '/home_page',
@@ -58,34 +59,45 @@ class MyRouter {
                 const NoTransitionPage(child: ForgotPasswordSecondPage()),
           ),
           GoRoute(
-          path: '/forgot_password_third_page',
-          name:'forgot_third_page',
-          pageBuilder: (context, state) => NoTransitionPage(child: ForgotPasswordThirdPage()),
+            path: '/forgot_password_third_page',
+            name: 'forgot_third_page',
+            pageBuilder: (context, state) =>
+                NoTransitionPage(child: ForgotPasswordThirdPage()),
           ),
           GoRoute(
-          path: '/profile_user',
-          name:'profile_user',
-          pageBuilder: (context, state) => NoTransitionPage(child: ProfilePage()),
+            path: '/profile_user',
+            name: 'profile_user',
+            pageBuilder: (context, state) =>
+                NoTransitionPage(child: ProfilePage()),
           ),
           GoRoute(
-            path: '/detail_profile_teachers_page/:userId',  // Use a dynamic parameter
+            path:
+                '/detail_profile_teachers_page/:userId', // Use a dynamic parameter
             name: 'detail_profile_teachers',
             pageBuilder: (context, state) {
-              final userId = state.pathParameters['userId']!;  // Get the userId from the route
+              final userId = state
+                  .pathParameters['userId']!; // Get the userId from the route
               return NoTransitionPage(
                 child: DetailProfileTeachersView(userId: userId),
               );
             },
           ),
           GoRoute(
+              path: '/privacy_policy_teachers_page',
+              name: 'privacy_policy_teachers_page',
+              pageBuilder: (context, state) =>
+                  NoTransitionPage(child: PrivacyPolicyTeacherView())),
+          GoRoute(
             path: '/notification_user',
             name: 'notification_user',
-            pageBuilder: (context, state) => NoTransitionPage(child: NotificationUserPage()),
+            pageBuilder: (context, state) =>
+                NoTransitionPage(child: NotificationUserPage()),
           ),
           GoRoute(
             path: '/notification_admin',
             name: 'notification_admin',
-            pageBuilder: (context, state) => NoTransitionPage(child: NotificationAdminPage()),
+            pageBuilder: (context, state) =>
+                NoTransitionPage(child: NotificationAdminPage()),
           ),
         ],
       );

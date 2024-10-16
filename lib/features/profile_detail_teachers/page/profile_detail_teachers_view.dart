@@ -65,17 +65,17 @@ class ProfileDetailView extends StatelessWidget {
                     child: const Icon(Icons.arrow_back, color: Colors.black),
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   child: Text(
                     'Detail Profil',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center, // Center title text
                   ),
                 ),
-                SizedBox(width: 50),
+                const SizedBox(width: 50),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Profile picture in the center
             Align(
               alignment: Alignment.center, // Center the profile picture
@@ -93,7 +93,7 @@ class ProfileDetailView extends StatelessWidget {
                       color: Colors.black.withOpacity(0.2),
                       spreadRadius: 4,
                       blurRadius: 10,
-                      offset: Offset(0, 4),
+                      offset: const Offset(0, 4),
                     ),
                   ],
                 ),
@@ -107,21 +107,21 @@ class ProfileDetailView extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             // Profile details text aligned to the left
-            Text('Informasi profil',
+            const Text('Informasi profil',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            SizedBox(height: 18),
-            Row(
+            const SizedBox(height: 18),
+            const Row(
               children: [
-                Text(
+                 Text(
                   'Nama',
                   style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey,
                       fontWeight: FontWeight.bold),
                 ),
-                Spacer(), // This pushes the next widget to the right
+                 Spacer(), // This pushes the next widget to the right
                 Text(
                   'Ajar Abu Hairoh',
                   style: TextStyle(
@@ -131,16 +131,16 @@ class ProfileDetailView extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 30),
-            Divider(
+            const SizedBox(height: 30),
+            const Divider(
               color: Colors.grey, // Line color
               thickness: 1, // Line thickness
             ),
-            SizedBox(height: 30),
-            Text('Informasi Guru',
+            const SizedBox(height: 30),
+            const Text('Informasi Guru',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            SizedBox(height: 18),
-            Row(
+            const SizedBox(height: 18),
+            const Row(
               children: [
                 Text(
                   'Email',

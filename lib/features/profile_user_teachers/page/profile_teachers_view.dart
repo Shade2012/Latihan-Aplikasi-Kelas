@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/core/themes/textstyle.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user_teachers/bloc/profile_teachers_bloc.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user_teachers/bloc/profile_teachers_event.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user_teachers/bloc/profile_teachers_state.dart';
@@ -8,7 +9,6 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user_teachers/
 
 class ProfileTeachersPage extends StatelessWidget {
   final double profileTeachersPictureHeight;
-
 
   ProfileTeachersPage({this.profileTeachersPictureHeight = 88.0});
 
@@ -20,8 +20,9 @@ class ProfileTeachersPage extends StatelessWidget {
 
     return Scaffold(
       body: BlocProvider(
-        create: (context) => ProfileTeachersBloc(profileRepository: ProfileTeachersRepository())
-          ..add(LoadProfileTeachers()),
+        create: (context) =>
+            ProfileTeachersBloc(profileRepository: ProfileTeachersRepository())
+              ..add(LoadProfileTeachers()),
         child: BlocBuilder<ProfileTeachersBloc, ProfileTeachersState>(
           builder: (context, state) {
             if (state is ProfileTeachersLoading) {
@@ -132,11 +133,10 @@ class ProfileTeachersPage extends StatelessWidget {
                           SizedBox(height: screenHeight * 0.01),
                           // Detail Profile Row
                           _buildProfileTeachersRow(
-                            context,
-                            Icons.description_rounded,
-                            'Detail Profil',
-                            '/detail_profile_teachers_page/:userId'
-                          ),
+                              context,
+                              Icons.description_rounded,
+                              'Detail Profil',
+                              '/detail_profile_teachers_page/:userId'),
                           SizedBox(height: screenHeight * 0.01),
                           Divider(
                             color: Color(0xFFD9D9D9),
@@ -145,11 +145,7 @@ class ProfileTeachersPage extends StatelessWidget {
                           SizedBox(height: screenHeight * 0.01),
                           // Settings Row
                           _buildProfileTeachersRow(
-                            context,
-                            Icons.settings,
-                            'Ganti Password',
-                            ''
-                          ),
+                              context, Icons.settings, 'Ganti Password', ''),
                           SizedBox(height: screenHeight * 0.01),
                           Divider(
                             color: Color(0xFFD9D9D9),
@@ -158,24 +154,19 @@ class ProfileTeachersPage extends StatelessWidget {
                           SizedBox(height: screenHeight * 0.01),
                           // About Row
                           _buildProfileTeachersRow(
-                            context,
-                            Icons.info_rounded,
-                            'About',
-                            ''
-                          ),
+                              context, Icons.info_rounded, 'About', ''),
                           SizedBox(height: screenHeight * 0.01),
                           Divider(
-                            color: Color(0xFFD9D9D9),
+                            color: Colors.grey[400],
                             thickness: 0.9,
                           ),
                           SizedBox(height: screenHeight * 0.01),
                           // Privacy Policy Row
                           _buildProfileTeachersRow(
-                            context,
-                            Icons.privacy_tip_sharp,
-                            'Kebijakan Privasi',
-                            ''
-                          ),
+                              context,
+                              Icons.privacy_tip_sharp,
+                              'Kebijakan Privasi',
+                              '/privacy_policy_teachers_page'),
                           SizedBox(height: screenHeight * 0.01),
                           Divider(
                             color: Color(0xFFD9D9D9),
@@ -199,13 +190,14 @@ class ProfileTeachersPage extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileTeachersRow(BuildContext context, IconData icon, String title, String route) {
+  Widget _buildProfileTeachersRow(
+      BuildContext context, IconData icon, String title, String route) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).go(route);  // Use the provided route
+        GoRouter.of(context).go(route); // Use the provided route
       },
       child: Row(
         children: [
@@ -239,5 +231,4 @@ class ProfileTeachersPage extends StatelessWidget {
       ),
     );
   }
-
 }
