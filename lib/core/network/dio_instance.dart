@@ -32,7 +32,7 @@ class DioInstance {
       );
     }on DioException catch (e){
 //      print(e.message);
-      throw Exception(e.message);
+      throw Exception('Dio Error : ${e.message}');
     }
     return response;
   }

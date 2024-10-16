@@ -7,6 +7,8 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/forgotpassword/domain/
 import 'package:latihan_aplikasi_manajemen_kelas/features/forgotpassword/presentation/bloc/forgot_password_bloc.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/home_teachers/data/datasources/home_teachers_remote_data_source_impl.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/home_teachers/data/repositories/home_teachers_repository_impl.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/home_teachers/domain/usecases/get_kelas.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/home_teachers/domain/usecases/get_pelajaran.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/home_teachers/presentation/bloc/home_page_teacher_bloc.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/data/datasources/login_remote_data_source_impl.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/data/repositories/login_repository_impl.dart';
@@ -27,7 +29,9 @@ class AppProviders {
           homeTeachersRemoteDataSourceImpl: HomeTeachersRemoteDataSourceImpl()
       );
       final getScheduleWeekly = GetScheduleWeekly(homepageTeacherRepository);
-      return HomePageTeacherBloc(getScheduleWeekly: getScheduleWeekly);
+      final getKelas = GetKelas(homepageTeacherRepository);
+      final getPelajaran = GetPelajaran(homepageTeacherRepository);
+      return HomePageTeacherBloc(getScheduleWeekly: getScheduleWeekly, getPelajaran: getPelajaran,getKelas: getKelas);
     },),
     BlocProvider<LoginPageBloc>(
       create: (context) {
