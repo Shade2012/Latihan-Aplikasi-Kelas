@@ -8,10 +8,9 @@ abstract class NavbarEvent extends Equatable {
 }
 
 final class ChangeTabEvent extends NavbarEvent {
-final int tabIndex;
+  const ChangeTabEvent(this.tabIndex);
+  final int tabIndex;
 
-const ChangeTabEvent(this.tabIndex);
-
-@override
-List<Object> get props => [tabIndex];
+  @override
+  List<Object> get props => [tabIndex];
 }

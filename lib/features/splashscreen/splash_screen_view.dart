@@ -17,11 +17,10 @@ class SplashScreenView extends StatelessWidget {
             context.pushReplacementNamed('navbar');
           } else if (state is SplashNavigateToOnBoarding) {
             context.pushReplacementNamed('onboarding-page');
-          }
-          else if (state is SplashNavigateToLogin) {
+          } else if (state is SplashNavigateToLogin) {
             context.pushReplacementNamed('login_page');
           }
-          if(state is SplashNavigateToHomeTeacher){
+          if (state is SplashNavigateToHomeTeacher) {
             context.pushReplacementNamed('navbar_teacher');
           }
         },
@@ -29,7 +28,7 @@ class SplashScreenView extends StatelessWidget {
           backgroundColor: ColorsResources.primaryButton,
           body: Center(
             child: CircularProgressIndicator(
-              color: Colors.white,
+              color: Colors.red,
             ),
           ),
         ),
