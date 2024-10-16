@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/core/routes/bloc_provider.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/core/routes/my_route.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/service/firebase/firebase_api.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/service/firebase/firebase_options.dart';
 
 void main() async {
@@ -11,6 +12,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseApi().initNotifications();
   initializeDateFormatting('id_ID', null).then((_) => runApp(const MyApp()));
 }
 

@@ -10,5 +10,9 @@ class ApiEndPoint {
   static String baseUrlForgotSendOtp = '$baseUrl/api/send-otp';
   static String baseUrlForgotVerifiedOtp = '$baseUrl/api/verify-otp';
   static String baseUrlForgotPasswordConfirm = '$baseUrl/api/reset-password';
+  static String baseUrlScheduleDay = '$baseUrl/api/jadwal/filter';
+  static String baseUrlAllPelajaran = '$baseUrl/api/pelajaran/guru';
+  static String baseUrlAllKelas = '$baseUrl/api/kelas';
   static String baseUrlUserSchedule = '$baseUrl/api/jadwal/siswa';
+  static String baseUrlUserNotification = '$baseUrl/api/notification';
 }

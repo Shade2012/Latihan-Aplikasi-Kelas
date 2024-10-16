@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/common/appbar_common.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/bloc/notification_user_bloc.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/bloc/notification_user_event.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/bloc/notification_user_state.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/repositories/notification_user_repositories_impl.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/data/datasources/notification_remote_datasource_impl.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/core/network/dio_instance.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/core/themes/colors.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/notification_admin/bloc/notification_admin_bloc.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/notification_admin/bloc/notification_admin_event.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/notification_admin/bloc/notification_admin_state.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/notification_admin/repositories/notification_admin_repositories.dart';
 
 class NotificationAdminPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+
+    // Inisialisasi RemoteDataSource dan Repository
+    final remoteDataSource = NotificationRemoteDataSourceImpl(dioInstance: DioInstance());
+    final notificationRepository = NotificationAdminRepository(remoteDataSource: remoteDataSource);
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(screenHeight * 0.08),
         child: AppbarCommon(),
       ),
       body: BlocProvider(
-        create: (context) => NotificationAdminBloc(notificationRepository: NotificationAdminRepository())
+        create: (context) => NotificationAdminBloc(notificationRepository: notificationRepository)
           ..add(LoadNotifications()),
         child: Column(
           children: [
@@ -43,13 +50,23 @@ class NotificationList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-
     return BlocBuilder<NotificationAdminBloc, NotificationAdminState>(
       builder: (context, state) {
         if (state is NotificationLoading) {
           return Center(child: CircularProgressIndicator());
         } else if (state is NotificationLoaded) {
+          if (state.notifications.isEmpty) {
+            return Center(
+              child: Text(
+                'Tidak ada notifikasi',
+                style: TextStyle(
+                  fontFamily: 'Poppins', 
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
+              ),
+            );
+          }
           return ListView.builder(
             itemCount: state.notifications.length,
             itemBuilder: (context, index) {
@@ -67,7 +84,7 @@ class NotificationList extends StatelessWidget {
                     Text(notification.relativeTime, style: TextStyle(color: Colors.red)),
                     SizedBox(width: 8),
                     Container(
-                      padding: EdgeInsets.only(top: screenHeight * 0.01, left: screenWidth * 0.01), // Menyesuaikan jarak dari atas
+                      padding: EdgeInsets.only(top: screenHeight * 0.01), // Menyesuaikan jarak dari atas
                       alignment: Alignment.topCenter,
                       child: Icon(Icons.circle, size: 8, color: ColorsResources.primaryColor),
                     ),
@@ -85,3 +102,4 @@ class NotificationList extends StatelessWidget {
     );
   }
 }
+
