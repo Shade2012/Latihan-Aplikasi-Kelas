@@ -7,6 +7,8 @@ abstract class SplashScreenState extends Equatable {
 
 final class SplashScreenInitial extends SplashScreenState {}
 
+final class SplashNavigateToOnBoarding extends SplashScreenState {}
+
 class SplashNavigateToLogin extends SplashScreenState {}
 
 class SplashNavigateToHome extends SplashScreenState {}
