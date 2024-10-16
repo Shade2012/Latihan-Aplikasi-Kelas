@@ -4,21 +4,27 @@ import 'package:latihan_aplikasi_manajemen_kelas/common/appbar_common.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/bloc/notification_user_bloc.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/bloc/notification_user_event.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/bloc/notification_user_state.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/repositories/notification_user_repositories.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/models/notification_user_models.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/repositories/notification_user_repositories_impl.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/data/datasources/notification_remote_datasource_impl.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/core/network/dio_instance.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/core/themes/colors.dart';
 
 class NotificationUserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+
+    // Inisialisasi RemoteDataSource dan Repository
+    final remoteDataSource = NotificationRemoteDataSourceImpl(dioInstance: DioInstance());
+    final notificationRepository = NotificationAdminRepository(remoteDataSource: remoteDataSource);
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(screenHeight * 0.08),
         child: AppbarCommon(),
       ),
       body: BlocProvider(
-        create: (context) => NotificationAdminBloc(notificationRepository: NotificationAdminRepository())
+        create: (context) => NotificationAdminBloc(notificationRepository: notificationRepository)
           ..add(LoadNotifications()),
         child: Column(
           children: [
@@ -49,6 +55,18 @@ class NotificationList extends StatelessWidget {
         if (state is NotificationLoading) {
           return Center(child: CircularProgressIndicator());
         } else if (state is NotificationLoaded) {
+          if (state.notifications.isEmpty) {
+            return Center(
+              child: Text(
+                'Tidak ada notifikasi',
+                style: TextStyle(
+                  fontFamily: 'Poppins', 
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
+              ),
+            );
+          }
           return ListView.builder(
             itemCount: state.notifications.length,
             itemBuilder: (context, index) {
