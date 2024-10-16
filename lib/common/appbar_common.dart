@@ -13,7 +13,7 @@ class AppbarCommon extends StatelessWidget {
       elevation: 0,
       leading: IconButton(
         onPressed: () {
-          context.pop();
+          context.go('/home_page'); 
         },
         icon: Container(
           padding: EdgeInsets.all(10),

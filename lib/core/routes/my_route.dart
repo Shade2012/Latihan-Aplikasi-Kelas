@@ -7,6 +7,7 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/pag
 import 'package:latihan_aplikasi_manajemen_kelas/features/notification_admin/pages/notification_admin_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/navbar_teachers/presentation/page/navbar_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/pages/notification_user_view.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/onboarding/page/onboarding_page_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/page/profile_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/splashscreen/splash_screen_view.dart';
 import '../../features/navbar/presentation/page/navbar_view.dart';
@@ -14,7 +15,7 @@ import '../../features/navbar/presentation/page/navbar_view.dart';
 class MyRouter {
   get router => GoRouter(
         // initialLocation: '/alluser',
-        initialLocation: '/splash',
+        initialLocation: '/notification_user',
         routes: [
           GoRoute(
             name: 'splash',
@@ -76,6 +77,11 @@ class MyRouter {
             path: '/notification_admin',
             name: 'notification_admin',
             pageBuilder: (context, state) => NoTransitionPage(child: NotificationAdminPage()),
+          ),
+          GoRoute(
+            path: '/onboarding-page',
+            name: 'onboarding-page',
+            pageBuilder: (context, state) => NoTransitionPage(child: OnboardingView()),
           ),
         ],
       );
