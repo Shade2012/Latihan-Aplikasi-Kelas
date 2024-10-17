@@ -219,7 +219,8 @@ class ProfilePage extends StatelessWidget {
         ),
         Spacer(),
         Padding(
-          padding: EdgeInsets.only(right: screenWidth * 0.04), // Add right padding
+          padding:
+              EdgeInsets.only(right: screenWidth * 0.04), // Add right padding
           child: Icon(
             Icons.arrow_forward_ios_sharp,
             size: screenHeight * 0.025,

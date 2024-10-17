@@ -7,20 +7,20 @@ class DioInstance {
 
   DioInstance() {
     dio = Dio(BaseOptions(
-      baseUrl: ApiEndPoint.baseUrl, 
+      baseUrl: ApiEndPoint.baseUrl,
     ));
-    initializeInterceptors();  
+    initializeInterceptors();
   }
 
   // GET Request Method
   Future<Response> getRequest({
     required String endpoint,
-    bool? isAuthorize,   
+    bool? isAuthorize,
     Map<String, dynamic>? queryParameters,
   }) async {
     Response response;
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');  
+    final token = prefs.getString('token');
     try {
       response = await dio.get(
         endpoint,
@@ -116,12 +116,13 @@ class DioInstance {
           },
         ),
       );
-    } on DioException catch (e) {
-      print(e.message);
-      throw Exception(e.message);
+    }on DioException catch (e){
+//      print(e.message);
+      throw Exception('Dio Error : ${e.message}');
     }
     return response;
   }
+
 
   // Inisialisasi Interceptors
   void initializeInterceptors() {

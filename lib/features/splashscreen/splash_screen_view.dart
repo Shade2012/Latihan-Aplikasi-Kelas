@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/core/themes/colors.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/splashscreen/bloc/splash_screen_bloc.dart';
+
+import '../../core/themes/images.dart';
+import 'bloc/splash_screen_bloc.dart';
 
 class SplashScreenView extends StatelessWidget {
-  const SplashScreenView({Key? key}) : super(key: key);
+  const SplashScreenView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,20 +18,28 @@ class SplashScreenView extends StatelessWidget {
             context.pushReplacementNamed('navbar');
           } else if (state is SplashNavigateToOnBoarding) {
             context.pushReplacementNamed('onboarding-page');
-          }
-          else if (state is SplashNavigateToLogin) {
+          } else if (state is SplashNavigateToLogin) {
             context.pushReplacementNamed('login_page');
           }
-          if(state is SplashNavigateToHomeTeacher){
+          if (state is SplashNavigateToHomeTeacher) {
             context.pushReplacementNamed('navbar_teacher');
           }
         },
-        child: const Scaffold(
-          backgroundColor: ColorsResources.primaryButton,
-          body: Center(
-            child: CircularProgressIndicator(
-              color: Colors.white,
-            ),
+        child: Scaffold(
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(50),
+                child: Image.asset(Images.logoMain),
+              ),
+              SizedBox(
+                width: 200,
+                child: LinearProgressIndicator(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ],
           ),
         ),
       ),
