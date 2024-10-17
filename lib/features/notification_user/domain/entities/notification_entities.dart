@@ -2,15 +2,16 @@ import 'package:equatable/equatable.dart';
 
 class NotificationEntity extends Equatable {
   final String title;
-  final String time;
-  final String relativeTime;
+  final String message; // Tambahkan properti ini
+  final DateTime createdAt; // Ubah tipe data ini
 
   NotificationEntity({
     required this.title,
-    required this.time,
-    required this.relativeTime,
+    required this.message,
+    required this.createdAt,
   });
 
   @override
-  List<Object> get props => [title, time, relativeTime];
+  List<Object> get props => [title, message, createdAt]; // Tambahkan message dan createdAt ke dalam props
 }
+

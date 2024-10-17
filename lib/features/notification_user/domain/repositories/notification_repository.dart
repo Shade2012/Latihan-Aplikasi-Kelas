@@ -3,3 +3,4 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/doma
 abstract class NotificationRepository {
   Future<List<NotificationEntity>> getNotifications();
 }
+

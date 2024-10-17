@@ -77,14 +77,17 @@ class NotificationList extends StatelessWidget {
                   child: Icon(Icons.notifications_none, color: Colors.white),
                 ),
                 title: Text(notification.title),
-                subtitle: Text("Today at ${notification.time}"),
+                subtitle: Text(notification.message), // Tampilkan pesan notifikasi
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(notification.relativeTime, style: TextStyle(color: Colors.red)),
+                    Text(
+                      "Created at: ${notification.createdAt.toLocal().toString().substring(0, 16)}", // Format tanggal
+                      style: TextStyle(color: Colors.red),
+                    ),
                     SizedBox(width: 8),
                     Container(
-                      padding: EdgeInsets.only(top: screenHeight * 0.01), // Menyesuaikan jarak dari atas
+                      padding: EdgeInsets.only(top: screenHeight * 0.01), 
                       alignment: Alignment.topCenter,
                       child: Icon(Icons.circle, size: 8, color: ColorsResources.primaryColor),
                     ),

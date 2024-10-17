@@ -10,4 +10,3 @@ class GetNotificationsUseCase {
     return await repository.getNotifications();
   }
 }
-  
