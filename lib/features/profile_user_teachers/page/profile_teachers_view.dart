@@ -87,7 +87,7 @@ class ProfileTeachersPage extends StatelessWidget {
                           Text(
                             state.profile.name,
                             style: TextStyle(
-                              fontSize: screenHeight * 0.03,
+                              fontSize: screenHeight * 0.026,
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w600,
                             ),
@@ -96,21 +96,21 @@ class ProfileTeachersPage extends StatelessWidget {
                           Text(
                             state.profile.role,
                             style: TextStyle(
-                              fontSize: screenHeight * 0.02,
+                              fontSize: screenHeight * 0.018,
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w600,
                               color: Color(0xFF62C0A1),
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          SizedBox(height: screenHeight * 0.03),
+                          SizedBox(height: screenHeight * 0.026),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 'Email ',
                                 style: TextStyle(
-                                  fontSize: screenHeight * 0.02,
+                                  fontSize: screenHeight * 0.018,
                                   fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -118,7 +118,7 @@ class ProfileTeachersPage extends StatelessWidget {
                               Text(
                                 state.profile.email,
                                 style: TextStyle(
-                                  fontSize: screenHeight * 0.02,
+                                  fontSize: screenHeight * 0.018,
                                   fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -145,7 +145,10 @@ class ProfileTeachersPage extends StatelessWidget {
                           SizedBox(height: screenHeight * 0.01),
                           // Settings Row
                           _buildProfileTeachersRow(
-                              context, Icons.settings, 'Ganti Password', '/change_password_teacher_view'),
+                              context,
+                              Icons.settings,
+                              'Ganti Password',
+                              '/change_password_teacher_view'),
                           SizedBox(height: screenHeight * 0.01),
                           Divider(
                             color: Color(0xFFD9D9D9),
@@ -167,10 +170,39 @@ class ProfileTeachersPage extends StatelessWidget {
                               Icons.privacy_tip_sharp,
                               'Kebijakan Privasi',
                               '/privacy_policy_teachers_page'),
-                          SizedBox(height: screenHeight * 0.01),
-                          Divider(
-                            color: Color(0xFFD9D9D9),
-                            thickness: 0.9,
+                          SizedBox(height: screenHeight * 0.1),
+                          GestureDetector(
+                            onTap: () {
+                              GoRouter.of(context).go('/login-page');
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              decoration: BoxDecoration(
+                                color: Colors.red[500],  // Button color
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: const Stack(
+                                alignment: Alignment.center,  // Center text in the container
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,  // Keep icon left-aligned
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 30),  // Adjust left padding if needed
+                                      child: Icon(Icons.logout, size: 30, color: Colors.white),
+                                    ),
+                                  ),
+                                  const Text(
+                                    "Log Out",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       ),

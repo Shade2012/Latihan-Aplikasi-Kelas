@@ -65,7 +65,35 @@ class _ChangePasswordTeacherViewState extends State<ChangePasswordTeacherView> {
 
                   // New Password Field
                   const Text(
-                    "Password",
+                    "Old Password",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 20),
+                  TextField(
+                    obscureText: _obscureText1,
+                    decoration: InputDecoration(
+                      hintText: "Masukkan Password Lama",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: const BorderSide(),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureText1 ? Icons.visibility_off : Icons.visibility,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscureText1 = !_obscureText1;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // New Password Field
+                  const Text(
+                    "New Password",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 20),
@@ -93,7 +121,7 @@ class _ChangePasswordTeacherViewState extends State<ChangePasswordTeacherView> {
 
                   // Confirm Password Field
                   const Text(
-                    "Confirm Password",
+                    "Confirm New Password",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 20),
@@ -132,7 +160,7 @@ class _ChangePasswordTeacherViewState extends State<ChangePasswordTeacherView> {
                       ),
                       alignment: Alignment.center,
                       child: const Text(
-                        "Change Password",
+                        "Update Password",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,

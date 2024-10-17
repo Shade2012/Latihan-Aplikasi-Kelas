@@ -23,7 +23,7 @@ class ChangePasswordConfirmTeacherView extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      GoRouter.of(context).go('/navbar_teacher');
+                      GoRouter.of(context).go('/change_password_teacher_view');
                     },
                     child: CircleAvatar(
                       radius: 25,
@@ -32,6 +32,47 @@ class ChangePasswordConfirmTeacherView extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              const SizedBox(height: 15),
+              const Text(
+                "Perubahan Password",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 15),
+              const Text(
+                "Kata sandi Anda telah berhasil diubah. klik konfirmasi untuk menyetel kata sandi baru",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                ),
+              ),
+              const SizedBox(height: 50),
+
+              // Submit Button or any GestureDetector for submission
+              GestureDetector(
+                onTap: () {
+                  GoRouter.of(context).go('/change_password_confirm_teacher_view');
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF62C0A1),  // Using your custom color
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  alignment: Alignment.center,
+                  child: const Text(
+                    "Konfirmasi",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),);

@@ -14,11 +14,11 @@ List<Widget> _bodyItems = [
 
 List<BottomNavigationBarItem> _navbarItems = [
   const BottomNavigationBarItem(
-    icon: Icon(Icons.home_rounded),
+    icon: Icon(Icons.home_outlined),
     label: 'Home',
   ),
   const BottomNavigationBarItem(
-    icon: Icon(Icons.person_rounded),
+    icon: Icon(Icons.person_outline_rounded),
     label: 'Profile',
   ),
 ];
