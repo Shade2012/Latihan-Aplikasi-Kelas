@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/bloc/profile_bloc.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/bloc/profile_event.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/bloc/profile_state.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/repositories/profile_repositories.dart';
+import 'package:go_router/go_router.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/core/themes/textstyle.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user_teachers/bloc/profile_teachers_bloc.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user_teachers/bloc/profile_teachers_event.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user_teachers/bloc/profile_teachers_state.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user_teachers/repositories/profile_teachers_repositories.dart';
 
-class ProfilePage extends StatelessWidget {
-  final double profilePictureHeight;
+class ProfileTeachersPage extends StatelessWidget {
+  final double profileTeachersPictureHeight;
 
-
-  ProfilePage({this.profilePictureHeight = 88.0});
+  ProfileTeachersPage({this.profileTeachersPictureHeight = 88.0});
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +20,14 @@ class ProfilePage extends StatelessWidget {
 
     return Scaffold(
       body: BlocProvider(
-        create: (context) => ProfileBloc(profileRepository: ProfileRepository())
-          ..add(LoadProfile()),
-        child: BlocBuilder<ProfileBloc, ProfileState>(
+        create: (context) =>
+            ProfileTeachersBloc(profileRepository: ProfileTeachersRepository())
+              ..add(LoadProfileTeachers()),
+        child: BlocBuilder<ProfileTeachersBloc, ProfileTeachersState>(
           builder: (context, state) {
-            if (state is ProfileLoading) {
+            if (state is ProfileTeachersLoading) {
               return Center(child: CircularProgressIndicator());
-            } else if (state is ProfileLoaded) {
+            } else if (state is ProfileTeachersLoaded) {
               return SingleChildScrollView(
                 child: Stack(
                   children: [
@@ -45,10 +47,10 @@ class ProfilePage extends StatelessWidget {
                     ),
                     Positioned(
                       top: screenHeight * 0.18,
-                      left: screenWidth / 2 - profilePictureHeight / 2,
+                      left: screenWidth / 2 - profileTeachersPictureHeight / 2,
                       child: Container(
-                        width: profilePictureHeight,
-                        height: profilePictureHeight,
+                        width: profileTeachersPictureHeight,
+                        height: profileTeachersPictureHeight,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
@@ -68,8 +70,8 @@ class ProfilePage extends StatelessWidget {
                           child: Image.asset(
                             'assets/images/pfpimg.jpg',
                             fit: BoxFit.cover,
-                            width: profilePictureHeight,
-                            height: profilePictureHeight,
+                            width: profileTeachersPictureHeight,
+                            height: profileTeachersPictureHeight,
                           ),
                         ),
                       ),
@@ -85,7 +87,7 @@ class ProfilePage extends StatelessWidget {
                           Text(
                             state.profile.name,
                             style: TextStyle(
-                              fontSize: screenHeight * 0.03,
+                              fontSize: screenHeight * 0.026,
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w600,
                             ),
@@ -94,21 +96,21 @@ class ProfilePage extends StatelessWidget {
                           Text(
                             state.profile.role,
                             style: TextStyle(
-                              fontSize: screenHeight * 0.02,
+                              fontSize: screenHeight * 0.018,
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w600,
                               color: Color(0xFF62C0A1),
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          SizedBox(height: screenHeight * 0.03),
+                          SizedBox(height: screenHeight * 0.026),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 'Email ',
                                 style: TextStyle(
-                                  fontSize: screenHeight * 0.02,
+                                  fontSize: screenHeight * 0.018,
                                   fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -116,7 +118,7 @@ class ProfilePage extends StatelessWidget {
                               Text(
                                 state.profile.email,
                                 style: TextStyle(
-                                  fontSize: screenHeight * 0.02,
+                                  fontSize: screenHeight * 0.018,
                                   fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -130,11 +132,11 @@ class ProfilePage extends StatelessWidget {
                           ),
                           SizedBox(height: screenHeight * 0.01),
                           // Detail Profile Row
-                          _buildProfileRow(
-                            context,
-                            Icons.description_rounded,
-                            'Detail Profil',
-                          ),
+                          _buildProfileTeachersRow(
+                              context,
+                              Icons.description_rounded,
+                              'Detail Profil',
+                              '/detail_profile_teachers_page/:userId'),
                           SizedBox(height: screenHeight * 0.01),
                           Divider(
                             color: Color(0xFFD9D9D9),
@@ -142,11 +144,11 @@ class ProfilePage extends StatelessWidget {
                           ),
                           SizedBox(height: screenHeight * 0.01),
                           // Settings Row
-                          _buildProfileRow(
-                            context,
-                            Icons.settings,
-                            'Pengaturan',
-                          ),
+                          _buildProfileTeachersRow(
+                              context,
+                              Icons.settings,
+                              'Ganti Password',
+                              '/change_password_teacher_view'),
                           SizedBox(height: screenHeight * 0.01),
                           Divider(
                             color: Color(0xFFD9D9D9),
@@ -154,27 +156,53 @@ class ProfilePage extends StatelessWidget {
                           ),
                           SizedBox(height: screenHeight * 0.01),
                           // About Row
-                          _buildProfileRow(
-                            context,
-                            Icons.info_rounded,
-                            'Tentang',
-                          ),
+                          _buildProfileTeachersRow(
+                              context, Icons.info_rounded, 'About', ''),
                           SizedBox(height: screenHeight * 0.01),
                           Divider(
-                            color: Color(0xFFD9D9D9),
+                            color: Colors.grey[400],
                             thickness: 0.9,
                           ),
                           SizedBox(height: screenHeight * 0.01),
                           // Privacy Policy Row
-                          _buildProfileRow(
-                            context,
-                            Icons.privacy_tip_sharp,
-                            'Kebijakan Privasi',
-                          ),
-                          SizedBox(height: screenHeight * 0.01),
-                          Divider(
-                            color: Color(0xFFD9D9D9),
-                            thickness: 0.9,
+                          _buildProfileTeachersRow(
+                              context,
+                              Icons.privacy_tip_sharp,
+                              'Kebijakan Privasi',
+                              '/privacy_policy_teachers_page'),
+                          SizedBox(height: screenHeight * 0.1),
+                          GestureDetector(
+                            onTap: () {
+                              GoRouter.of(context).go('/login-page');
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              decoration: BoxDecoration(
+                                color: Colors.red[500],  // Button color
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: const Stack(
+                                alignment: Alignment.center,  // Center text in the container
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,  // Keep icon left-aligned
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 30),  // Adjust left padding if needed
+                                      child: Icon(Icons.logout, size: 30, color: Colors.white),
+                                    ),
+                                  ),
+                                  const Text(
+                                    "Log Out",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -182,7 +210,7 @@ class ProfilePage extends StatelessWidget {
                   ],
                 ),
               );
-            } else if (state is ProfileError) {
+            } else if (state is ProfileTeachersError) {
               return Center(
                   child: Text('Failed to load profile: ${state.message}'));
             } else {
@@ -194,40 +222,45 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileRow(BuildContext context, IconData icon, String title) {
+  Widget _buildProfileTeachersRow(
+      BuildContext context, IconData icon, String title, String route) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Row(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: screenWidth * 0.04),
-          child: Icon(
-            icon,
-            size: screenHeight * 0.031,
-            color: Colors.black87,
+    return GestureDetector(
+      onTap: () {
+        GoRouter.of(context).go(route); // Use the provided route
+      },
+      child: Row(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: screenWidth * 0.04),
+            child: Icon(
+              icon,
+              size: screenHeight * 0.031,
+              color: Colors.black87,
+            ),
           ),
-        ),
-        SizedBox(width: screenWidth * 0.06),
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: screenHeight * 0.025,
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w400,
+          SizedBox(width: screenWidth * 0.06),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: screenHeight * 0.025,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w400,
+            ),
           ),
-        ),
-        Spacer(),
-        Padding(
-          padding:
-              EdgeInsets.only(right: screenWidth * 0.04), // Add right padding
-          child: Icon(
-            Icons.arrow_forward_ios_sharp,
-            size: screenHeight * 0.025,
-            color: Colors.black54,
+          Spacer(),
+          Padding(
+            padding: EdgeInsets.only(right: screenWidth * 0.04),
+            child: Icon(
+              Icons.arrow_forward_ios_sharp,
+              size: screenHeight * 0.025,
+              color: Colors.black54,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

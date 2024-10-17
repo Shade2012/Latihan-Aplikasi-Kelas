@@ -5,20 +5,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/core/themes/colors.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/home/presentation/page/home_page_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/home_teachers/presentation/page/home_page_teacher_view.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/page/login_page_view.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user_teachers/page/profile_teachers_view.dart';
 import '../../../../core/themes/icons.dart';
 import '../bloc/navbar_bloc.dart';
-
 List<Widget> _bodyItems = [
   const HomePageTeacherView(),
-  Container()
-];
-
-
-List<BottomNavigationBarItem> _navbarItems = [
-
+  ProfileTeachersPage()
 ];
 
 class NavbarTeacherView extends StatelessWidget {
