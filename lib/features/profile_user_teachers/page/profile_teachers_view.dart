@@ -145,7 +145,7 @@ class ProfileTeachersPage extends StatelessWidget {
                           SizedBox(height: screenHeight * 0.01),
                           // Settings Row
                           _buildProfileTeachersRow(
-                              context, Icons.settings, 'Ganti Password', ''),
+                              context, Icons.settings, 'Ganti Password', '/change_password_teacher_view'),
                           SizedBox(height: screenHeight * 0.01),
                           Divider(
                             color: Color(0xFFD9D9D9),
