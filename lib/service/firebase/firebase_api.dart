@@ -1,6 +1,6 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'firebase_options.dart';
@@ -8,7 +8,7 @@ import 'firebase_options.dart';
 class FirebaseApi {
   final firebaseMessaging = FirebaseMessaging.instance;
 
-  static final channel =  AndroidNotificationChannel(
+  static final channel = const AndroidNotificationChannel(
     'high_importance_channel',
     'High Importance Channel',
     importance: Importance.high,
@@ -17,7 +17,8 @@ class FirebaseApi {
   static final flutterNotificationPlugin = FlutterLocalNotificationsPlugin();
 
   static Future<void> initLocalNotifications() async {
-    final InitializationSettings initializationSettings = InitializationSettings(
+    final InitializationSettings initializationSettings =
+        const InitializationSettings(
       android: AndroidInitializationSettings('@mipmap/ic_launcher'),
     );
 
@@ -25,15 +26,18 @@ class FirebaseApi {
       initializationSettings,
     );
 
-    await flutterNotificationPlugin.resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(channel);
+    await flutterNotificationPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(
+          channel,
+        );
   }
-
 
   static Future<void> handleMessage(RemoteMessage message) async {
     if (message.notification != null) {
       RemoteNotification notification = message.notification!;
-      flutterNotificationPlugin.show(
+      await flutterNotificationPlugin.show(
         notification.hashCode,
         notification.title,
         notification.body,
@@ -50,10 +54,12 @@ class FirebaseApi {
   }
 
   static Future<void> handleBackgroundMessaging(RemoteMessage message) async {
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
     if (message.notification != null) {
-      flutterNotificationPlugin.show(
+      await flutterNotificationPlugin.show(
         message.notification.hashCode,
         message.notification?.title,
         message.notification?.body,
@@ -79,13 +85,15 @@ class FirebaseApi {
         provisional: false,
       );
       String? notificationToken;
-      await firebaseMessaging.getToken().then((value){
+      await firebaseMessaging.getToken().then((value) {
         notificationToken = value;
       });
-      print('notif token di firebase_api $notificationToken');
+      if (kDebugMode) {
+        print('notif token di firebase_api $notificationToken');
+      }
       if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
-
+      } else if (settings.authorizationStatus ==
+          AuthorizationStatus.provisional) {
       } else {
         return; // Exit if permission not granted
       }
@@ -94,12 +102,16 @@ class FirebaseApi {
       FirebaseMessaging.onMessage.listen(FirebaseApi.handleMessage);
 
       // Handle background messages
-      FirebaseMessaging.onBackgroundMessage(FirebaseApi.handleBackgroundMessaging);
+      FirebaseMessaging.onBackgroundMessage(
+        FirebaseApi.handleBackgroundMessaging,
+      );
 
       // Initialize local notifications
       await FirebaseApi.initLocalNotifications();
-    } catch (e) {
-      print('Error initializing notifications: $e');
+    } on Exception catch (e) {
+      if (kDebugMode) {
+        print('Error initializing notifications: $e');
+      }
     }
   }
 }
