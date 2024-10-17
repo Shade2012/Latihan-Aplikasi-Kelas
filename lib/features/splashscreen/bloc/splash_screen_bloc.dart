@@ -10,21 +10,26 @@ class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
     on<SplashScreenEvent>(_checkAuthentication);
   }
 
-  Future<void> _checkAuthentication(
+  Future _checkAuthentication(
     SplashScreenEvent event,
     Emitter<SplashScreenState> emit,
   ) async {
+    await Future.delayed(const Duration(milliseconds: 300));
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     final role = prefs.getString('role');
 
     if (token != null && token.isNotEmpty) {
-      if (role == 'guru') {
-        emit(SplashNavigateToHomeTeacher());
-      } else if (role == 'siswa') {
-        emit(SplashNavigateToHome());
-      } else {
-        emit(SplashNavigateToOnBoarding());
+      switch (role) {
+        case 'guru':
+          emit(SplashNavigateToHomeTeacher());
+          break;
+        case 'siswa':
+          emit(SplashNavigateToHome());
+          break;
+        default:
+          emit(SplashNavigateToOnBoarding());
+          break;
       }
     } else {
       emit(SplashNavigateToLogin());

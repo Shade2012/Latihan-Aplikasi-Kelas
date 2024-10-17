@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../core/themes/colors.dart';
+import '../../core/themes/images.dart';
 import 'bloc/splash_screen_bloc.dart';
 
 class SplashScreenView extends StatelessWidget {
-  const SplashScreenView({Key? key}) : super(key: key);
+  const SplashScreenView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +25,21 @@ class SplashScreenView extends StatelessWidget {
             context.pushReplacementNamed('navbar_teacher');
           }
         },
-        child: const Scaffold(
-          backgroundColor: ColorsResources.primaryButton,
-          body: Center(
-            child: CircularProgressIndicator(
-              color: Colors.red,
-            ),
+        child: Scaffold(
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(50),
+                child: Image.asset(Images.logoMain),
+              ),
+              SizedBox(
+                width: 200,
+                child: LinearProgressIndicator(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ],
           ),
         ),
       ),

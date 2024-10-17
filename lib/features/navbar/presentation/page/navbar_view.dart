@@ -34,7 +34,7 @@ class NavbarView extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       SvgPicture.asset(
-                        'assets/icons/home.svg',
+                        'assets/icons/svg_home_navbar_teacher.svg',
                         colorFilter: state.tabIndex == 0
                             ? const ColorFilter.mode(
                                 ColorsResources.primaryButton,
@@ -60,7 +60,7 @@ class NavbarView extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       SvgPicture.asset(
-                        'assets/icons/person.svg',
+                        'assets/icons/svg_profile_navbar_teacher.svg',
                         colorFilter: state.tabIndex == 1
                             ? const ColorFilter.mode(
                                 ColorsResources.primaryButton,
