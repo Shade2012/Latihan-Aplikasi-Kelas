@@ -46,7 +46,7 @@ class NavbarTeacherView extends StatelessWidget {
                       )
                     ],
                   ),
-                  label: 'Home',
+                  label: 'Beranda',
                 ),
                 BottomNavigationBarItem(
                   icon: Column(
@@ -68,7 +68,7 @@ class NavbarTeacherView extends StatelessWidget {
                       )
                     ],
                   ),
-                  label: 'Profile',
+                  label: 'Profil',
                 ),
               ],
               currentIndex: state.tabIndex,
