@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/core/themes/textstyle.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user_teachers/bloc/profile_teachers_bloc.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user_teachers/bloc/profile_teachers_event.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user_teachers/bloc/profile_teachers_state.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user_teachers/repositories/profile_teachers_repositories.dart';
+
+import '../../domain/repositories/profile_teachers_repositories.dart';
+import '../bloc/profile_teachers_bloc.dart';
+import '../bloc/profile_teachers_event.dart';
+import '../bloc/profile_teachers_state.dart';
 
 class ProfileTeachersPage extends StatelessWidget {
-  final double profileTeachersPictureHeight;
-
-  ProfileTeachersPage({this.profileTeachersPictureHeight = 88.0});
+  const ProfileTeachersPage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class ProfileTeachersPage extends StatelessWidget {
         child: BlocBuilder<ProfileTeachersBloc, ProfileTeachersState>(
           builder: (context, state) {
             if (state is ProfileTeachersLoading) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (state is ProfileTeachersLoaded) {
               return SingleChildScrollView(
                 child: Stack(
@@ -36,7 +36,7 @@ class ProfileTeachersPage extends StatelessWidget {
                         Container(
                           width: screenWidth,
                           height: screenHeight * 0.25,
-                          color: Color(0xFF62C0A1),
+                          color: const Color(0xFF62C0A1),
                         ),
                         Container(
                           width: screenWidth,
@@ -47,10 +47,10 @@ class ProfileTeachersPage extends StatelessWidget {
                     ),
                     Positioned(
                       top: screenHeight * 0.18,
-                      left: screenWidth / 2 - profileTeachersPictureHeight / 2,
+                      left: screenWidth / 2 - 88 / 2,
                       child: Container(
-                        width: profileTeachersPictureHeight,
-                        height: profileTeachersPictureHeight,
+                        width: 88,
+                        height: 88,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
@@ -62,7 +62,7 @@ class ProfileTeachersPage extends StatelessWidget {
                               color: Colors.black.withOpacity(0.2),
                               spreadRadius: 4,
                               blurRadius: 10,
-                              offset: Offset(0, 4),
+                              offset: const Offset(0, 4),
                             ),
                           ],
                         ),
@@ -70,8 +70,8 @@ class ProfileTeachersPage extends StatelessWidget {
                           child: Image.asset(
                             'assets/images/pfpimg.jpg',
                             fit: BoxFit.cover,
-                            width: profileTeachersPictureHeight,
-                            height: profileTeachersPictureHeight,
+                            width: 88,
+                            height: 88,
                           ),
                         ),
                       ),
@@ -99,7 +99,7 @@ class ProfileTeachersPage extends StatelessWidget {
                               fontSize: screenHeight * 0.018,
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF62C0A1),
+                              color: const Color(0xFF62C0A1),
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -126,7 +126,7 @@ class ProfileTeachersPage extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: screenHeight * 0.01),
-                          Divider(
+                          const Divider(
                             color: Color(0xFFD9D9D9),
                             thickness: 0.9,
                           ),
@@ -138,7 +138,7 @@ class ProfileTeachersPage extends StatelessWidget {
                               'Detail Profil',
                               '/detail_profile_teachers_page/:userId'),
                           SizedBox(height: screenHeight * 0.01),
-                          Divider(
+                          const Divider(
                             color: Color(0xFFD9D9D9),
                             thickness: 0.9,
                           ),
@@ -150,7 +150,7 @@ class ProfileTeachersPage extends StatelessWidget {
                               'Ganti Password',
                               '/change_password_teacher_view'),
                           SizedBox(height: screenHeight * 0.01),
-                          Divider(
+                          const Divider(
                             color: Color(0xFFD9D9D9),
                             thickness: 0.9,
                           ),
@@ -178,21 +178,26 @@ class ProfileTeachersPage extends StatelessWidget {
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               decoration: BoxDecoration(
-                                color: Colors.red[500],  // Button color
+                                color: Colors.red[500], // Button color
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: const Stack(
-                                alignment: Alignment.center,  // Center text in the container
+                                alignment: Alignment
+                                    .center, // Center text in the container
                                 children: [
                                   Align(
-                                    alignment: Alignment.centerLeft,  // Keep icon left-aligned
+                                    alignment: Alignment
+                                        .centerLeft, // Keep icon left-aligned
                                     child: Padding(
-                                      padding: const EdgeInsets.only(left: 30),  // Adjust left padding if needed
-                                      child: Icon(Icons.logout, size: 30, color: Colors.white),
+                                      padding: EdgeInsets.only(
+                                          left:
+                                              30), // Adjust left padding if needed
+                                      child: Icon(Icons.logout,
+                                          size: 30, color: Colors.white),
                                     ),
                                   ),
-                                  const Text(
-                                    "Log Out",
+                                  Text(
+                                    'Log Out',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: Colors.white,
@@ -214,7 +219,7 @@ class ProfileTeachersPage extends StatelessWidget {
               return Center(
                   child: Text('Failed to load profile: ${state.message}'));
             } else {
-              return Center(child: Text('Something went wrong'));
+              return const Center(child: Text('Something went wrong'));
             }
           },
         ),
@@ -229,7 +234,7 @@ class ProfileTeachersPage extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).go(route); // Use the provided route
+        GoRouter.of(context).go(route);
       },
       child: Row(
         children: [
@@ -250,7 +255,7 @@ class ProfileTeachersPage extends StatelessWidget {
               fontWeight: FontWeight.w400,
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Padding(
             padding: EdgeInsets.only(right: screenWidth * 0.04),
             child: Icon(

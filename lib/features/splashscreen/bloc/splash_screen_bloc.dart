@@ -21,7 +21,7 @@ class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
 
     if (token != null && token.isNotEmpty) {
       switch (role) {
-        case 'guru':
+        case 'admin':
           emit(SplashNavigateToHomeTeacher());
           break;
         case 'siswa':

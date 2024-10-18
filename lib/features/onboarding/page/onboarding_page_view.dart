@@ -69,12 +69,15 @@ class OnboardingView extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          if (state.currentIndex < onboardingSlides.length - 1) {
+                          if (state.currentIndex <
+                              onboardingSlides.length - 1) {
                             _pageController.nextPage(
                               duration: Duration(milliseconds: 300),
                               curve: Curves.easeIn,
                             );
-                            context.read<OnboardingBloc>().add(NextSlideEvent(state.currentIndex + 1));
+                            context
+                                .read<OnboardingBloc>()
+                                .add(NextSlideEvent(state.currentIndex + 1));
                           } else {
                             context.goNamed('login_page');
                           }
@@ -137,7 +140,10 @@ class OnboardingSlide extends StatelessWidget {
         SizedBox(height: screenHeight * 0.02),
         Text(
           slide.title,
-          style: TextStyle(fontSize: screenWidth * 0.06, fontWeight: FontWeight.bold, color: Color(0xFF333333)),
+          style: TextStyle(
+              fontSize: screenWidth * 0.06,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF333333)),
         ),
         SizedBox(height: screenHeight * 0.01),
         Padding(
@@ -145,7 +151,8 @@ class OnboardingSlide extends StatelessWidget {
           child: Text(
             slide.description,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: screenWidth * 0.04, color: Color(0xFF666666)),
+            style: TextStyle(
+                fontSize: screenWidth * 0.04, color: Color(0xFF666666)),
           ),
         ),
       ],
@@ -153,12 +160,12 @@ class OnboardingSlide extends StatelessWidget {
   }
 }
 
-
 class DotIndicator extends StatelessWidget {
   final bool isActive;
   final double width;
 
-  const DotIndicator({Key? key, required this.isActive, required this.width}) : super(key: key);
+  const DotIndicator({Key? key, required this.isActive, required this.width})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
