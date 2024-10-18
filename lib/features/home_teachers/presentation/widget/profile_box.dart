@@ -46,7 +46,7 @@ class ProfileBox extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Good Morning 👋", style: txtRegularBlack),
+                      Text("Selamat Datang 👋", style: txtRegularBlack),
                       SizedBox(height: screenHeight * 0.003,),
                       Text(state is HomePageTeacherLoad ? state.name : '', style: txtRegularBlack),
                     ],
