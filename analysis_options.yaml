@@ -14,7 +14,6 @@ linter:
 
     # Enforce Code Structure and Readability
     sort_child_properties_last: true
-    sort_constructors_first: true
     prefer_typing_uninitialized_variables: true
     prefer_if_elements_to_conditional_expressions: true
     avoid_empty_else: true
@@ -70,7 +69,7 @@ analyzer:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
     - "**/*.part.dart"
-    - "lib/presentation/widgets/**"  # Exclude generated widgets if needed
+    - "lib/presentation/widgets/**" # Exclude generated widgets if needed
     - "lib/data/models/**"
     - "lib/data/dtos/**"
 
