@@ -1,20 +1,20 @@
 import 'package:go_router/go_router.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/forgotpassword/presentation/pages/forgot_password.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/forgotpassword/presentation/pages/forgot_password_second_page.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/forgotpassword/presentation/pages/forgot_password_third_page.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/home/presentation/page/home_page_view.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/page/login_page_view.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/notification_admin/pages/notification_admin_view.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/navbar_teachers/presentation/page/navbar_view.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/pages/notification_user_view.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/changepasswordteacher/page/change_password_teacher_view.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/onboarding/page/onboarding_page_view.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/privacypolicyteacher/page/privacy_policy_teacher_view.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/changepasswordconfirmteacher/page/change_password_confirm_teacher_view.dart';
+import '../../features/forgotpassword/presentation/pages/forgot_password.dart';
+import '../../features/forgotpassword/presentation/pages/forgot_password_second_page.dart';
+import '../../features/forgotpassword/presentation/pages/forgot_password_third_page.dart';
+import '../../features/home/presentation/page/home_page_view.dart';
+import '../../features/login/presentation/page/login_page_view.dart';
+import '../../features/notification_admin/pages/notification_admin_view.dart';
+import '../../features/navbar_teachers/presentation/page/navbar_view.dart';
+import '../../features/notification_user/pages/notification_user_view.dart';
+import '../../features/changepasswordteacher/page/change_password_teacher_view.dart';
+import '../../features/onboarding/page/onboarding_page_view.dart';
+import '../../features/privacypolicyteacher/page/privacy_policy_teacher_view.dart';
+import '../../features/changepasswordconfirmteacher/page/change_password_confirm_teacher_view.dart';
 
-import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/page/profile_view.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/splashscreen/splash_screen_view.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/profile_detail_teachers/page/profile_detail_teachers_view.dart';
+import '../../features/profile_user/page/profile_view.dart';
+import '../../features/splashscreen/splash_screen_view.dart';
+
 import '../../features/change_password_confirm_student/pages/change_password_confirm_student_page.dart';
 import '../../features/change_password_student/presentation/pages/change_password_page.dart';
 import '../../features/navbar/presentation/page/navbar_view.dart';
@@ -68,42 +68,43 @@ class MyRouter {
           GoRoute(
             path: '/forgot_password_third_page',
             name: 'forgot_third_page',
-            pageBuilder: (context, state) =>
-                NoTransitionPage(child: ForgotPasswordThirdPage()),
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: ForgotPasswordThirdPage(),
+            ),
           ),
           GoRoute(
               path: '/change_password_teacher_view',
               name: 'change_password_teacher_view',
               pageBuilder: (context, state) =>
-                  NoTransitionPage(child: ChangePasswordTeacherView())),
+                  const NoTransitionPage(child: ChangePasswordTeacherView())),
           GoRoute(
               path: '/change_password_confirm_teacher_view',
               name: 'change_password_confirm_teacher_view',
-              pageBuilder: (context, state) =>
-                  NoTransitionPage(child: ChangePasswordConfirmTeacherView())),
+              pageBuilder: (context, state) => const NoTransitionPage(
+                  child: ChangePasswordConfirmTeacherView())),
           GoRoute(
             path: '/profile_user',
             name: 'profile_user',
             pageBuilder: (context, state) =>
                 NoTransitionPage(child: ProfilePage()),
           ),
-          GoRoute(
-            path:
-                '/detail_profile_teachers_page/:userId', // Use a dynamic parameter
-            name: 'detail_profile_teachers',
-            pageBuilder: (context, state) {
-              final userId = state
-                  .pathParameters['userId']!; // Get the userId from the route
-              return NoTransitionPage(
-                child: DetailProfileTeachersView(userId: userId),
-              );
-            },
-          ),
+          // GoRoute(
+          //   path:
+          //       '/detail_profile_teachers_page/:userId', // Use a dynamic parameter
+          //   name: 'detail_profile_teachers',
+          //   pageBuilder: (context, state) {
+          //     final userId = state
+          //         .pathParameters['userId']!; // Get the userId from the route
+          //     return NoTransitionPage(
+          //       child: DetailProfileTeachersView(userId: userId),
+          //     );
+          //   },
+          // ),
           GoRoute(
               path: '/privacy_policy_teachers_page',
               name: 'privacy_policy_teachers_page',
               pageBuilder: (context, state) =>
-                  NoTransitionPage(child: PrivacyPolicyTeacherView())),
+                  const NoTransitionPage(child: PrivacyPolicyTeacherView())),
           GoRoute(
             path: '/notification_user',
             name: 'notification_user',
@@ -131,8 +132,9 @@ class MyRouter {
           GoRoute(
             path: '/change_password_confirm_student',
             name: 'change_password_confirm_student',
-            pageBuilder: (context, state) =>
-                NoTransitionPage(child: ChangePasswordConfirmStudentPage()),
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: ChangePasswordConfirmStudentPage(),
+            ),
           ),
         ],
       );

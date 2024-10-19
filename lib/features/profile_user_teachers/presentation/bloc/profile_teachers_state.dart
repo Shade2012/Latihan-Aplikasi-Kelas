@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user_teachers/models/profile_teachers_model.dart';
+import '../../../../core/error/failure.dart';
+import '../../domain/entities/profile_teachers_entities.dart';
 
 abstract class ProfileTeachersState extends Equatable {
   @override
@@ -11,8 +12,7 @@ class ProfileTeachersInitial extends ProfileTeachersState {}
 class ProfileTeachersLoading extends ProfileTeachersState {}
 
 class ProfileTeachersLoaded extends ProfileTeachersState {
-  final ProfileTeachers profile;
-
+  final ProfileTeachersEntities profile;
   ProfileTeachersLoaded({required this.profile});
 
   @override
@@ -20,10 +20,9 @@ class ProfileTeachersLoaded extends ProfileTeachersState {
 }
 
 class ProfileTeachersError extends ProfileTeachersState {
-  final String message;
-
-  ProfileTeachersError({required this.message});
+  final Failure failure;
+  ProfileTeachersError({required this.failure});
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [failure];
 }

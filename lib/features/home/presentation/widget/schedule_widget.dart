@@ -17,9 +17,7 @@ class ScheduleWidget extends StatelessWidget {
         BlocConsumer<HomePageBloc, HomePageState>(
           bloc: context.read<HomePageBloc>()
             ..add(
-              GetScheduleEvent(
-                DateTime.now().weekday - 1,
-              ),
+              GetScheduleEvent(DateTime.now().weekday - 1),
             ),
           listener: (context, state) {},
           builder: (context, state) {

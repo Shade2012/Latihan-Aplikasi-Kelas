@@ -24,6 +24,10 @@ import '../../features/home/presentation/bloc/home_page_bloc.dart';
 import '../../features/home_teachers/domain/usecases/get_weekly_schedule.dart';
 import '../../features/login/domain/usecases/google_login.dart';
 import '../../features/login/presentation/widget/google_button/bloc/google_button_bloc.dart';
+import '../../features/profile_user_teachers/data/datasources/profile_teachers_remote_data_source_impl.dart';
+import '../../features/profile_user_teachers/data/repositories/profile_teachers_repository_impl.dart';
+import '../../features/profile_user_teachers/domain/usecases/get_profile.dart';
+import '../../features/profile_user_teachers/presentation/bloc/profile_teachers_bloc.dart';
 import '../../features/splashscreen/bloc/splash_screen_bloc.dart';
 
 class AppProviders {
@@ -31,15 +35,20 @@ class AppProviders {
     BlocProvider<SplashScreenBloc>(
       create: (context) => SplashScreenBloc(),
     ),
-    BlocProvider<HomePageTeacherBloc>(create: (context) {
-      final homepageTeacherRepository = HomeTeachersRepositoryImpl(
-          homeTeachersRemoteDataSourceImpl: HomeTeachersRemoteDataSourceImpl()
-      );
-      final getScheduleWeekly = GetScheduleWeekly(homepageTeacherRepository);
-      final getKelas = GetKelas(homepageTeacherRepository);
-      final getPelajaran = GetPelajaran(homepageTeacherRepository);
-      return HomePageTeacherBloc(getScheduleWeekly: getScheduleWeekly, getPelajaran: getPelajaran,getKelas: getKelas);
-    },),
+    BlocProvider<HomePageTeacherBloc>(
+      create: (context) {
+        final homepageTeacherRepository = HomeTeachersRepositoryImpl(
+            homeTeachersRemoteDataSourceImpl:
+                HomeTeachersRemoteDataSourceImpl());
+        final getScheduleWeekly = GetScheduleWeekly(homepageTeacherRepository);
+        final getKelas = GetKelas(homepageTeacherRepository);
+        final getPelajaran = GetPelajaran(homepageTeacherRepository);
+        return HomePageTeacherBloc(
+            getScheduleWeekly: getScheduleWeekly,
+            getPelajaran: getPelajaran,
+            getKelas: getKelas);
+      },
+    ),
     // RepositoryProvider<AuthRepository>(
     //   create: (context) => AuthRepositoryImpl(
     //     authRemoteDataSource: AuthRemoteDataSourceImpl(),
@@ -53,7 +62,10 @@ class AppProviders {
         final getScheduleWeekly = GetScheduleWeekly(homepageTeacherRepository);
         final getKelas = GetKelas(homepageTeacherRepository);
         final getPelajaran = GetPelajaran(homepageTeacherRepository);
-        return HomePageTeacherBloc(getScheduleWeekly: getScheduleWeekly, getPelajaran: getPelajaran, getKelas: getKelas);
+        return HomePageTeacherBloc(
+            getScheduleWeekly: getScheduleWeekly,
+            getPelajaran: getPelajaran,
+            getKelas: getKelas);
       },
     ),
     BlocProvider<LoginPageBloc>(
@@ -89,7 +101,8 @@ class AppProviders {
     BlocProvider<HomePageBloc>(
       create: (context) {
         final homepageRepository = HomeRepositoryImpl(
-            homeRemoteDataSourceImpl: HomeRemoteDataSourceImpl());
+          homeRemoteDataSourceImpl: HomeRemoteDataSourceImpl(),
+        );
         return HomePageBloc(
           getScheduleUseCase: GetScheduleUseCase(
             homepageRepository,
@@ -97,5 +110,18 @@ class AppProviders {
         );
       },
     ),
+    BlocProvider<ProfileTeachersBloc>(
+      create: (context) {
+        final profileRepository = ProfileTeachersRepositoryImpl(
+          profileTeachersRemoteDataSourceImpl:
+              ProfileTeachersRemoteDataSourceImpl(),
+        );
+        return ProfileTeachersBloc(
+          getProfileUseCase: GetProfileUseCase(
+            profileRepository,
+          ),
+        );
+      },
+    )
   ];
 }

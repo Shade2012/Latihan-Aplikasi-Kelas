@@ -19,7 +19,9 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
 
   final GetScheduleUseCase _getScheduleUseCase;
   Future _getScheduleData(
-      GetScheduleEvent event, Emitter<HomePageState> emit) async {
+    GetScheduleEvent event,
+    Emitter<HomePageState> emit,
+  ) async {
     emit(HomePageLoading());
     final day = [
       'senin',
@@ -27,7 +29,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
       'rabu',
       'kamis',
       'jumat',
-      'sabtu'
+      'sabtu',
     ][event.selectedIndex];
     Either<Failure, List<ScheduleEntity>> result =
         (await _getScheduleUseCase.execute(day));
