@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/error/failure.dart';
 import '../../domain/entities/profile_teachers_entities.dart';
 import '../../domain/usecases/get_profile.dart';
@@ -8,8 +8,6 @@ import 'profile_teachers_state.dart';
 
 class ProfileTeachersBloc
     extends Bloc<ProfileTeachersEvent, ProfileTeachersState> {
-  final GetProfileUseCase _getProfileUseCase;
-
   ProfileTeachersBloc({
     required GetProfileUseCase getProfileUseCase,
   })  : _getProfileUseCase = getProfileUseCase,
@@ -17,6 +15,7 @@ class ProfileTeachersBloc
     on<LoadProfileTeachers>(_getProfileData);
   }
 
+  final GetProfileUseCase _getProfileUseCase;
   Future<void> _getProfileData(
     LoadProfileTeachers event,
     Emitter<ProfileTeachersState> emit,

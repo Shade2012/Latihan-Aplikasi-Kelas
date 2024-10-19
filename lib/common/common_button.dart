@@ -43,9 +43,17 @@ class CommonButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed:( onPressed != null)  ? (haveRequirement ? (requirementComplete == true ? onPressed : (){}) : onPressed) : null,
+      onPressed: (onPressed != null)
+          ? (haveRequirement
+              ? (requirementComplete == true ? onPressed : () {})
+              : onPressed)
+          : null,
       style: ElevatedButton.styleFrom(
-        backgroundColor: haveRequirement ? (requirementComplete == true ? (backgroundColor ?? ColorsResources.primaryButton) : Colors.grey ) : backgroundColor ?? ColorsResources.primaryButton,
+        backgroundColor: haveRequirement
+            ? (requirementComplete == true
+                ? (backgroundColor ?? ColorsResources.primaryButton)
+                : Colors.grey)
+            : backgroundColor ?? ColorsResources.primaryButton,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 10),
           side: BorderSide(
@@ -53,34 +61,38 @@ class CommonButton extends StatelessWidget {
             width: borderWidth ?? 1.0,
           ),
         ),
-        minimumSize: Size(width ?? 0, height ?? 0), // Set minimum size to zero to let the content dictate the size
-        padding: padding ?? const EdgeInsets.only(
-          left: 16.0,
-          top: 8.0,
-          right: 16.0,
-          bottom: 8.0,
-        ),
+        minimumSize: Size(
+            width ?? 0,
+            height ??
+                0), // Set minimum size to zero to let the content dictate the size
+        padding: padding ??
+            const EdgeInsets.only(
+              left: 16.0,
+              top: 8.0,
+              right: 16.0,
+              bottom: 8.0,
+            ),
       ),
       child: Center(
         child: isLoading
             ? SizedBox(
-          width: 20, // Adjust the width to your preference
-          height: 20, // Adjust the height to your preference
-          child: CircularProgressIndicator(
-            color: Colors.white,
-            strokeWidth: 3, // Adjust the stroke width if needed
-          ),
-        )
-            :widget ??
-            Text(
-              text,
-              style: style ??
-                  TextStyle(
-                    color: textColor ?? Colors.white,
-                    fontSize: fontSize ?? 16,
-                    fontWeight: fontWeight ?? FontWeight.w600,
-                  ),
-            ),
+                width: 20, // Adjust the width to your preference
+                height: 20, // Adjust the height to your preference
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 3, // Adjust the stroke width if needed
+                ),
+              )
+            : widget ??
+                Text(
+                  text,
+                  style: style ??
+                      TextStyle(
+                        color: textColor ?? Colors.white,
+                        fontSize: fontSize ?? 16,
+                        fontWeight: fontWeight ?? FontWeight.w600,
+                      ),
+                ),
       ),
     );
   }

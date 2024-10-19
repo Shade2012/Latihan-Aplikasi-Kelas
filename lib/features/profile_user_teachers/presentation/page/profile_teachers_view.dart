@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../common/common_button.dart';
-import '../../../../core/themes/colors.dart';
 import '../bloc/profile_teachers_bloc.dart';
 import '../bloc/profile_teachers_event.dart';
 import '../bloc/profile_teachers_state.dart';
@@ -23,42 +22,29 @@ class ProfileTeachersPage extends StatelessWidget {
         bloc: BlocProvider.of<ProfileTeachersBloc>(context)
           ..add(LoadProfileTeachers()),
         builder: (context, state) {
-          switch (state) {
-            case ProfileTeachersLoading _:
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            case ProfileTeachersError _:
-              return Center(
-                child: Text(
-                  (state).failure.message,
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+          if (state is ProfileTeachersError) {
+            return Center(
+              child: Text(
+                state.failure.message,
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.red,
                 ),
-              );
-            case ProfileTeachersLoaded _:
-              return SafeArea(
+              ),
+            );
+          }
+          return SafeArea(
+            child: RefreshIndicator(
+              onRefresh: () async =>
+                  BlocProvider.of<ProfileTeachersBloc>(context).add(
+                LoadProfileTeachers(),
+              ),
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(
                   children: [
                     const TeachersProfileWidget(),
-                    Text(
-                      state.profile.name,
-                      style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    Text(
-                      state.profile.role,
-                      style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: ColorsResources.primaryButton),
-                      textAlign: TextAlign.center,
-                    ),
                     const SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -75,7 +61,9 @@ class ProfileTeachersPage extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                state.profile.email,
+                                state is ProfileTeachersLoaded
+                                    ? state.profile.email
+                                    : 'Loading...',
                                 style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -85,44 +73,45 @@ class ProfileTeachersPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 10),
                           TeachersSelectWidget(),
-                          const SizedBox(height: 2),
+                          const SizedBox(height: 20),
                           CommonButton(
                             text: 'Log Out',
                             onPressed: () =>
                                 GoRouter.of(context).go('/login-page'),
                             haveRequirement: false,
-                            widget: const Row(
-                              children: [
-                                Icon(
-                                  Icons.logout,
-                                  size: 24,
-                                  color: Colors.white,
-                                ),
-                                Spacer(),
-                                Text(
-                                  'Log Out',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
+                            widget: const Padding(
+                              padding: EdgeInsets.all(5.0),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.logout,
+                                    size: 24,
                                     color: Colors.white,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
                                   ),
-                                ),
-                                Spacer(),
-                              ],
+                                  Spacer(),
+                                  Text(
+                                    'Log Out',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                ],
+                              ),
                             ),
                           ),
+                          const SizedBox(height: 50),
                         ],
                       ),
                     ),
                   ],
                 ),
-              );
-            default:
-              return const Center(
-                child: Text('Loading...'),
-              );
-          }
+              ),
+            ),
+          );
         },
       ),
     );
