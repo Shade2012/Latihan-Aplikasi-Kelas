@@ -1,5 +1,5 @@
 class ApiEndPoint {
-  static String baseUrl = 'https://b8ca-114-10-151-171.ngrok-free.app';
+  static String baseUrl = 'https://7571-103-3-222-24.ngrok-free.app';
 
   //Auth
   static String baseUrlDetailUser = '$baseUrl/users/details';
@@ -17,4 +17,5 @@ class ApiEndPoint {
   static String baseUrlUserNotification = '$baseUrl/api/notification';
   static String baseUrlTeacherProfile = '$baseUrl/api/user/detail';
   static String baseUrlUserChangePassword = '$baseUrl/api/user/update';
+  static String baseUrlProfileUser = '$baseUrl/api/user/detail';
 }
