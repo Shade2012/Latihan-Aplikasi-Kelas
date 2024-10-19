@@ -61,6 +61,10 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // Get the screen height and width
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -80,43 +84,46 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
             child: Icon(
               Icons.arrow_back_rounded,
               color: Colors.black,
-              size: 20,
+              size: screenWidth * 0.05, // Adjust icon size
             ),
           ),
-          iconSize: 20,
+          iconSize: screenWidth * 0.05,
           padding: EdgeInsets.zero,
           constraints: BoxConstraints(),
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.symmetric(
+          vertical: screenHeight * 0.02, // Adjusts padding based on screen height
+          horizontal: screenWidth * 0.05, // Adjusts padding based on screen width
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               "Ubah Kata Sandi",
               style: TextStyle(
-                fontSize: 30,
+                fontSize: screenWidth * 0.08, // Adjusts font size based on screen width
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 15),
-            const Text(
+            SizedBox(height: screenHeight * 0.02), // Adjusts space based on screen height
+            Text(
               "Masukkan kata sandi baru Anda di bawah dan pastikan itu berbeda dari sebelumnya!",
               style: TextStyle(
-                fontSize: 16,
+                fontSize: screenWidth * 0.045,
                 fontWeight: FontWeight.bold,
                 color: Colors.grey,
               ),
             ),
-            const SizedBox(height: 25),
+            SizedBox(height: screenHeight * 0.03),
 
             // Old Password Field
-            const Text(
+            Text(
               "Password Lama",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: screenWidth * 0.045, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.02),
             TextField(
               controller: _oldPasswordController,
               obscureText: _obscureOldPassword,
@@ -140,14 +147,14 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.02),
 
             // New Password Field
-            const Text(
+            Text(
               "Password Baru",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: screenWidth * 0.045, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.02),
             TextField(
               controller: _newPasswordController,
               obscureText: _obscureNewPassword,
@@ -171,14 +178,14 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.02),
 
             // Confirm New Password Field
-            const Text(
+            Text(
               "Konfirmasi Password Baru",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: screenWidth * 0.045, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.02),
             TextField(
               controller: _confirmPasswordController,
               obscureText: _obscureConfirmPassword,
@@ -202,7 +209,7 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
                 ),
               ),
             ),
-            const SizedBox(height: 50),
+            SizedBox(height: screenHeight * 0.05),
 
             // Submit Button
             GestureDetector(
@@ -223,17 +230,17 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
                 }
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 15),
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
                 decoration: BoxDecoration(
                   color: const Color(0xFF62C0A1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 alignment: Alignment.center,
-                child: const Text(
+                child: Text(
                   "Update Password",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 18,
+                    fontSize: screenWidth * 0.045,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

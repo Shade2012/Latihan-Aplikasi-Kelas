@@ -1,4 +1,6 @@
 import 'package:go_router/go_router.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/changepasswordconfirmteacher/presentation/page/change_password_confirm_teacher_page.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/changepasswordteacher/presentation/page/change_password_teacher_page.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/forgotpassword/presentation/pages/forgot_password.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/forgotpassword/presentation/pages/forgot_password_second_page.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/forgotpassword/presentation/pages/forgot_password_third_page.dart';
@@ -7,11 +9,8 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/pag
 import 'package:latihan_aplikasi_manajemen_kelas/features/notification_admin/pages/notification_admin_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/navbar_teachers/presentation/page/navbar_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/pages/notification_user_view.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/changepasswordteacher/page/change_password_teacher_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/onboarding/page/onboarding_page_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/privacypolicyteacher/page/privacy_policy_teacher_view.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/changepasswordconfirmteacher/page/change_password_confirm_teacher_view.dart';
-
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/page/profile_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/splashscreen/splash_screen_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_detail_teachers/page/profile_detail_teachers_view.dart';
@@ -72,15 +71,15 @@ class MyRouter {
                 NoTransitionPage(child: ForgotPasswordThirdPage()),
           ),
           GoRoute(
-              path: '/change_password_teacher_view',
-              name: 'change_password_teacher_view',
+              path: '/change_password_teacher_page',
+              name: 'change_password_teacher_page',
               pageBuilder: (context, state) =>
-                  NoTransitionPage(child: ChangePasswordTeacherView())),
+                  NoTransitionPage(child: ChangePasswordTeacherPage())),
           GoRoute(
-              path: '/change_password_confirm_teacher_view',
-              name: 'change_password_confirm_teacher_view',
+              path: '/change_password_confirm_teacher_page',
+              name: 'change_password_confirm_teacher_page',
               pageBuilder: (context, state) =>
-                  NoTransitionPage(child: ChangePasswordConfirmTeacherView())),
+                  NoTransitionPage(child: ChangePasswordConfirmTeacherPage())),
           GoRoute(
             path: '/profile_user',
             name: 'profile_user',
