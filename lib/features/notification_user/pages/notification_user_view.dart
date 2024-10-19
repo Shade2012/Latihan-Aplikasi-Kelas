@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/common/appbar_common.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/bloc/notification_user_bloc.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/bloc/notification_user_event.dart';
@@ -19,9 +20,31 @@ class NotificationUserPage extends StatelessWidget {
     final notificationRepository = NotificationAdminRepository(remoteDataSource: remoteDataSource);
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(screenHeight * 0.08),
-        child: AppbarCommon(),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            context.go('/navbar');
+          },
+          icon: Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: ColorsResources.greyAppBar,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.arrow_back_rounded,
+              color: Colors.black,
+              size: 20,
+            ),
+          ),
+          iconSize: 20,
+          padding: EdgeInsets.zero,
+          constraints: BoxConstraints(),
+        ),
       ),
       body: BlocProvider(
         create: (context) => NotificationAdminBloc(notificationRepository: notificationRepository)
@@ -33,7 +56,7 @@ class NotificationUserPage extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Notification Anda",
+                  "Notifikasi Anda",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ),

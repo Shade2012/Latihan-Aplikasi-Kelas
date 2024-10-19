@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/home_teachers/presentation/shimmer/profile_box_shimmer.dart';
 
+import '../../../../common/appbar_common.dart';
 import '../../../../core/themes/images.dart';
 import '../../../../core/themes/textstyle.dart';
 import '../bloc/home_page_teacher_bloc.dart';
@@ -54,7 +56,12 @@ class ProfileBox extends StatelessWidget {
                   ),
                 ],
               ),
-              Icon(Icons.notifications_outlined)
+              IconButton(
+                icon: Icon(Icons.notifications_outlined),
+                onPressed: () {
+                  context.pushNamed('notification_admin');
+                },
+              )
             ],
           );
           }else{
