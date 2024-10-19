@@ -15,9 +15,6 @@ class ApiEndPoint {
   static String baseUrlAllKelas = '$baseUrl/api/kelas';
   static String baseUrlUserSchedule = '$baseUrl/api/jadwal/siswa';
   static String baseUrlUserNotification = '$baseUrl/api/notification';
-<<<<<<< HEAD
   static String baseUrlTeacherProfile = '$baseUrl/api/user/detail';
-=======
   static String baseUrlUserChangePassword = '$baseUrl/api/user/update';
->>>>>>> 85053a6d4b8f5cd7b7b90597f3ddc4905f8dd978
 }
