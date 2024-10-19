@@ -68,6 +68,7 @@ LoginRemoteDataSourceImpl();
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('token', dataBody['access_token']);
         prefs.setString('image', dataBody['user']['image'] ?? '');
+        prefs.setString('role', dataBody['user']['role']);
         prefs.setString('name', dataBody['user']['name']);
         return GoogleLoginModel(
           displayName: user.displayName,
