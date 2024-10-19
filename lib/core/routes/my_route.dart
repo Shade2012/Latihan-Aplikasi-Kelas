@@ -14,20 +14,10 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/onboarding/page/onboar
 import 'package:latihan_aplikasi_manajemen_kelas/features/privacypolicyteacher/page/privacy_policy_teacher_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/page/profile_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/splashscreen/splash_screen_view.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/profile_detail_teachers/page/profile_detail_teachers_view.dart';
 
-import '../../features/forgotpassword/presentation/pages/forgot_password.dart';
-import '../../features/forgotpassword/presentation/pages/forgot_password_second_page.dart';
-import '../../features/forgotpassword/presentation/pages/forgot_password_third_page.dart';
-import '../../features/home/presentation/page/home_page_view.dart';
-import '../../features/login/presentation/page/login_page_view.dart';
-import '../../features/notification_admin/pages/notification_admin_view.dart';
-import '../../features/navbar_teachers/presentation/page/navbar_view.dart';
-import '../../features/notification_user/pages/notification_user_view.dart';
-import '../../features/changepasswordteacher/page/change_password_teacher_view.dart';
+
 import '../../features/onboarding/page/onboarding_page_view.dart';
 import '../../features/privacypolicyteacher/page/privacy_policy_teacher_view.dart';
-import '../../features/changepasswordconfirmteacher/page/change_password_confirm_teacher_view.dart';
 
 import '../../features/profile_user/page/profile_view.dart';
 import '../../features/splashscreen/splash_screen_view.dart';
@@ -98,14 +88,8 @@ class MyRouter {
               path: '/change_password_confirm_teacher_page',
               name: 'change_password_confirm_teacher_page',
               pageBuilder: (context, state) =>
-                  NoTransitionPage(child: ChangePasswordConfirmTeacherPage())),
-                  const NoTransitionPage(child: ChangePasswordTeacherView())),
-          GoRoute(
-              path: '/change_password_confirm_teacher_view',
-              name: 'change_password_confirm_teacher_view',
-              pageBuilder: (context, state) => const NoTransitionPage(
-                  child: ChangePasswordConfirmTeacherView())),
-
+                  const NoTransitionPage(child: ChangePasswordConfirmTeacherPage())
+          ),
           GoRoute(
             path: '/profile_user',
             name: 'profile_user',
