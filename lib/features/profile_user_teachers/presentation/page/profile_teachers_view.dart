@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_button.dart';
 import '../bloc/profile_teachers_bloc.dart';
@@ -76,8 +77,21 @@ class ProfileTeachersPage extends StatelessWidget {
                           const SizedBox(height: 20),
                           CommonButton(
                             text: 'Log Out',
-                            onPressed: () =>
-                                GoRouter.of(context).go('/login-page'),
+                            onPressed: () async {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  backgroundColor: Colors.green,
+                                  content: Text('Log Out Berhasil!'),
+                                ),
+                              );
+                              final prefs =
+                                  await SharedPreferences.getInstance();
+                              await prefs.remove('token');
+                              await prefs.remove('role');
+                              await prefs.remove('image');
+                              await prefs.remove('name');
+                              GoRouter.of(context).go('/login-page');
+                            },
                             haveRequirement: false,
                             widget: const Padding(
                               padding: EdgeInsets.all(5.0),
