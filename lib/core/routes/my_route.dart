@@ -15,6 +15,8 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/changepasswordconfirmt
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/page/profile_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/splashscreen/splash_screen_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_detail_teachers/page/profile_detail_teachers_view.dart';
+import '../../features/change_password_confirm_student/pages/change_password_confirm_student_page.dart';
+import '../../features/change_password_student/presentation/pages/change_password_page.dart';
 import '../../features/navbar/presentation/page/navbar_view.dart';
 
 class MyRouter {
@@ -119,6 +121,18 @@ class MyRouter {
             name: 'onboarding-page',
             pageBuilder: (context, state) =>
                 NoTransitionPage(child: OnboardingView()),
+          ),
+          GoRoute(
+            path: '/change_password_student',
+            name: 'change_password_student',
+            pageBuilder: (context, state) =>
+                NoTransitionPage(child: ChangePasswordPage()),
+          ),
+          GoRoute(
+            path: '/change_password_confirm_student',
+            name: 'change_password_confirm_student',
+            pageBuilder: (context, state) =>
+                NoTransitionPage(child: ChangePasswordConfirmStudentPage()),
           ),
         ],
       );
