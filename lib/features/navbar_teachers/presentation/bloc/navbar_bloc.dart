@@ -7,11 +7,8 @@ part 'navbar_state.dart';
 
 class NavbarBlocTeacher extends Bloc<NavbarEventTeacher, NavbarStateTeacher> {
   NavbarBlocTeacher() : super(NavbarInitial(0)) {
-    emit(NavbarLoading());
     on<ChangeTabEvent>((event, emit) {
-      emit(NavbarLoading());
       emit(NavbarInitial(event.tabIndex));
     });
   }
 }
-
