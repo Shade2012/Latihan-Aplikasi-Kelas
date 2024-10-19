@@ -64,10 +64,6 @@ class _ChangePasswordTeacherFormWidgetState extends State<ChangePasswordTeacherF
 
   @override
   Widget build(BuildContext context) {
-    // Retrieve screen width and height
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -124,29 +120,26 @@ class _ChangePasswordTeacherFormWidgetState extends State<ChangePasswordTeacherF
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              width: screenWidth * 0.9,  // Adjust field width based on screen size
-              child: TextField(
-                controller: _oldPasswordController,
-                obscureText: _obscureOldPassword,
-                focusNode: _oldPasswordFocusNode,
-                onSubmitted: _onOldPasswordSubmitted,
-                decoration: InputDecoration(
-                  hintText: "Masukkan Password Lama",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: const BorderSide(),
+            TextField(
+              controller: _oldPasswordController,
+              obscureText: _obscureOldPassword,
+              focusNode: _oldPasswordFocusNode,
+              onSubmitted: _onOldPasswordSubmitted,
+              decoration: InputDecoration(
+                hintText: "Masukkan Password Lama",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: const BorderSide(),
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _obscureOldPassword ? Icons.visibility_off : Icons.visibility,
                   ),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _obscureOldPassword ? Icons.visibility_off : Icons.visibility,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _obscureOldPassword = !_obscureOldPassword;
-                      });
-                    },
-                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscureOldPassword = !_obscureOldPassword;
+                    });
+                  },
                 ),
               ),
             ),
@@ -158,29 +151,26 @@ class _ChangePasswordTeacherFormWidgetState extends State<ChangePasswordTeacherF
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              width: screenWidth * 0.9,  // Adjust field width based on screen size
-              child: TextField(
-                controller: _newPasswordController,
-                obscureText: _obscureNewPassword,
-                focusNode: _newPasswordFocusNode,
-                onSubmitted: _onNewPasswordSubmitted,
-                decoration: InputDecoration(
-                  hintText: "Masukkan Password Baru",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: const BorderSide(),
+            TextField(
+              controller: _newPasswordController,
+              obscureText: _obscureNewPassword,
+              focusNode: _newPasswordFocusNode,
+              onSubmitted: _onNewPasswordSubmitted,
+              decoration: InputDecoration(
+                hintText: "Masukkan Password Baru",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: const BorderSide(),
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _obscureNewPassword ? Icons.visibility_off : Icons.visibility,
                   ),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _obscureNewPassword ? Icons.visibility_off : Icons.visibility,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _obscureNewPassword = !_obscureNewPassword;
-                      });
-                    },
-                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscureNewPassword = !_obscureNewPassword;
+                    });
+                  },
                 ),
               ),
             ),
@@ -192,69 +182,62 @@ class _ChangePasswordTeacherFormWidgetState extends State<ChangePasswordTeacherF
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              width: screenWidth * 0.9,  // Adjust field width based on screen size
-              child: TextField(
-                controller: _confirmPasswordController,
-                obscureText: _obscureConfirmPassword,
-                focusNode: _confirmPasswordFocusNode,
-                onSubmitted: _onConfirmPasswordSubmitted,
-                decoration: InputDecoration(
-                  hintText: "Konfirmasi Password",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: const BorderSide(),
+            TextField(
+              controller: _confirmPasswordController,
+              obscureText: _obscureConfirmPassword,
+              focusNode: _confirmPasswordFocusNode,
+              onSubmitted: _onConfirmPasswordSubmitted,
+              decoration: InputDecoration(
+                hintText: "Konfirmasi Password",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: const BorderSide(),
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _obscureConfirmPassword ? Icons.visibility_off : Icons.visibility,
                   ),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _obscureConfirmPassword ? Icons.visibility_off : Icons.visibility,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _obscureConfirmPassword = !_obscureConfirmPassword;
-                      });
-                    },
-                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscureConfirmPassword = !_obscureConfirmPassword;
+                    });
+                  },
                 ),
               ),
             ),
             const SizedBox(height: 50),
 
             // Submit Button
-            SizedBox(
-              width: screenWidth * 0.8,  // Adjust button width based on screen size
-              height: screenHeight * 0.07,  // Adjust button height based on screen size
-              child: GestureDetector(
-                onTap: () {
-                  // Validate passwords before submitting
-                  if (_newPasswordController.text == _confirmPasswordController.text &&
-                      _newPasswordController.text.length >= 8) {
-                    // Trigger the change password event with the correct data
-                    context.read<ChangePasswordTeacherBloc>().add(ChangePasswordTeacherRequested(
-                      oldPassword: _oldPasswordController.text,
-                      newPassword: _newPasswordController.text,
-                      token: ('token'),  // Provide actual token if necessary
-                      confirmPassword: _confirmPasswordController.text,
-                    ));
-                  } else {
-                    // Use SnackBarError to show the message
-                    SnackBarError.showError(context, "Kata sandi tidak bisa di ubah");
-                  }
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF62C0A1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  alignment: Alignment.center,
-                  child: const Text(
-                    "Update Password",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+            GestureDetector(
+              onTap: () {
+                // Validate passwords before submitting
+                if (_newPasswordController.text == _confirmPasswordController.text &&
+                    _newPasswordController.text.length >= 8) {
+                  // Trigger the change password event with the correct data
+                  context.read<ChangePasswordTeacherBloc>().add(ChangePasswordTeacherRequested(
+                    oldPassword: _oldPasswordController.text,
+                    newPassword: _newPasswordController.text,
+                    token: ('token'),  // Provide actual token if necessary
+                    confirmPassword: _confirmPasswordController.text,
+                  ));
+                } else {
+                  // Use SnackBarError to show the message
+                  SnackBarError.showError(context, "Kata sandi tidak bisa di ubah");
+                }
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF62C0A1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                alignment: Alignment.center,
+                child: const Text(
+                  "Update Password",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -264,5 +247,4 @@ class _ChangePasswordTeacherFormWidgetState extends State<ChangePasswordTeacherF
       ),
     );
   }
-
 }

@@ -37,7 +37,7 @@ class TeachersSelectWidget extends StatelessWidget {
                 context: context,
                 icon: _items[index]['icon'],
                 title: _items[index]['title'],
-                route: '',
+                route: '/change_password_teacher_page',
               ),
             ],
           ),
