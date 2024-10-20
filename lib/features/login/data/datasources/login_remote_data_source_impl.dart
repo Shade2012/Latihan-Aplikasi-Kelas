@@ -23,28 +23,36 @@ LoginRemoteDataSourceImpl();
     });
     print('ini fcm token $notificationToken');
     // TODO: implement login
-    final response = await dioInstance.postRequest(endpoint: ApiEndPoint.baseUrlLogin,
-        data:{
-          'email':email,
-          'password':password,
-          'fcm_token':notificationToken
-        } );
-    if(response.statusCode == 200){
-      Map<String,dynamic> dataBody = response.data;
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setString('token', dataBody['access_token']);
-      prefs.setString('role', dataBody['user']['role']);
-      prefs.setString('image', dataBody['user']['image']  ?? '');
-      prefs.setString('name', dataBody['user']['name']);
-      print(prefs.getString('role'));
-      print(prefs.getString('token'));
-      print('ini fcm token $notificationToken');
-      return LoginModel.fromJson(dataBody);
-      // return UserModel.fromJson(data);
-    }if(response.statusCode == 404){
-      throw const EmptyException(message: 'Data not found Error 404');
-    }else{
-      throw GeneralException(message: 'Cannot Get Data ${response.data}');
+    try{
+      final response = await dioInstance.postRequest(endpoint: ApiEndPoint.baseUrlLogin,
+          data:{
+            'email':email,
+            'password':password,
+            'fcm_token':notificationToken
+          } );
+      if(response.statusCode == 200){
+        Map<String,dynamic> dataBody = response.data;
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString('token', dataBody['access_token']);
+        prefs.setString('role', dataBody['user']['role']);
+        prefs.setString('image', dataBody['user']['image']  ?? '');
+        prefs.setString('name', dataBody['user']['name']);
+        print(prefs.getString('role'));
+        print(prefs.getString('token'));
+        print('ini fcm token $notificationToken');
+        return LoginModel.fromJson(dataBody);
+        // return UserModel.fromJson(data);
+      }
+      if(response.statusCode == 401){
+        print('object');
+      }
+      if(response.statusCode == 404){
+        throw const EmptyException(message: 'Data not found Error 404');
+      }else{
+        throw GeneralException(message: 'Cannot Get Data');
+      }
+    }catch(e){
+      throw Exception('Email atau Password Salah');
     }
   }
 

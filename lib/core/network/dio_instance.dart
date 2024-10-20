@@ -21,6 +21,7 @@ class DioInstance {
     Response response;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
+    print(token);
     try {
       response = await dio.get(
         endpoint,
@@ -129,15 +130,15 @@ class DioInstance {
     dio.interceptors.add(
       InterceptorsWrapper(
         onError: (error, handler) {
-          print("Error occurred: ${error.message}");
+          print('Error occurred: ${error.message}');
           return handler.next(error);
         },
         onRequest: (request, handler) {
-          print("Requesting: ${request.method} ${request.path}");
+          print('Requesting: ${request.method} ${request.path}');
           return handler.next(request);  // Lanjutkan permintaan
         },
         onResponse: (response, handler) {
-          print("Response data: ${response.data}");
+          print('Response data: ${response.data}');
           return handler.next(response);  // Lanjutkan respons
         },
       ),

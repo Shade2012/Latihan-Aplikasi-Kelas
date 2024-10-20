@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_button.dart';
+import '../../../../common/common_dialog.dart';
 import '../bloc/profile_teachers_bloc.dart';
 import '../bloc/profile_teachers_event.dart';
 import '../bloc/profile_teachers_state.dart';
@@ -78,19 +79,31 @@ class ProfileTeachersPage extends StatelessWidget {
                           CommonButton(
                             text: 'Log Out',
                             onPressed: () async {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  backgroundColor: Colors.green,
-                                  content: Text('Log Out Berhasil!'),
-                                ),
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return CommonDialog(title: 'Pesan', content: 'Apakah anda yakin ingin keluar ?',
+                                        cancelText: 'Tidak', confirmText: 'Iya',
+                                        onCancelPressed: (){
+                                          context.pop();
+                                        }, onConfirmPressed: () async{
+
+                                          final prefs = await SharedPreferences.getInstance();
+                                          await prefs.remove('token');
+                                          await prefs.remove('role');
+                                          await prefs.remove('image');
+                                          await prefs.remove('name');
+                                          context.pushReplacement('/splash');
+                                          // GoRouter.of(context).pushReplacement('/splash')
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            const SnackBar(
+                                              backgroundColor: Colors.green,
+                                              content: Text('Log Out Berhasil!'),
+                                            ),
+                                          );
+                                        });
+                                  },
                               );
-                              final prefs =
-                                  await SharedPreferences.getInstance();
-                              await prefs.remove('token');
-                              await prefs.remove('role');
-                              await prefs.remove('image');
-                              await prefs.remove('name');
-                              GoRouter.of(context).go('/login-page');
                             },
                             haveRequirement: false,
                             widget: const Padding(

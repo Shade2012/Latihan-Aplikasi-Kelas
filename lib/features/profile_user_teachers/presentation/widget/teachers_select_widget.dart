@@ -9,14 +9,17 @@ class TeachersSelectWidget extends StatelessWidget {
     {
       'title': 'Ganti Password',
       'icon': Icons.settings_rounded,
+      'route': '/change_password_teacher_page'
     },
     {
       'title': 'About',
       'icon': Icons.info_rounded,
+      'route': '/privacy_policy_teachers_page'
     },
     {
       'title': 'Kebijakan Privasi',
       'icon': Icons.privacy_tip_rounded,
+      'route': '/privacy_policy_teachers_page'
     },
   ];
 
@@ -37,7 +40,7 @@ class TeachersSelectWidget extends StatelessWidget {
                 context: context,
                 icon: _items[index]['icon'],
                 title: _items[index]['title'],
-                route: '/change_password_teacher_page',
+                route: _items[index]['route'],
               ),
             ],
           ),
@@ -56,7 +59,7 @@ Widget _buildItemListView({
   return InkWell(
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
-    onTap: () => GoRouter.of(context).go(route),
+    onTap: () => context.push(route),
     child: Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Row(

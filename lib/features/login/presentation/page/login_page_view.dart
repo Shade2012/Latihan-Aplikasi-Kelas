@@ -44,6 +44,8 @@ class _LoginPageViewState extends State<LoginPageView> {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _passwordController.clear();
+    _emailController.clear();
   }
 
   @override
