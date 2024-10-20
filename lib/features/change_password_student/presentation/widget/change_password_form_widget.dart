@@ -7,20 +7,21 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/change_password_studen
 import '../../../../common/appbar_common.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/core/error/snackbar_error.dart';
 
+import '../../../../core/themes/textstyle.dart'; // Importing the consistent text styles
+
 class ChangePasswordFormWidget extends StatefulWidget {
   @override
   _ChangePasswordFormWidgetState createState() => _ChangePasswordFormWidgetState();
 }
 
 class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
-  bool _obscureOldPassword = true; // For the old password field
-  bool _obscureNewPassword = true; // For the new password field
-  bool _obscureConfirmPassword = true; // For the confirm password field
+  bool _obscureOldPassword = true;
+  bool _obscureNewPassword = true;
+  bool _obscureConfirmPassword = true;
   final TextEditingController _oldPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
 
-  // Focus nodes for navigation between text fields
   final FocusNode _oldPasswordFocusNode = FocusNode();
   final FocusNode _newPasswordFocusNode = FocusNode();
   final FocusNode _confirmPasswordFocusNode = FocusNode();
@@ -35,7 +36,6 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
 
   void _onOldPasswordSubmitted(String value) {
     if (value.length >= 8) {
-      // Move to the next field
       FocusScope.of(context).requestFocus(_newPasswordFocusNode);
     } else {
       SnackBarError.showError(context, "Password Lama harus memiliki minimal 8 karakter.");
@@ -44,7 +44,6 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
 
   void _onNewPasswordSubmitted(String value) {
     if (value.length >= 8) {
-      // Move to the next field
       FocusScope.of(context).requestFocus(_confirmPasswordFocusNode);
     } else {
       SnackBarError.showError(context, "Password Baru harus memiliki minimal 8 karakter.");
@@ -53,7 +52,7 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
 
   void _onConfirmPasswordSubmitted(String value) {
     if (value.length >= 8) {
-      // Optionally you can trigger the change password here or show a final message
+      // Trigger the change password event or show a message
     } else {
       SnackBarError.showError(context, "Konfirmasi Password harus memiliki minimal 8 karakter.");
     }
@@ -93,28 +92,21 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               "Ubah Kata Sandi",
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
+              style: txtHeading,
             ),
             const SizedBox(height: 15),
-            const Text(
+            Text(
               "Masukkan kata sandi baru Anda di bawah dan pastikan itu berbeda dari sebelumnya!",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey,
-              ),
+              style: txtDescriptionBold,
             ),
             const SizedBox(height: 25),
 
             // Old Password Field
-            const Text(
+            Text(
               "Password Lama",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: txtRegularBlack,
             ),
             const SizedBox(height: 20),
             TextField(
@@ -124,6 +116,7 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
               onSubmitted: _onOldPasswordSubmitted,
               decoration: InputDecoration(
                 hintText: "Masukkan Password Lama",
+                hintStyle: txtInputHint,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   borderSide: const BorderSide(),
@@ -143,9 +136,9 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
             const SizedBox(height: 20),
 
             // New Password Field
-            const Text(
+            Text(
               "Password Baru",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: txtRegularBlack,
             ),
             const SizedBox(height: 20),
             TextField(
@@ -155,6 +148,7 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
               onSubmitted: _onNewPasswordSubmitted,
               decoration: InputDecoration(
                 hintText: "Masukkan Password Baru",
+                hintStyle: txtInputHint,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   borderSide: const BorderSide(),
@@ -174,9 +168,9 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
             const SizedBox(height: 20),
 
             // Confirm New Password Field
-            const Text(
+            Text(
               "Konfirmasi Password Baru",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: txtRegularBlack,
             ),
             const SizedBox(height: 20),
             TextField(
@@ -186,6 +180,7 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
               onSubmitted: _onConfirmPasswordSubmitted,
               decoration: InputDecoration(
                 hintText: "Konfirmasi Password",
+                hintStyle: txtInputHint,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   borderSide: const BorderSide(),
@@ -207,18 +202,15 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
             // Submit Button
             GestureDetector(
               onTap: () {
-                // Validate passwords before submitting
                 if (_newPasswordController.text == _confirmPasswordController.text &&
                     _newPasswordController.text.length >= 8) {
-                  // Trigger the change password event with the correct data
                   context.read<ChangePasswordBloc>().add(ChangePasswordRequested(
                     oldPassword: _oldPasswordController.text,
                     newPassword: _newPasswordController.text,
-                    token: ('token'),  // Provide actual token if necessary
+                    token: ('token'),
                     confirmPassword: _confirmPasswordController.text,
                   ));
                 } else {
-                  // Use SnackBarError to show the message
                   SnackBarError.showError(context, "Kata sandi tidak bisa di ubah");
                 }
               },
@@ -233,8 +225,8 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
                   "Update Password",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
