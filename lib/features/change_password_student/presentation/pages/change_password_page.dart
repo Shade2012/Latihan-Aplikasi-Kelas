@@ -27,7 +27,7 @@ class ChangePasswordPage extends StatelessWidget {
           listener: (context, state) {
             if (state is ChangePasswordSuccess) {
               SnackbarSuccess.showSuccess(context, 'Password Berhasil Diubah');
-              context.pushNamed('change_password_confirm_student');
+              context.pushNamed('navbar');
             } else if (state is ChangePasswordFailure) {
               String errorMessage = state.message.isNotEmpty
                   ? state.message
