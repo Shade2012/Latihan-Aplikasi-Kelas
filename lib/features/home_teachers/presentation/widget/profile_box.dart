@@ -40,8 +40,8 @@ class ProfileBox extends StatelessWidget {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
-                      child: state is HomePageTeacherLoad ? (state.image == '' || state.image == null ? Image.asset(Images.imageExample,fit: BoxFit.cover,height: 80,)
-                          : Image.network(state.image ?? '')) : Image.asset(Images.imageExample,fit: BoxFit.cover,height: 80,) ,
+                      child: state is HomePageTeacherLoad ? (state.image == '' || state.image == null ? Image.asset(Images.imageExample,fit: BoxFit.cover,width: 60,height: 60,)
+                          : Image.network(state.image ?? '',fit: BoxFit.cover,height: 60,width: 60,alignment: Alignment.center,)) : Image.asset(Images.imageExample,fit: BoxFit.cover,width: 60,height: 60,) ,
                     ),
                   ),
                   const SizedBox(width: 10,),

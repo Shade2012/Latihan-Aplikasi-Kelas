@@ -23,6 +23,9 @@ class TeachersProfileWidget extends StatelessWidget {
         if (state is ProfileTeachersLoading) {
           return _buildLoadingProfile(context);
         }
+        if(state is ProfileTeachersLoaded){
+          print(state.profile.image);
+        }
         return Column(
           children: [
             Stack(
@@ -64,10 +67,8 @@ class TeachersProfileWidget extends StatelessWidget {
                       ],
                     ),
                     child: ClipOval(
-                      child: Image.asset(
-                        imageUrl,
-                        fit: BoxFit.cover,
-                      ),
+                      child: state is ProfileTeachersLoaded ? (state.profile.image == null || state.profile.image!.isEmpty  ?
+        (Image.asset(imageUrl,fit: BoxFit.cover,)): Image.network(state.profile.image ?? '')) : Image.asset(imageUrl,fit: BoxFit.cover),
                     ),
                   ),
                 ),

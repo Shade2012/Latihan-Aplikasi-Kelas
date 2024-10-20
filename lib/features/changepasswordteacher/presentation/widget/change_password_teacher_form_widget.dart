@@ -7,6 +7,7 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/change_password_studen
 import '../../../../common/appbar_common.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/core/error/snackbar_error.dart';
 
+import '../../../../core/themes/textstyle.dart';
 import '../bloc/change_password_teacher_bloc.dart';
 import '../bloc/change_password_teacher_event.dart';
 
@@ -96,28 +97,21 @@ class _ChangePasswordTeacherFormWidgetState extends State<ChangePasswordTeacherF
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               "Ubah Kata Sandi",
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
+              style: txtHeading
             ),
             const SizedBox(height: 15),
-            const Text(
+            Text(
               "Masukkan kata sandi baru Anda di bawah dan pastikan itu berbeda dari sebelumnya!",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey,
-              ),
+              style: txtDescriptionBold
             ),
             const SizedBox(height: 25),
 
             // Old Password Field
-            const Text(
+             Text(
               "Password Lama",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: txtRegularBlack,
             ),
             const SizedBox(height: 20),
             TextField(
@@ -127,6 +121,7 @@ class _ChangePasswordTeacherFormWidgetState extends State<ChangePasswordTeacherF
               onSubmitted: _onOldPasswordSubmitted,
               decoration: InputDecoration(
                 hintText: "Masukkan Password Lama",
+                hintStyle: txtInputHint,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   borderSide: const BorderSide(),
@@ -146,9 +141,9 @@ class _ChangePasswordTeacherFormWidgetState extends State<ChangePasswordTeacherF
             const SizedBox(height: 20),
 
             // New Password Field
-            const Text(
+             Text(
               "Password Baru",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: txtRegularBlack,
             ),
             const SizedBox(height: 20),
             TextField(
@@ -158,6 +153,7 @@ class _ChangePasswordTeacherFormWidgetState extends State<ChangePasswordTeacherF
               onSubmitted: _onNewPasswordSubmitted,
               decoration: InputDecoration(
                 hintText: "Masukkan Password Baru",
+                hintStyle: txtInputHint,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   borderSide: const BorderSide(),
@@ -177,9 +173,9 @@ class _ChangePasswordTeacherFormWidgetState extends State<ChangePasswordTeacherF
             const SizedBox(height: 20),
 
             // Confirm New Password Field
-            const Text(
+            Text(
               "Konfirmasi Password Baru",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: txtRegularBlack,
             ),
             const SizedBox(height: 20),
             TextField(
@@ -189,6 +185,7 @@ class _ChangePasswordTeacherFormWidgetState extends State<ChangePasswordTeacherF
               onSubmitted: _onConfirmPasswordSubmitted,
               decoration: InputDecoration(
                 hintText: "Konfirmasi Password",
+                hintStyle: txtInputHint,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   borderSide: const BorderSide(),
@@ -236,8 +233,8 @@ class _ChangePasswordTeacherFormWidgetState extends State<ChangePasswordTeacherF
                   "Update Password",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),

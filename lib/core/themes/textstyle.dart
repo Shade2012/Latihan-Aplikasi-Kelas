@@ -45,6 +45,24 @@ TextStyle txtLightGrey = GoogleFonts.poppins(
       fontSize: 12,
     ));
 
+TextStyle titleDialogButtonTextStyle = GoogleFonts.poppins(
+    textStyle: TextStyle(
+        color: Colors.black,
+        fontWeight: FontWeight.normal,
+        fontSize: 14));
+
+TextStyle contentDialogButtonTextStyle = GoogleFonts.poppins(
+    textStyle: TextStyle(
+        color: Colors.black,
+        fontWeight: FontWeight.normal,
+        fontSize: 12));
+
+TextStyle dialogButtonTextStyle = GoogleFonts.poppins(
+    textStyle: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+        fontSize: 12));
+
 TextStyle txtNormalGrey = GoogleFonts.poppins(
     textStyle: TextStyle(
       color: Colors.grey,

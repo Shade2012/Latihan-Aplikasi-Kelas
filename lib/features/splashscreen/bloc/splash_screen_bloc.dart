@@ -31,8 +31,9 @@ class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
           emit(SplashNavigateToOnBoarding());
           break;
       }
-    } else {
-      emit(SplashNavigateToLogin());
+    }else{
+      emit(SplashNavigateToOnBoarding());
     }
+
   }
 }
