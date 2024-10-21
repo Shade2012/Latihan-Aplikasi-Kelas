@@ -14,7 +14,7 @@ class TeachersSelectWidget extends StatelessWidget {
     {
       'title': 'About',
       'icon': Icons.info_rounded,
-      'route': '/privacy_policy_teachers_page'
+      'route': '/about_page'
     },
     {
       'title': 'Kebijakan Privasi',

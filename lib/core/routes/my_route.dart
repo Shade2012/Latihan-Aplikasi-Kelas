@@ -14,6 +14,7 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/onboarding/page/onboar
 import 'package:latihan_aplikasi_manajemen_kelas/features/privacypolicyteacher/page/privacy_policy_teacher_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/page/profile_view.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/splashscreen/splash_screen_view.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/aboutteacher/page/about_teacher_view.dart';
 
 
 import '../../features/onboarding/page/onboarding_page_view.dart';
@@ -143,6 +144,12 @@ class MyRouter {
             pageBuilder: (context, state) => const NoTransitionPage(
               child: ChangePasswordConfirmStudentPage(),
             ),
+          ),
+          GoRoute(
+            path: '/about_page',
+            name: 'about_page',
+            pageBuilder: (context, state) =>
+                NoTransitionPage(child: AboutTeacherView()),
           ),
         ],
       );
