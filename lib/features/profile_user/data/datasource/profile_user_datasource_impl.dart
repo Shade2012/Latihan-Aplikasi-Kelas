@@ -1,3 +1,4 @@
+import 'dart:convert';  // Import this for JSON decoding
 import 'package:latihan_aplikasi_manajemen_kelas/core/network/dio_instance.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/core/error/exceptions.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/models/profile_model.dart';
@@ -21,11 +22,17 @@ class ProfileUserDataSourceImpl implements ProfileUserDataSource {
       print("Response status code: ${response.statusCode}");
       print("Response body: ${response.data}");
 
-      Map<String, dynamic> body = response.data;
+      // Parse the response data if it is a String
+      Map<String, dynamic> body;
+      if (response.data is String) {
+        body = json.decode(response.data);
+      } else {
+        body = response.data;
+      }
 
       if (response.statusCode == 200) {
         if (body['user'] != null) {
-          // Gunakan ProfileUserModel untuk parsing JSON
+          // Use ProfileUserModel for parsing JSON
           return ProfileUserModel.fromJson(body['user']);
         } else {
           throw Exception("User data not found");

@@ -7,8 +7,9 @@ import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/data/data
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/repositories/profile_repositories_impl.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/domain/usecase/get_profile_user.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/core/network/dio_instance.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/profile_user/models/profile_model.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/page/login_page_view.dart';
 
 class ProfilePage extends StatelessWidget {
   final double profilePictureHeight;
@@ -17,16 +18,16 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dioInstance = DioInstance(); 
-    final profileUserDataSource = ProfileUserDataSourceImpl(dioInstance: dioInstance); 
+    final dioInstance = DioInstance();
+    final profileUserDataSource = ProfileUserDataSourceImpl(dioInstance: dioInstance);
     final profileRepository = ProfileUserRepositoryImpl(profileUserDataSource: profileUserDataSource);
-    final getProfileUserUseCase = GetProfileUserUseCase(repository: profileRepository); 
+    final getProfileUserUseCase = GetProfileUserUseCase(repository: profileRepository);
 
     return Scaffold(
       body: BlocProvider(
         create: (context) => ProfileUserBloc(getProfileUserUseCase: getProfileUserUseCase)
-          ..add(LoadProfileUser()), 
-        child: BlocBuilder<ProfileUserBloc, ProfileUserState>(        
+          ..add(LoadProfileUser()),
+        child: BlocBuilder<ProfileUserBloc, ProfileUserState>(
           builder: (context, state) {
             if (state is ProfileUserLoading) {
               return Center(child: CircularProgressIndicator());
@@ -48,7 +49,7 @@ class ProfilePage extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        SizedBox(height: 20), 
+        SizedBox(height: 20),
         _buildLogoutButton(context),
         SizedBox(height: 20),
       ],
@@ -78,7 +79,7 @@ class ProfilePage extends StatelessWidget {
             ],
           ),
           Positioned(
-            top: screenHeight * 0.18,
+            top: screenHeight * 0.20,
             left: screenWidth / 2 - profilePictureHeight / 2,
             child: Container(
               width: profilePictureHeight,
@@ -99,23 +100,21 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
               child: ClipOval(
-              child: Image.network(
-                '',
-                fit: BoxFit.cover,
-                width: profilePictureHeight,
-                height: profilePictureHeight,
-                errorBuilder: (context, error, stackTrace) {
-                  print('Error loading network image: $error'); 
-                  return Image.asset(
-                    'assets/images/default.jpg', 
-                    fit: BoxFit.cover,
-                    width: profilePictureHeight,
-                    height: profilePictureHeight,
-                  );
-                },
+                child: Image.network(
+                  state.profileUser.image ?? 'assets/images/default.jpg',
+                  fit: BoxFit.cover,
+                  width: profilePictureHeight,
+                  height: profilePictureHeight,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      'assets/images/default.jpg',
+                      fit: BoxFit.cover,
+                      width: profilePictureHeight,
+                      height: profilePictureHeight,
+                    );
+                  },
+                ),
               ),
-            ),
-
             ),
           ),
           Padding(
@@ -141,8 +140,8 @@ class ProfilePage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: screenHeight * 0.02,
                     fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,  
-                    color: Color(0xFF62C0A1),
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF808080),
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -151,13 +150,19 @@ class ProfilePage extends StatelessWidget {
                 SizedBox(height: screenHeight * 0.03),
                 Divider(color: Color(0xFFD9D9D9), thickness: 0.9),
                 SizedBox(height: screenHeight * 0.01),
-                _buildProfileRow(context, Icons.settings, 'Ganti Password'),
+                _buildProfileRow(context, Icons.settings, 'Ganti Password', onTap: () {
+                  context.go('/forgot_password_page'); 
+                }, iconColor: Color(0xFF808080)), // Change color to 808080
                 _buildDivider(),
                 SizedBox(height: screenHeight * 0.01),
-                _buildProfileRow(context, Icons.settings, 'About'),
+                _buildProfileRow(context, Icons.info, 'About',  onTap: () {
+                  context.go('/about_page'); 
+                },iconColor: Color(0xFF808080)), // Change color to 808080
                 _buildDivider(),
                 SizedBox(height: screenHeight * 0.01),
-                _buildProfileRow(context, Icons.privacy_tip_sharp, 'Kebijakan Privasi'),
+                _buildProfileRow(context, Icons.privacy_tip, 'Kebijakan Privasi',onTap: () {
+                  context.go('/privacy_policy_teachers_page'); 
+                }, iconColor: Color(0xFF808080)), // Change color to 808080
                 SizedBox(height: screenHeight * 0.01),
               ],
             ),
@@ -170,7 +175,73 @@ class ProfilePage extends StatelessWidget {
   Widget _buildLogoutButton(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).go('/login-page'); // Navigate to login page
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              title: Text(
+                'Pesan',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              content: Text(
+                'Apakah anda yakin ingin keluar?',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 16,
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                  child: Text(
+                    'Tidak',
+                    style: TextStyle(
+                      color: Color(0xFF62C0A1),
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    await prefs.remove('token');
+                    await prefs.remove('role');
+                    await prefs.remove('image');
+                    await prefs.remove('name');
+
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => LoginPageView()),
+                    );
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        backgroundColor: Colors.green,
+                        content: Text('Log Out Berhasil!'),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'Iya',
+                    style: TextStyle(
+                      color: Colors.red[500],
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
       },
       child: Container(
         width: 352,
@@ -215,80 +286,55 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _buildDetailRow(BuildContext context, String title, String value) {
-    final screenHeight = MediaQuery.of(context).size.height;
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          '$title ',
+          title,
           style: TextStyle(
-            fontSize: screenHeight * 0.02,
             fontFamily: 'Poppins',
-            fontWeight: FontWeight.w400,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        Expanded(
-          child: Text(
-            value,
-            style: TextStyle(
-              fontSize: screenHeight * 0.02,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.w600,
-            ),
-            textAlign: TextAlign.end,
-            overflow: TextOverflow.ellipsis,
+        Text(
+          value,
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
           ),
         ),
       ],
     );
   }
 
-  Widget _buildProfileRow(BuildContext context, IconData icon, String title) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
-
+  Widget _buildProfileRow(BuildContext context, IconData icon, String title, {VoidCallback? onTap, Color? iconColor}) {
     return GestureDetector(
-      onTap: () {
-        // TODO: Implement onTap action for each profile row
-      },
-      child: Row(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: screenWidth * 0.04),
-            child: Icon(
-              icon,
-              size: screenHeight * 0.031,
-              color: Colors.black87,
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Row(
+          children: [
+            Icon(icon, color: iconColor ?? Color(0xFF62C0A1)), // Use the provided color or default color
+            SizedBox(width: 16),
+            Text(
+              title,
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
             ),
-          ),
-          SizedBox(width: screenWidth * 0.06),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: screenHeight * 0.025,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          Spacer(),
-          Padding(
-            padding: EdgeInsets.only(right: screenWidth * 0.04),
-            child: Icon(
-              Icons.arrow_forward_ios,
-              size: screenHeight * 0.020,
-              color: Colors.black54,
-            ),
-          ),
-        ],
+            Spacer(),
+            Icon(Icons.arrow_forward_ios, size: 16, color: Color(0xFFD9D9D9)),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildDivider() {
-    return Divider(
-      color: Color(0xFFD9D9D9),
-      thickness: 0.9,
-    );
+    return Divider(color: Color(0xFFD9D9D9), thickness: 0.9);
   }
 }

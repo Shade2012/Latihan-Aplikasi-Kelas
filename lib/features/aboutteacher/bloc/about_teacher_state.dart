@@ -1,10 +1,19 @@
 import 'package:equatable/equatable.dart';
 
-class AboutTeacherState extends Equatable{
+abstract class AboutTeacherState extends Equatable {
+  const AboutTeacherState();
+
   @override
-  List<Object> get props =>[];
+  List<Object> get props => [];
 }
 
-class AboutTeacherInitial extends AboutTeacherState{}
+class AboutTeacherInitial extends AboutTeacherState {}
 
-class AboutTeacherLoading extends AboutTeacherState{}
+class LoadAboutTeacher extends AboutTeacherState {
+  final String page;
+
+  const LoadAboutTeacher({required this.page});
+
+  @override
+  List<Object> get props => [page];
+}
