@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/home/domain/entities/schedule_entities.dart';
+import '../../domain/entities/schedule_entities.dart';
 
 import '../../../../core/themes/colors.dart';
 

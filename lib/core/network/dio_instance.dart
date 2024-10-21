@@ -1,19 +1,18 @@
-
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'api_endpoint.dart';
 
 class DioInstance {
   late Dio dio;
 
-  DioInstance(){
+  DioInstance() {
     dio = Dio(BaseOptions(
-        baseUrl: ApiEndPoint.baseUrl
+      baseUrl: ApiEndPoint.baseUrl,
     ));
     initializeInterceptors();
   }
 
+  // GET Request Method
   Future<Response> getRequest({
     required String endpoint,
     bool? isAuthorize,
@@ -22,110 +21,127 @@ class DioInstance {
     Response response;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
-    try{
-      response = await dio.get(endpoint,queryParameters: queryParameters,options: Options(
+    print(token);
+    try {
+      response = await dio.get(
+        endpoint,
+        queryParameters: queryParameters,
+        options: Options(
           headers: {
             "Accept": "application/json",
-            if(isAuthorize ?? false) "Authorization" : "Bearer $token"
-          }
-      )
+            if (isAuthorize ?? false) "Authorization": "Bearer $token"
+          },
+        ),
+      );
+    } on DioException catch (e) {
+      throw Exception(e.message);  // Handle error
+    }
+    return response;
+  }
+
+  // POST Request Method
+  Future<Response> postRequest({
+    required String endpoint,
+    bool? isAuthorize,  // Flag untuk Authorization
+    required Object data,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    Response response;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    try {
+      response = await dio.post(
+        endpoint,
+        data: data,
+        queryParameters: queryParameters,
+        options: Options(
+          headers: {
+            "Accept": "application/json",
+            if (isAuthorize ?? false) "Authorization": "Bearer $token"
+          },
+        ),
+      );
+    } on DioException catch (e) {
+      print(e.message);
+      throw Exception(e.message);  // Handle error
+    }
+    return response;
+  }
+
+  // PUT Request Method
+  Future<Response> putRequest({
+    required String endpoint,
+    bool? isAuthorize,
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    Response response;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    try {
+      response = await dio.put(
+        endpoint,
+        data: data,
+        queryParameters: queryParameters,
+        options: Options(
+          headers: {
+            "Accept": "application/json",
+            if (isAuthorize ?? false) "Authorization": "Bearer $token"
+          },
+        ),
+      );
+    } on DioException catch (e) {
+      print(e.message);
+      throw Exception(e.message);
+    }
+    return response;
+  }
+
+  // DELETE Request Method
+  Future<Response> deleteRequest({
+    required String endpoint,
+    bool? isAuthorize,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    Response response;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    try {
+      response = await dio.delete(
+        endpoint,
+        queryParameters: queryParameters,
+        options: Options(
+          headers: {
+            "Accept": "application/json",
+            if (isAuthorize ?? false) "Authorization": "Bearer $token"
+          },
+        ),
       );
     }on DioException catch (e){
 //      print(e.message);
-      throw Exception(e.message);
+      throw Exception('Dio Error : ${e.message}');
     }
     return response;
   }
 
-  Future<Response> postRequest ({
-    required String endpoint,
-    bool? isAuthorize,
-    required Object data,
-    Map<String, dynamic>? queryParameters,
-  }) async{
-    Response response;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
-    try{
-      response = await dio.post(endpoint,data: data,queryParameters: queryParameters,options: Options(
-          headers: {
-            "Accept": "application/json",
-            if(isAuthorize ?? false) "Authorization" : "Bearer $token",
-          }
-      ));
-    } on DioException catch (e){
-      print(e.message);
-      throw Exception(e.message);
-    }
-    return response;
-  }
 
-  Future<Response> putResponse ({
-    required String endpoint,
-    bool? isAuthorize,
-    Object? data,
-    Map<String, dynamic>? queryParameters,
-  }) async{
-    Response response;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
-    try{
-      response = await dio.put(endpoint,queryParameters: queryParameters,options: Options(headers: {
-        "Accept": "application/json",
-        if(isAuthorize ?? false) "Authorize" : "Bearer $token"
-      }));
-    } on DioException catch (e){
-      print(e.message);
-      throw Exception(e.message);
-    }
-    return response;
-  }
-
-  Future <Response> deleteResponse ({
-    required String endpoint,
-    bool? isAuthorize,
-    Object? data,
-    Map<String, dynamic>? queryParameters,
-  }) async{
-    Response response;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
-    try{
-      response = await dio.delete(endpoint, queryParameters: queryParameters,options: Options(headers: {
-        "Accept": "application/json",
-        if(isAuthorize ?? false) "Authorize" : "Bearer $token"
-      }));
-    }on DioException catch(e){
-      print(e.message);
-      throw Exception(e.message);
-    }
-    return response;
-  }
-
-  initializeInterceptors() {
+  // Inisialisasi Interceptors
+  void initializeInterceptors() {
     dio.interceptors.add(
       InterceptorsWrapper(
         onError: (error, handler) {
-          print("Error occurred: ${error.message}");
+          print('Error occurred: ${error.message}');
           return handler.next(error);
         },
         onRequest: (request, handler) {
-          return handler.next(request);
+          print('Requesting: ${request.method} ${request.path}');
+          return handler.next(request);  // Lanjutkan permintaan
         },
         onResponse: (response, handler) {
-          // Safely log the response without modifying it
-          if (response.data != null) {
-            print("Response data: ${response.data}");
-          } else {
-            print("Response is null");
-          }
-          return handler.next(response);  // Ensure the response is passed back correctly
+          print('Response data: ${response.data}');
+          return handler.next(response);  // Lanjutkan respons
         },
       ),
     );
   }
-
-
 }
-
-

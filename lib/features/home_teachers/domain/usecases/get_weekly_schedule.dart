@@ -8,7 +8,7 @@ class GetScheduleWeekly{
   final HomeTeachersRepository teachersRepository;
   GetScheduleWeekly(this.teachersRepository);
 
-  Future<Either<Failure, List<DaySchedule>>> execute() async{
-    return await teachersRepository.getWeeklySchedule();
+  Future<Either<Failure, DaySchedule>> execute({required String hari, String? kelas, String? pelajaran}) async{
+    return await teachersRepository.getWeeklySchedule(hari: hari,pelajaran: pelajaran,kelas: kelas);
   }
 }

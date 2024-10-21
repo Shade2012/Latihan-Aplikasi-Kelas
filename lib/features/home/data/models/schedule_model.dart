@@ -1,4 +1,4 @@
-import 'package:latihan_aplikasi_manajemen_kelas/features/home/domain/entities/schedule_entities.dart';
+import '../../domain/entities/schedule_entities.dart';
 
 class ScheduleModel extends ScheduleEntity {
   const ScheduleModel({

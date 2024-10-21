@@ -9,18 +9,18 @@ part 'login_page_event.dart';
 part 'login_page_state.dart';
 
 class LoginPageBloc extends Bloc<LoginPageEvent, LoginPageState> {
-
   final Login;
-  LoginPageBloc({required this.Login}) : super(LoginPageInitial())  {
+  LoginPageBloc({required this.Login}) : super(LoginPageInitial()) {
     on<LoginButtonPressed>((event, emit) async {
       emit(LoginPageLoading());
-      Either<Failure,LoginEntities> result = await Login.execute(event.email,event.password);
+      Either<Failure, LoginEntities> result =
+          await Login.execute(event.email, event.password);
       result.fold((failure) {
-        emit(LoginPageFailure('Failed to login'));
-      }, (user){
+        emit(LoginPageFailure(failure.message));
+      }, (user) {
         print("Login succeeded: ${user.success}");
-        emit(LoginPageSuccess(user)
-        );});
+        emit(LoginPageSuccess(user));
+      });
     });
   }
 }

@@ -1,24 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/common/appbar_common.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/bloc/notification_user_bloc.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/bloc/notification_user_event.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/bloc/notification_user_state.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/repositories/notification_user_repositories.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/models/notification_user_models.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/repositories/notification_user_repositories_impl.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/features/notification_user/data/datasources/notification_remote_datasource_impl.dart';
+import 'package:latihan_aplikasi_manajemen_kelas/core/network/dio_instance.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/core/themes/colors.dart';
 
 class NotificationUserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+
+    // Inisialisasi RemoteDataSource dan Repository
+    final remoteDataSource = NotificationRemoteDataSourceImpl(dioInstance: DioInstance());
+    final notificationRepository = NotificationAdminRepository(remoteDataSource: remoteDataSource);
+
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(screenHeight * 0.08),
-        child: AppbarCommon(),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            context.go('/navbar');
+          },
+          icon: Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: ColorsResources.greyAppBar,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.arrow_back_rounded,
+              color: Colors.black,
+              size: 20,
+            ),
+          ),
+          iconSize: 20,
+          padding: EdgeInsets.zero,
+          constraints: BoxConstraints(),
+        ),
       ),
       body: BlocProvider(
-        create: (context) => NotificationAdminBloc(notificationRepository: NotificationAdminRepository())
+        create: (context) => NotificationAdminBloc(notificationRepository: notificationRepository)
           ..add(LoadNotifications()),
         child: Column(
           children: [
@@ -27,7 +56,7 @@ class NotificationUserPage extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Notification Anda",
+                  "Notifikasi Anda",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -49,6 +78,18 @@ class NotificationList extends StatelessWidget {
         if (state is NotificationLoading) {
           return Center(child: CircularProgressIndicator());
         } else if (state is NotificationLoaded) {
+          if (state.notifications.isEmpty) {
+            return Center(
+              child: Text(
+                'Tidak ada notifikasi',
+                style: TextStyle(
+                  fontFamily: 'Poppins', 
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
+              ),
+            );
+          }
           return ListView.builder(
             itemCount: state.notifications.length,
             itemBuilder: (context, index) {
@@ -59,14 +100,17 @@ class NotificationList extends StatelessWidget {
                   child: Icon(Icons.notifications_none, color: Colors.white),
                 ),
                 title: Text(notification.title),
-                subtitle: Text("Today at ${notification.time}"),
+                subtitle: Text(notification.message), // Tampilkan pesan notifikasi
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(notification.relativeTime, style: TextStyle(color: Colors.red)),
+                    Text(
+                      "Created at: ${notification.createdAt.toLocal().toString().substring(0, 16)}", // Format tanggal
+                      style: TextStyle(color: Colors.red),
+                    ),
                     SizedBox(width: 8),
                     Container(
-                      padding: EdgeInsets.only(top: screenHeight * 0.01), // Menyesuaikan jarak dari atas
+                      padding: EdgeInsets.only(top: screenHeight * 0.01), 
                       alignment: Alignment.topCenter,
                       child: Icon(Icons.circle, size: 8, color: ColorsResources.primaryColor),
                     ),
