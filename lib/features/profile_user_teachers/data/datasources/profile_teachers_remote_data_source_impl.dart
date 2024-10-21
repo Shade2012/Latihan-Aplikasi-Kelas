@@ -17,6 +17,7 @@ class ProfileTeachersRemoteDataSourceImpl
     Map<String, dynamic> body = response.data;
     if (response.statusCode == 200) {
       final data = body['user'];
+      print(data);
       return ProfileTeachersModel.fromJson(data);
     }
 
