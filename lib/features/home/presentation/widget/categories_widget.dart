@@ -11,7 +11,7 @@ class CategoriesWidget extends StatelessWidget {
       BuildContext context, String name, int index, int selectedIndex) {
     return Expanded(
       child: GestureDetector(
-        onTap: () => context.read<HomePageBloc>().add(GetScheduleEvent(index)),
+        onTap: () => context.read<HomePageBloc>().add(GetHomeDataEvent(index)),
         child: Container(
           margin: const EdgeInsets.all(2),
           decoration: BoxDecoration(

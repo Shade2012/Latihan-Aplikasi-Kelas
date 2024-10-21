@@ -12,7 +12,9 @@ class HomePageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<HomePageBloc>().add(GetProfileEvent());
+    context
+        .read<HomePageBloc>()
+        .add(GetHomeDataEvent(DateTime.now().weekday - 1));
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -35,8 +37,9 @@ class HomePageView extends StatelessWidget {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
-                        child: state is UserProfileLoaded
-                            ? (state.profiles.image == null
+                        child: state is HomePageLoaded
+                            ? (state.profile.image == null 
+                              || state.profile.image == ''
                                 ? Image.asset(
                                     Images.defaultProfile,
                                     fit: BoxFit.cover,
@@ -44,7 +47,7 @@ class HomePageView extends StatelessWidget {
                                     height: 60,
                                   )
                                 : Image.network(
-                                    state.profiles.image ?? '',
+                                    state.profile.image ?? '',
                                     fit: BoxFit.cover,
                                     height: 60,
                                     width: 60,

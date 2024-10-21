@@ -7,13 +7,11 @@ abstract class HomePageEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetScheduleEvent extends HomePageEvent {
+class GetHomeDataEvent extends HomePageEvent {
   final int selectedIndex;
 
-  const GetScheduleEvent(this.selectedIndex);
+  const GetHomeDataEvent(this.selectedIndex);
 
   @override
   List<Object> get props => [selectedIndex];
 }
-
-class GetProfileEvent extends HomePageEvent {}
