@@ -151,17 +151,17 @@ class ProfilePage extends StatelessWidget {
                 Divider(color: Color(0xFFD9D9D9), thickness: 0.9),
                 SizedBox(height: screenHeight * 0.01),
                 _buildProfileRow(context, Icons.settings, 'Ganti Password', onTap: () {
-                  context.go('/forgot_password_page'); 
+                  context.push('/change_password_student'); 
                 }, iconColor: Color(0xFF808080)), // Change color to 808080
                 _buildDivider(),
                 SizedBox(height: screenHeight * 0.01),
                 _buildProfileRow(context, Icons.info, 'About',  onTap: () {
-                  context.go('/about_page'); 
-                },iconColor: Color(0xFF808080)), // Change color to 808080
+                  context.push('/about_page'); 
+                },iconColor: Color.fromARGB(255, 23, 19, 19)), // Change color to 808080
                 _buildDivider(),
                 SizedBox(height: screenHeight * 0.01),
                 _buildProfileRow(context, Icons.privacy_tip, 'Kebijakan Privasi',onTap: () {
-                  context.go('/privacy_policy_teachers_page'); 
+                  context.push('/privacy_policy_teachers_page'); 
                 }, iconColor: Color(0xFF808080)), // Change color to 808080
                 SizedBox(height: screenHeight * 0.01),
               ],
