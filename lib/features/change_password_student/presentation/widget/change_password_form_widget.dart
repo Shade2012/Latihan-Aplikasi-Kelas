@@ -31,6 +31,9 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
     _oldPasswordFocusNode.dispose();
     _newPasswordFocusNode.dispose();
     _confirmPasswordFocusNode.dispose();
+    _oldPasswordController.dispose();
+    _newPasswordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -68,7 +71,7 @@ class _ChangePasswordFormWidgetState extends State<ChangePasswordFormWidget> {
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
-            context.go('/navbar');
+            context.pop();
           },
           icon: Container(
             padding: EdgeInsets.all(10),

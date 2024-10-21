@@ -27,7 +27,7 @@ class NotificationAdminPage extends StatelessWidget {
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
-            context.go('/navbar_teacher');
+            context.pop();
           },
           icon: Container(
             padding: EdgeInsets.all(10),
@@ -83,7 +83,7 @@ class NotificationList extends StatelessWidget {
               child: Text(
                 'Tidak ada notifikasi',
                 style: TextStyle(
-                  fontFamily: 'Poppins', 
+                  fontFamily: 'Poppins',
                   color: Colors.grey,
                   fontSize: 16,
                 ),
@@ -110,7 +110,7 @@ class NotificationList extends StatelessWidget {
                     ),
                     SizedBox(width: 8),
                     Container(
-                      padding: EdgeInsets.only(top: screenHeight * 0.01), 
+                      padding: EdgeInsets.only(top: screenHeight * 0.01),
                       alignment: Alignment.topCenter,
                       child: Icon(Icons.circle, size: 8, color: ColorsResources.primaryColor),
                     ),

@@ -26,8 +26,8 @@ class ChangePasswordPage extends StatelessWidget {
         body: BlocConsumer<ChangePasswordBloc, ChangePasswordState>(
           listener: (context, state) {
             if (state is ChangePasswordSuccess) {
-              SnackbarSuccess.showSuccess(context, 'Password Berhasil Diubah');
               context.pop();
+              SnackbarSuccess.showSuccess(context, 'Password Berhasil Diubah');
             } else if (state is ChangePasswordFailure) {
               String errorMessage = state.message.isNotEmpty
                   ? state.message

@@ -47,7 +47,7 @@ class HomePageView extends StatelessWidget {
                   const Spacer(),
                   IconButton(
                     onPressed: () {
-                      context.go('/notification_user'); // Navigasi ke halaman beranda
+                      context.push('/notification_user'); // Navigasi ke halaman beranda
                     },
                     icon: const Icon(
                       Icons.notifications_none_outlined,
