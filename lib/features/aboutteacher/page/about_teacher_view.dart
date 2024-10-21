@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/aboutteacher/bloc/about_teacher_bloc.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/aboutteacher/bloc/about_teacher_event.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/aboutteacher/bloc/about_teacher_state.dart';
-import 'package:google_fonts/google_fonts.dart'; 
+import 'package:google_fonts/google_fonts.dart';
 
 class AboutTeacherView extends StatelessWidget {
   @override
@@ -19,7 +19,7 @@ class AboutTeacherView extends StatelessWidget {
           automaticallyImplyLeading: false,
           leading: IconButton(
             onPressed: () {
-              context.go('/navbar');
+              context.pop();
             },
             icon: Container(
               padding: EdgeInsets.all(10),
@@ -64,7 +64,8 @@ class AboutTeacherView extends StatelessWidget {
                       Divider(color: Colors.grey[400]), // Line separator
 
                       // Paragraph Section
-                      const SizedBox(height: 20), // Add spacing before paragraph
+                      const SizedBox(
+                          height: 20), // Add spacing before paragraph
                       Text(
                         'SekolahKu adalah aplikasi pembelajaran yang dirancang untuk memudahkan proses belajar mengajar bagi siswa dan guru. '
                         'Kami percaya bahwa teknologi dapat menjadi jembatan yang efektif dalam menciptakan pengalaman belajar yang lebih mudah, '
@@ -94,8 +95,9 @@ class AboutTeacherView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10), // Small spacing before the list
-                      
+                      const SizedBox(
+                          height: 10), // Small spacing before the list
+
                       // Team Section
                       Text(
                         'Zidan (Backend)\n'
@@ -114,10 +116,12 @@ class AboutTeacherView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20), // Space before the closing section
+                      const SizedBox(
+                          height: 20), // Space before the closing section
 
                       // Closing Paragraph
-                      Divider(color: Colors.grey[400]), // Another line separator
+                      Divider(
+                          color: Colors.grey[400]), // Another line separator
                       const SizedBox(height: 20), // Space after line
                       Text(
                         'SekolahKu hadir untuk mendukung setiap siswa agar dapat belajar lebih baik di mana pun dan kapan pun.',
