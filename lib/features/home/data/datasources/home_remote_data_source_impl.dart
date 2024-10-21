@@ -1,5 +1,6 @@
 import '../../../../core/network/api_endpoint.dart';
 import '../../../../core/network/dio_instance.dart';
+import '../models/user_model.dart';
 import 'home_remote_data_source.dart';
 import '../models/schedule_model.dart';
 
@@ -20,14 +21,33 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
       List<dynamic> data = body['jadwal'];
       return ScheduleModel.fromJsonList(data);
     }
-    if (response.statusCode == 404 &&
-        body['message'] == 'Jadwal kelas hari ini tidak ada.') {
-      throw const EmptyException(message: 'No Schedule Available');
-    }
     if (response.statusCode == 404) {
       throw const EmptyException(message: 'Data not found Error 404');
     } else {
       throw GeneralException(message: 'Cannot Get Data ${response.data}');
+    }
+  }
+
+  @override
+  Future<UserModel> fetchProfiles() async {
+    final response = await dioInstance.getRequest(
+      endpoint: ApiEndPoint.baseUrlProfileUser,
+      isAuthorize: true,
+    );
+    Map<String, dynamic> body = response.data;
+    if (response.statusCode == 200) {
+      final data = body['user'];
+      return UserModel.fromJson(data);
+    }
+
+    if (response.statusCode == 404) {
+      throw const EmptyException(
+        message: 'Data not found Error 404',
+      );
+    } else {
+      throw GeneralException(
+        message: 'Cannot Get Data ${response.data}',
+      );
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import '../../../../core/error/failure.dart';
+import '../../domain/entities/user_entities.dart';
 import '../datasources/home_remote_data_source_impl.dart';
 import '../../domain/entities/schedule_entities.dart';
 import '../../domain/repositories/home_repository.dart';
@@ -26,6 +27,24 @@ class HomeRepositoryImpl extends HomeRepository {
         }).toList();
 
         return Right(scheduleEntities);
+      }
+    } on Exception catch (e) {
+      return Left(Failure(message: '$e'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> getProfiles() async {
+    try {
+      var connectivityResult = await Connectivity().checkConnectivity();
+      if (connectivityResult == ConnectivityResult.none) {
+        return Left(Failure(message: 'No internet connection'));
+      } else {
+        final profileTeachersModel =
+            await homeRemoteDataSourceImpl.fetchProfiles();
+        final profileTeachersEntity =
+            UserEntity.fromModel(profileTeachersModel);
+        return Right(profileTeachersEntity);
       }
     } on Exception catch (e) {
       return Left(Failure(message: '$e'));
