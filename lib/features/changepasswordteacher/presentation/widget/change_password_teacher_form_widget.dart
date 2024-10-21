@@ -34,6 +34,9 @@ class _ChangePasswordTeacherFormWidgetState extends State<ChangePasswordTeacherF
     _oldPasswordFocusNode.dispose();
     _newPasswordFocusNode.dispose();
     _confirmPasswordFocusNode.dispose();
+    _oldPasswordController.dispose();
+    _newPasswordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -73,7 +76,7 @@ class _ChangePasswordTeacherFormWidgetState extends State<ChangePasswordTeacherF
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
-            context.go('/navbar_teacher');
+            context.pop();
           },
           icon: Container(
             padding: EdgeInsets.all(10),

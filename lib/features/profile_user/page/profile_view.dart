@@ -11,6 +11,8 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:latihan_aplikasi_manajemen_kelas/features/login/presentation/page/login_page_view.dart';
 
+import '../../../core/themes/images.dart';
+
 class ProfilePage extends StatelessWidget {
   final double profilePictureHeight;
 
@@ -101,13 +103,13 @@ class ProfilePage extends StatelessWidget {
               ),
               child: ClipOval(
                 child: Image.network(
-                  state.profileUser.image ?? 'assets/images/default.jpg',
+                  state.profileUser.image ?? Images.defaultProfile,
                   fit: BoxFit.cover,
                   width: profilePictureHeight,
                   height: profilePictureHeight,
                   errorBuilder: (context, error, stackTrace) {
                     return Image.asset(
-                      'assets/images/default.jpg',
+                      Images.defaultProfile,
                       fit: BoxFit.cover,
                       width: profilePictureHeight,
                       height: profilePictureHeight,
@@ -151,17 +153,17 @@ class ProfilePage extends StatelessWidget {
                 Divider(color: Color(0xFFD9D9D9), thickness: 0.9),
                 SizedBox(height: screenHeight * 0.01),
                 _buildProfileRow(context, Icons.settings, 'Ganti Password', onTap: () {
-                  context.push('/change_password_student'); 
+                  context.push('/change_password_student');
                 }, iconColor: Color(0xFF808080)), // Change color to 808080
                 _buildDivider(),
                 SizedBox(height: screenHeight * 0.01),
                 _buildProfileRow(context, Icons.info, 'About',  onTap: () {
-                  context.push('/about_page'); 
+                  context.push('/about_page');
                 },iconColor: Color.fromARGB(255, 23, 19, 19)), // Change color to 808080
                 _buildDivider(),
                 SizedBox(height: screenHeight * 0.01),
                 _buildProfileRow(context, Icons.privacy_tip, 'Kebijakan Privasi',onTap: () {
-                  context.push('/privacy_policy_teachers_page'); 
+                  context.push('/privacy_policy_teachers_page');
                 }, iconColor: Color(0xFF808080)), // Change color to 808080
                 SizedBox(height: screenHeight * 0.01),
               ],

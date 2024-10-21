@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../common/shimmer_common.dart';
 import '../../../../core/themes/colors.dart';
+import '../../../../core/themes/images.dart';
 import '../bloc/profile_teachers_bloc.dart';
 import '../bloc/profile_teachers_state.dart';
 
@@ -68,7 +69,7 @@ class TeachersProfileWidget extends StatelessWidget {
                     child: ClipOval(
                       child: state is ProfileTeachersLoaded ?
                       (state.profile.image == null || state.profile.image!.isEmpty || state.profile.image == '{}'  ?
-        (Image.asset(imageUrl,fit: BoxFit.cover,)): Image.network(state.profile.image ?? '')) : Image.asset(imageUrl,fit: BoxFit.cover),
+        (Image.asset(imageUrl,fit: BoxFit.cover,)): Image.network(state.profile.image ?? '')) : Image.asset(Images.defaultProfile,fit: BoxFit.cover),
                     ),
                   ),
                 ),
