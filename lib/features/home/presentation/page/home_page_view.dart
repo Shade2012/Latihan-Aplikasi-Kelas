@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/home/presentation/widget/schedule_widget.dart';
+import '../widget/schedule_widget.dart';
 import 'package:go_router/go_router.dart';
 import '../widget/categories_widget.dart';
 
@@ -31,13 +31,13 @@ class HomePageView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Selamat Pagi 👋",
+                        'Selamat Pagi 👋',
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                       Text(
-                        "Abid Fadullah Maajid",
+                        'Abid Fadullah Maajid',
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w500,
                         ),
@@ -60,7 +60,7 @@ class HomePageView extends StatelessWidget {
               const CategoriesWidget(),
               const SizedBox(height: 15),
               Text(
-                "Jadwal hari ini",
+                'Jadwal hari ini',
                 style: GoogleFonts.poppins(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,

@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/home/domain/entities/schedule_entities.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/home/domain/usecases/get_schedule.dart';
+import '../../domain/entities/schedule_entities.dart';
+import '../../domain/usecases/get_schedule.dart';
 
 import '../../../../core/error/failure.dart';
 

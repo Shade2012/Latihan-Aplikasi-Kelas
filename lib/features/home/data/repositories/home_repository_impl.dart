@@ -1,9 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/core/error/failure.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/home/data/datasources/home_remote_data_source_impl.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/home/domain/entities/schedule_entities.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/home/domain/repositories/home_repository.dart';
+import '../../../../core/error/failure.dart';
+import '../datasources/home_remote_data_source_impl.dart';
+import '../../domain/entities/schedule_entities.dart';
+import '../../domain/repositories/home_repository.dart';
 
 import '../models/schedule_model.dart';
 
@@ -27,7 +27,7 @@ class HomeRepositoryImpl extends HomeRepository {
 
         return Right(scheduleEntities);
       }
-    } catch (e) {
+    } on Exception catch (e) {
       return Left(Failure(message: '$e'));
     }
   }

@@ -1,7 +1,7 @@
-import 'package:latihan_aplikasi_manajemen_kelas/core/network/api_endpoint.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/core/network/dio_instance.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/home/data/datasources/home_remote_data_source.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/features/home/data/models/schedule_model.dart';
+import '../../../../core/network/api_endpoint.dart';
+import '../../../../core/network/dio_instance.dart';
+import 'home_remote_data_source.dart';
+import '../models/schedule_model.dart';
 
 import '../../../../core/error/exceptions.dart';
 
@@ -12,7 +12,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   @override
   Future<List<ScheduleModel>> fetchSchedule(String day) async {
     final response = await dioInstance.getRequest(
-      endpoint: "${ApiEndPoint.baseUrlUserSchedule}?hari=$day",
+      endpoint: '${ApiEndPoint.baseUrlUserSchedule}?hari=$day',
       isAuthorize: true,
     );
     Map<String, dynamic> body = response.data;

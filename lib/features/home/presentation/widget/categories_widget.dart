@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:latihan_aplikasi_manajemen_kelas/core/themes/colors.dart';
+import '../../../../core/themes/colors.dart';
 import '../bloc/home_page_bloc.dart';
 
 class CategoriesWidget extends StatelessWidget {
@@ -54,12 +54,12 @@ class CategoriesWidget extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _buildItem(context, "Sen", 0, selectedIndex),
-            _buildItem(context, "Sel", 1, selectedIndex),
-            _buildItem(context, "Rab", 2, selectedIndex),
-            _buildItem(context, "Kam", 3, selectedIndex),
-            _buildItem(context, "Jum", 4, selectedIndex),
-            _buildItem(context, "Sab", 5, selectedIndex),
+            _buildItem(context, 'Sen', 0, selectedIndex),
+            _buildItem(context, 'Sel', 1, selectedIndex),
+            _buildItem(context, 'Rab', 2, selectedIndex),
+            _buildItem(context, 'Kam', 3, selectedIndex),
+            _buildItem(context, 'Jum', 4, selectedIndex),
+            _buildItem(context, 'Sab', 5, selectedIndex),
           ],
         );
       },
