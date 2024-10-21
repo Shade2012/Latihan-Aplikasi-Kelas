@@ -30,3 +30,11 @@ class HomePageFailure extends HomePageState {
   @override
   List<Object> get props => [failure];
 }
+
+class UserProfileLoaded extends HomePageState {
+  final UserEntity profiles;
+  const UserProfileLoaded({required this.profiles});
+  
+  @override
+  List<Object> get props => [profiles];
+}

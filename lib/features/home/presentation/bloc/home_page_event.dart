@@ -15,3 +15,5 @@ class GetScheduleEvent extends HomePageEvent {
   @override
   List<Object> get props => [selectedIndex];
 }
+
+class GetProfileEvent extends HomePageEvent {}

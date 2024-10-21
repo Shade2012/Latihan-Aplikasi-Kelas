@@ -19,6 +19,7 @@ import '../../features/forgotpassword/domain/usecases/forgot_password_verifyotp.
 import '../../features/forgotpassword/presentation/bloc/forgot_password_bloc.dart';
 import '../../features/home/data/datasources/home_remote_data_source_impl.dart';
 import '../../features/home/data/repositories/home_repository_impl.dart';
+import '../../features/home/domain/usecases/get_profile.dart';
 import '../../features/home/domain/usecases/get_schedule.dart';
 import '../../features/home/presentation/bloc/home_page_bloc.dart';
 import '../../features/home_teachers/domain/usecases/get_weekly_schedule.dart';
@@ -104,6 +105,9 @@ class AppProviders {
           homeRemoteDataSourceImpl: HomeRemoteDataSourceImpl(),
         );
         return HomePageBloc(
+          getProfileUseCase: GetHomeProfileUseCase(
+            homepageRepository
+          ),
           getScheduleUseCase: GetScheduleUseCase(
             homepageRepository,
           ),
