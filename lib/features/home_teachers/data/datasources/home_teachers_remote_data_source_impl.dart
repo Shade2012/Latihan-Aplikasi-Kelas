@@ -38,7 +38,6 @@ HomeTeachersRemoteDataSourceImpl();
     final response = await dioInstance.getRequest(endpoint: ApiEndPoint.baseUrlAllKelas,isAuthorize: true);
     List<dynamic> dataBody = response.data['kelas'] as List<dynamic>;
     if(response.statusCode == 200){
-
       return KelasModel.fromJsonList(dataBody);
     }if(response.statusCode == 404){
       throw const EmptyException(message: 'Data not found Error 404');
