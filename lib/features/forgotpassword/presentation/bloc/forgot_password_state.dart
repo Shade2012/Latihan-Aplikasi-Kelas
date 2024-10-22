@@ -18,10 +18,6 @@ final ForgotPasswordEntities user;
 final class ForgotPasswordSuccessSendOtp extends ForgotPasswordState {}
 
 final class ForgotPasswordLoading extends ForgotPasswordState {}
-final class ForgotPasswordSecondPage extends ForgotPasswordState {}
-final class ForgotPasswordThirdPage extends ForgotPasswordState {}
-final class ForgotPasswordToLogin extends ForgotPasswordState {}
-
 final class ForgotPasswordFailure extends ForgotPasswordState{
   String error;
   ForgotPasswordFailure({required this.error});
