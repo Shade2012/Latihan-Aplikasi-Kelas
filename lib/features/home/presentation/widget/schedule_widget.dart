@@ -15,12 +15,7 @@ class ScheduleWidget extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     return Column(
       children: [
-        BlocConsumer<HomePageBloc, HomePageState>(
-          bloc: context.read<HomePageBloc>()
-            ..add(
-              GetScheduleEvent(DateTime.now().weekday - 1),
-            ),
-          listener: (context, state) {},
+        BlocBuilder<HomePageBloc, HomePageState>(
           builder: (context, state) {
             if (state is HomePageInitial) {
               return const Center(child: Text('No data yet'));

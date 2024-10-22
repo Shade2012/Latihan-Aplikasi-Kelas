@@ -1,32 +1,54 @@
 import 'package:equatable/equatable.dart';
 
-class User extends Equatable{
-  final int id;
-  final String? profilePicture;
-  final String nameUser;
-  final String email;
-  final String? emailVerified;
-  final String createdAt;
-  final String updateAt;
+import '../../data/models/user_model.dart';
 
-  const User({
+class UserEntity extends Equatable{
+  final int id;
+  final String? image;
+  final String name;
+  final String email;
+  final String password;
+  final String? fcmToken;
+  final String role;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+
+  const UserEntity({
     required this.id,
-    this.profilePicture,
-    required this.nameUser,
+    this.image,
+    required this.name,
     required this.email,
-    this.emailVerified,
+    required this.password,
+    this.fcmToken,
+    required this.role,
     required this.createdAt,
-    required this.updateAt,
+    required this.updatedAt,
   });
 
   @override
   List<Object?> get props => [
-    id,
-    profilePicture,
-    nameUser,
-    email,
-    emailVerified,
-    createdAt,
-    updateAt
-  ];
+        id,
+        image,
+        name,
+        email,
+        password,
+        fcmToken,
+        role,
+        createdAt,
+        updatedAt,
+      ];
+
+  factory UserEntity.fromModel(UserModel model) {
+    return UserModel(
+      id: model.id,
+      image: model.image,
+      name: model.name,
+      email: model.email,
+      password: model.password,
+      fcmToken: model.fcmToken,
+      role: model.role,
+      createdAt: model.createdAt,
+      updatedAt: model.updatedAt,
+    );
+  }
 }

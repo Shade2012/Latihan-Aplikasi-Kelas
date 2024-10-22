@@ -13,12 +13,14 @@ class HomePageLoading extends HomePageState {}
 
 class HomePageLoaded extends HomePageState {
   final int selectedIndex;
+  final UserEntity profile;
   final List<ScheduleEntity> schedules;
 
-  const HomePageLoaded(this.selectedIndex, {required this.schedules});
+  const HomePageLoaded(this.selectedIndex,
+      {required this.schedules, required this.profile});
 
   @override
-  List<Object> get props => [selectedIndex, schedules];
+  List<Object> get props => [selectedIndex, schedules, profile];
 }
 
 class HomePageEmpty extends HomePageState {}
