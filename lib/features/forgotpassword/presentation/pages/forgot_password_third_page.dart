@@ -69,26 +69,26 @@ class _ForgotPasswordThirdPageState extends State<ForgotPasswordThirdPage> {
                     const SizedBox(height: 10,),
                     Text('Masukkan kata sandi baru Anda di bawah dan Pastikan itu berbeda dari sebelumnya!',style: txtDescriptionBold,textAlign: TextAlign.center,),
                     const SizedBox(height: 30,),
-                    Form(
-                        key: formkey,
-                        child: Column(
+                    Column(
+                      children: [
+                        Form(
+                            key: formkey,
+                            child: Column(
                           children: [
-                            Form(child: Column(
-                              children: [
-                                CustomTextFormField(type: TextInputType.text,title: 'Password' ,hint: 'Masukkan Password Baru', obsecureText: _obsecureText,controller: _passwordController, validatorID:0),
-                                const SizedBox(height: 10,),
-                                CustomTextFormField(type: TextInputType.text,title: 'Konfirmasi Password' ,hint: 'Masukkan Kembali Password', obsecureText: _obsecureText2,controller: _confirmPasswordController, validatorID: 0,validator: validatePasswordConfirmation,),
-                                CommonButton(text: 'Perbarui Password',height: screenHeight * 0.06 ,
-                                  isLoading: state is ForgotPasswordLoading,
-                                  onPressed: () {
-                                  context.read<ForgotPasswordBloc>().add(ForgotPasswordLastPageEvent(password: _passwordController.text, confirmPassword: _confirmPasswordController.text));
+                            CustomTextFormField(type: TextInputType.text,title: 'Password' ,hint: 'Masukkan Password Baru', obsecureText: _obsecureText,controller: _passwordController, validatorID:0),
+                            const SizedBox(height: 10,),
+                            CustomTextFormField(type: TextInputType.text,title: 'Konfirmasi Password' ,hint: 'Masukkan Kembali Password', obsecureText: _obsecureText2,controller: _confirmPasswordController, validatorID: 0,validator: validatePasswordConfirmation,),
+                            CommonButton(text: 'Perbarui Password',height: screenHeight * 0.06 ,
+                              isLoading: state is ForgotPasswordLoading,
+                              onPressed: () {
+                              context.read<ForgotPasswordBloc>().add(ForgotPasswordLastPageEvent(password: _passwordController.text, confirmPassword: _confirmPasswordController.text));
 
-                                  }, haveRequirement: true,requirementComplete:  _passwordController.text.isNotEmpty && _confirmPasswordController.text.isNotEmpty && formkey.currentState!.validate() ,)
-                              ],
-                            )
-                            ),
+                              }, haveRequirement: true,requirementComplete:  _passwordController.text.isNotEmpty && _confirmPasswordController.text.isNotEmpty && formkey.currentState!.validate() ,)
                           ],
-                        )),
+                        )
+                        ),
+                      ],
+                    ),
                     const SizedBox(height: 10,),
                   ],
                 ),

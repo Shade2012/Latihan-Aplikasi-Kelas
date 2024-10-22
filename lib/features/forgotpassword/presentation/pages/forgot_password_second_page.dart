@@ -19,7 +19,6 @@ class ForgotPasswordSecondPage extends StatefulWidget {
 }
 
 class _ForgotPasswordSecondPageState extends State<ForgotPasswordSecondPage> {
-  final formkey= GlobalKey<FormState>();
   final TextEditingController _verificationCode1 = TextEditingController();
   final TextEditingController _verificationCode2 = TextEditingController();
   final TextEditingController _verificationCode3 = TextEditingController();
